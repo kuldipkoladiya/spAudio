@@ -1,13 +1,89 @@
+"use client";
+
+import { useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
+const faqs = [
+    {
+        question: "What types of audio products do you offer?",
+        answer:
+            "We specialize in high-performance amps and speakers built for clarity, power, and durability.",
+    },
+    {
+        question: "Do you offer installation services?",
+        answer:
+            "Yes! We provide professional installation, tuning, and maintenance services for custom setups.",
+    },
+    {
+        question: "Can I get a custom audio solution?",
+        answer:
+            "Absolutely. Our team works closely with clients to build tailored solutions for every space and purpose.",
+    },
+    {
+        question: "Where do you ship?",
+        answer:
+            "We ship nationally and internationally. Delivery time and cost depend on location.",
+    },
+];
+
 export default function FAQ() {
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Frequently Asked Questions</h1>
-      <p className="text-lg mb-4">
-        Find answers to common questions about our products and services.
-      </p>
-      <p className="text-lg">
-        If you cant find what youre looking for, feel free to contact our support team.
-      </p>
-    </div>
-  );
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    useEffect(() => {
+        AOS.init({ duration: 800, once: true });
+    }, []);
+
+    const toggle = (idx: number) => {
+        setOpenIndex(openIndex === idx ? null : idx);
+    };
+
+    return (
+        <div className="bg-[#0b0b0b] min-h-screen text-white font-[family-name:var(--font-geist-sans)] px-6 py-20">
+            <div className="max-w-4xl mx-auto">
+                <h1
+                    className="text-4xl sm:text-5xl font-bold text-center mb-8"
+                    data-aos="fade-up"
+                >
+                    Frequently Asked Questions
+                </h1>
+                <p
+                    className="text-gray-400 text-center text-base sm:text-lg mb-12"
+                    data-aos="fade-up"
+                    data-aos-delay="150"
+                >
+                    Can’t find what you’re looking for? Reach out to our support team for help.
+                </p>
+
+                <div className="space-y-6">
+                    {faqs.map((faq, idx) => (
+                        <div
+                            key={idx}
+                            className="border border-gray-700 rounded-lg overflow-hidden"
+                            data-aos="fade-up"
+                            data-aos-delay={idx * 100}
+                        >
+                            <button
+                                onClick={() => toggle(idx)}
+                                className="w-full text-left p-4 bg-[#1a1a1a] hover:bg-[#222] transition-colors duration-200 focus:outline-none"
+                            >
+                                <div className="flex justify-between items-center">
+                                    <h3 className="text-lg font-medium">{faq.question}</h3>
+                                    <span className="text-blue-400 text-2xl leading-none">
+                    {openIndex === idx ? "−" : "+"}
+                  </span>
+                                </div>
+                            </button>
+                            {openIndex === idx && (
+                                <div className="p-4 text-sm text-gray-300 bg-[#141414] border-t border-gray-700 transition-all duration-300">
+                                    {faq.answer}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }
