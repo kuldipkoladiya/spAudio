@@ -6,7 +6,7 @@ export default function Contact() {
         Get in touch with our team for any inquiries or support needs.
       </p>
       <p className="text-lg">
-        We're here to help you with all your audio-related questions and requirements.
+        We are here to help you with all your audio-related questions and requirements.
       </p>
     </div>
   );

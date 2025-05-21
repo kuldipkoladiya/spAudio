@@ -3,7 +3,7 @@ export default function Team() {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Our Team</h1>
       <p className="text-lg mb-4">
-        Meet the talented individuals behind SPAudio's success.
+        Meet the talented individuals behind SPAudio success.
       </p>
       <p className="text-lg">
         Our diverse team of audio experts brings together decades of experience and passion for sound.
