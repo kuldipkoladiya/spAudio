@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="fix error">
+    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add app page code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/about/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/blog/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/contact/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/faq/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/faq/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/story/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/story/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/team/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/team/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/testimonials/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/testimonials/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +37,10 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.eslint": "",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "D:\\extraprojects\\spaudio\\node_modules\\typescript\\lib",
@@ -69,7 +64,7 @@
       <workItem from="1747641483642" duration="9216000" />
       <workItem from="1747809872171" duration="2229000" />
       <workItem from="1747815754208" duration="6317000" />
-      <workItem from="1747822709334" duration="978000" />
+      <workItem from="1747822709334" duration="2604000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />
@@ -87,15 +82,35 @@
       <option name="project" value="LOCAL" />
       <updated>1747823200159</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add app page code">
+      <option name="closed" value="true" />
+      <created>1747823997189</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747823997189</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix" />
     <MESSAGE value="fix error" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix error" />
+    <MESSAGE value="add app page code" />
+    <option name="LAST_COMMIT_MESSAGE" value="add app page code" />
   </component>
 </project>

@@ -54,7 +54,7 @@ export default function Story() {
                     </div>
                     <div data-aos="fade-left">
                         <blockquote className="text-xl sm:text-2xl font-semibold italic text-gray-300 border-l-4 border-white pl-6">
-                            “Sound is more than just something you hear — it's something you feel. That's why we build speakers that speak to your soul.”
+                            “Sound is more than just something you hear — it is something you feel. That is why we build speakers that speak to your soul.”
                         </blockquote>
                         <p className="mt-4 text-gray-400 text-sm">– SP Audio Founder</p>
                     </div>

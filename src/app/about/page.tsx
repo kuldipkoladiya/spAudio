@@ -36,7 +36,7 @@ export default function About() {
                     <div data-aos="fade-right">
                         <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Built on Innovation</h2>
                         <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
-                            Since 2010, we’ve combined cutting-edge technology with timeless style. Our engineers and designers work side-by-side to develop speakers and headphones that don't just perform — they inspire.
+                            Since 2010, combined cutting-edge technology with timeless style. Our engineers and designers work side-by-side to develop speakers and headphones that don't just perform — they inspire.
                         </p>
                     </div>
                     <div data-aos="fade-left">

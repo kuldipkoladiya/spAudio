@@ -22,7 +22,7 @@ export default function Testimonials() {
             name: "Lena Morris",
             role: "Home Audio Enthusiast",
             quote:
-                "The clarity and depth of their speakers blew me away. It's like a concert in my living room.",
+                "The clarity and depth of their speakers blew me away. It is like a concert in my living room.",
             image:
                 "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80",
         },
@@ -42,7 +42,7 @@ export default function Testimonials() {
             <section className="text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up">
                 <h1 className="text-5xl font-bold mb-4">Customer Testimonials</h1>
                 <p className="text-gray-400 text-lg">
-                    Hear what our users say about SPAudio's unmatched sound and service.
+                    Hear what our users say about SPAudio unmatched sound and service.
                 </p>
             </section>
 
@@ -55,7 +55,7 @@ export default function Testimonials() {
                         data-aos="zoom-in"
                         data-aos-delay={index * 150}
                     >
-                        <img
+                        <Image 
                             src={testimonial.image}
                             alt={testimonial.name}
                             className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-blue-500"
