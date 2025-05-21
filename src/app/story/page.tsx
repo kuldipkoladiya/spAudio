@@ -6,7 +6,7 @@ export default function Story() {
         SPAudio was founded in 2010 with a passion for delivering exceptional audio experiences.
       </p>
       <p className="text-lg">
-        From humble beginnings, we've grown to become a leader in the audio industry through innovation and dedication to quality.
+        From humble beginnings, wve grown to become a leader in the audio industry through innovation and dedication to quality.
       </p>
     </div>
   );

@@ -6,7 +6,7 @@ export default function Team() {
         Meet the talented individuals behind SPAudio success.
       </p>
       <p className="text-lg">
-        Our diverse team of audio experts brings together decades of experience and passion for sound.
+      and passion for sound.
       </p>
     </div>
   );

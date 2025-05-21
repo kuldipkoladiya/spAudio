@@ -6,7 +6,7 @@ export default function FAQ() {
         Find answers to common questions about our products and services.
       </p>
       <p className="text-lg">
-        If you cant find what you're looking for, feel free to contact our support team.
+        If you cant find what youre looking for, feel free to contact our support team.
       </p>
     </div>
   );
