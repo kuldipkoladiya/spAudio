@@ -6,40 +6,25 @@ export default function Team() {
             role: "Founder & CEO",
             image: "https://randomuser.me/api/portraits/women/44.jpg",
             bio: "Alice leads SPAudio with a vision to revolutionize the audio industry through innovation and quality.",
-            social: {
-                twitter: "https://twitter.com/alicejohnson",
-                linkedin: "https://linkedin.com/in/alicejohnson",
-            },
         },
         {
             name: "Mark Stevens",
             role: "Lead Audio Engineer",
             image: "https://randomuser.me/api/portraits/men/34.jpg",
             bio: "Mark ensures every product delivers pristine sound with his decades of audio engineering experience.",
-            social: {
-                twitter: "https://twitter.com/markstevens",
-                linkedin: "https://linkedin.com/in/markstevens",
-            },
+
         },
         {
             name: "Sophia Lee",
             role: "Product Designer",
             image: "https://randomuser.me/api/portraits/women/68.jpg",
             bio: "Sophia designs intuitive, stylish audio gear that blends form and function flawlessly.",
-            social: {
-                twitter: "https://twitter.com/sophialee",
-                linkedin: "https://linkedin.com/in/sophialee",
-            },
         },
         {
             name: "James Carter",
             role: "Marketing Manager",
             image: "https://randomuser.me/api/portraits/men/22.jpg",
             bio: "James connects our products with customers worldwide through creative marketing strategies.",
-            social: {
-                twitter: "https://twitter.com/jamescarter",
-                linkedin: "https://linkedin.com/in/jamescarter",
-            },
         },
     ];
 
@@ -94,7 +79,7 @@ export default function Team() {
             <section className="bg-[#1e1e1e] py-20 px-6">
                 <h2 className="text-4xl font-bold text-center mb-16">The Experts Behind SPAudio</h2>
                 <div className="max-w-6xl mx-auto grid gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {teamMembers.map(({ name, role, image, bio, social }) => (
+                    {teamMembers.map(({ name, role, image, bio }) => (
                         <div
                             key={name}
                             tabIndex={0}
