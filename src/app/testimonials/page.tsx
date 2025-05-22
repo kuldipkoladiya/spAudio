@@ -46,7 +46,7 @@ export default function Testimonials() {
                         data-aos="zoom-in"
                         data-aos-delay={index * 150}
                     >
-                        <p className="text-gray-300 italic text-sm mb-4">"{testimonial.quote}"</p>
+                        <p className="text-gray-300 italic text-sm mb-4">&quot;{testimonial.quote}&quot;</p>
                         <h3 className="text-lg font-semibold text-white">{testimonial.name}</h3>
                         <p className="text-blue-500 text-sm">{testimonial.role}</p>
                     </div>
