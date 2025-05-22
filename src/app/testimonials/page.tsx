@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Image from "next/image";
 
 export default function Testimonials() {
     useEffect(() => {
@@ -15,19 +14,16 @@ export default function Testimonials() {
             name: "Alex Rivera",
             role: "DJ & Producer",
             quote: "SPAudio amps deliver insane power and precision. My setup has never sounded this clean.",
-            image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80",
         },
         {
             name: "Lena Morris",
             role: "Home Audio Enthusiast",
             quote: "The clarity and depth of their speakers blew me away. It is like a concert in my living room.",
-            image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
         },
         {
             name: "Mark Johnson",
             role: "Custom Installer",
             quote: "Reliable gear, sleek design, and unbeatable customer support. I recommend SPAudio to all my clients.",
-            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
         },
     ];
 
@@ -50,16 +46,6 @@ export default function Testimonials() {
                         data-aos="zoom-in"
                         data-aos-delay={index * 150}
                     >
-                        <div className="flex justify-center items-center mb-4 mx-auto w-24 h-24 rounded-full overflow-hidden border-2 border-blue-500">
-                            <Image
-                                src={testimonial.image}
-                                alt={testimonial.name}
-                                width={96}
-                                height={96}
-                                className="object-cover"
-                                loading="lazy"
-                            />
-                        </div>
                         <p className="text-gray-300 italic text-sm mb-4">"{testimonial.quote}"</p>
                         <h3 className="text-lg font-semibold text-white">{testimonial.name}</h3>
                         <p className="text-blue-500 text-sm">{testimonial.role}</p>
