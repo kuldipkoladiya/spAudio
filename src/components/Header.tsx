@@ -6,52 +6,48 @@ import { Menu, X } from 'lucide-react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-      <header className="fixed top-0 left-0 w-full z-50 bg-transparent text-white backdrop-blur-lg shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <header className="fixed top-0 right-10 w-full z-50  bg-opacity-60  text-white">
+        <div className="w-full flex items-center justify-between px-12 py-4">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
             SPAudio
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex space-x-6 font-medium">
-            <Link href="/about" className="hover:text-blue-400">About</Link>
-            <Link href="/story" className="hover:text-blue-400">Story</Link>
-            <Link href="/products" className="hover:text-blue-400">Products</Link>
-            <Link href="/services" className="hover:text-blue-400">Services</Link>
-            <Link href="/contact" className="hover:text-blue-400">Contact</Link>
-            <Link href="/team" className="hover:text-blue-400">Team</Link>
-            <Link href="/blog" className="hover:text-blue-400">Blog</Link>
-            <Link href="/faq" className="hover:text-blue-400">FAQ</Link>
-            <Link href="/testimonials" className="hover:text-blue-400">Testimonials</Link>
-            <Link href="/careers" className="hover:text-blue-400">Careers</Link>
+          <nav className="hidden md:flex space-x-4 font-medium">
+            {['about', 'story', 'products', 'services', 'contact', 'team', 'blog', 'faq', 'testimonials', 'careers'].map((route) => (
+                <Link key={route} href={`/${route}`} className="hover:text-blue-400 capitalize">
+                  {route}
+                </Link>
+            ))}
           </nav>
 
           {/* Mobile Toggle */}
-          <div className="md:hidden z-50">
-            <button onClick={toggleMenu} aria-label="Toggle Menu">
-              {isOpen ? <X size={28} className="text-white" /> : <Menu size={28} className="text-white" />}
-            </button>
-          </div>
+          <button
+              onClick={toggleMenu}
+              aria-label="Toggle Menu"
+              className="md:hidden p-2"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Nav Menu */}
         {isOpen && (
-            <div className="md:hidden bg-black bg-opacity-90 text-white px-6 pt-4 pb-8 space-y-4 font-medium text-sm">
-              <Link href="/about" onClick={toggleMenu}>About</Link>
-              <Link href="/story" onClick={toggleMenu}>Story</Link>
-              <Link href="/products" onClick={toggleMenu}>Products</Link>
-              <Link href="/services" onClick={toggleMenu}>Services</Link>
-              <Link href="/contact" onClick={toggleMenu}>Contact</Link>
-              <Link href="/team" onClick={toggleMenu}>Team</Link>
-              <Link href="/blog" onClick={toggleMenu}>Blog</Link>
-              <Link href="/faq" onClick={toggleMenu}>FAQ</Link>
-              <Link href="/testimonials" onClick={toggleMenu}>Testimonials</Link>
-              <Link href="/careers" onClick={toggleMenu}>Careers</Link>
+            <div className="md:hidden w-full  bg-opacity-60 backdrop-blur-md text-white px-6 pt-6 pb-10 space-y-6 font-semibold text-lg text-center">
+              {['about', 'story', 'products', 'services', 'contact', 'team', 'blog', 'faq', 'testimonials', 'careers'].map((route) => (
+                  <Link
+                      key={route}
+                      href={`/${route}`}
+                      onClick={toggleMenu}
+                      className="block hover:text-blue-400 transition duration-200"
+                  >
+                    {route.charAt(0).toUpperCase() + route.slice(1)}
+                  </Link>
+              ))}
             </div>
         )}
       </header>

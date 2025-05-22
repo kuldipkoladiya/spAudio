@@ -14,9 +14,9 @@ export default function Contact() {
         <div className="min-h-screen bg-[#0b0b0b] text-white font-sans">
             {/* Header */}
             <section className="text-center py-20 px-6 max-w-3xl mx-auto" data-aos="zoom-in">
-                <h1 className="text-5xl font-extrabold mb-4">Let’s Connect</h1>
+                <h1 className="text-5xl font-extrabold mb-4">Let&apos;s Connect</h1>
                 <p className="text-gray-400 text-lg">
-                    Have a question about our products or need expert advice? We’re just a message away.
+                    Have a question about our products or need expert advice? We&apos;re just a message away.
                 </p>
             </section>
 
@@ -51,10 +51,14 @@ export default function Contact() {
                 <form
                     data-aos="fade-left"
                     className="bg-[#1c1c1c] p-8 rounded-xl shadow-lg border border-gray-800"
+                    onSubmit={(e) => e.preventDefault()} // prevent reload for now
                 >
                     <div className="mb-6">
-                        <label className="block text-sm mb-2">Your Name</label>
+                        <label htmlFor="name" className="block text-sm mb-2">
+                            Your Name
+                        </label>
                         <input
+                            id="name"
                             type="text"
                             placeholder="John Doe"
                             className="w-full bg-[#111111] border border-gray-700 text-white rounded px-4 py-2 focus:outline-none focus:border-blue-500"
@@ -62,8 +66,11 @@ export default function Contact() {
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-sm mb-2">Email</label>
+                        <label htmlFor="email" className="block text-sm mb-2">
+                            Email
+                        </label>
                         <input
+                            id="email"
                             type="email"
                             placeholder="you@example.com"
                             className="w-full bg-[#111111] border border-gray-700 text-white rounded px-4 py-2 focus:outline-none focus:border-blue-500"
@@ -71,8 +78,11 @@ export default function Contact() {
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-sm mb-2">Message</label>
+                        <label htmlFor="message" className="block text-sm mb-2">
+                            Message
+                        </label>
                         <textarea
+                            id="message"
                             placeholder="How can we help?"
                             className="w-full bg-[#111111] border border-gray-700 text-white rounded px-4 py-2 h-32 resize-none focus:outline-none focus:border-blue-500"
                             required

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Image from "next/image"; // ✅ Import Image
 
 export default function About() {
     useEffect(() => {
@@ -14,10 +15,13 @@ export default function About() {
 
             {/* Dark Banner Section */}
             <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-                <img
-                    src="/images/about-dark.jpg" // Replace with your high-contrast dark visual
+                <Image
+                    src="/images/about-dark.jpg"
                     alt="About Banner"
-                    className="absolute inset-0 w-full h-full object-cover opacity-40"
+                    fill
+                    className="object-cover opacity-40"
+                    style={{ objectFit: "cover", zIndex: 0 }}
+                    priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
                 <div className="relative z-10 text-center px-4 sm:px-10">
@@ -36,13 +40,15 @@ export default function About() {
                     <div data-aos="fade-right">
                         <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Built on Innovation</h2>
                         <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
-                            Since 2010, combined cutting-edge technology with timeless style. Our engineers and designers work side-by-side to develop speakers and headphones that don't just perform — they inspire.
+                            Since 2010, combined cutting-edge technology with timeless style. Our engineers and designers work side-by-side to develop speakers and headphones that don&apos;t just perform — they inspire.
                         </p>
                     </div>
                     <div data-aos="fade-left">
-                        <img
+                        <Image
                             src="/images/factory-dark.jpg"
                             alt="Innovation"
+                            width={700}
+                            height={500}
                             className="w-full rounded-xl object-cover shadow-xl"
                         />
                     </div>

@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -15,7 +15,7 @@ export default function Story() {
             {/* Hero Section */}
             <section className="relative h-[70vh] w-full flex items-center justify-center text-center overflow-hidden">
                 <img
-                    src="/images/story-hero.jpg" // Replace with a relevant image
+                    src="/images/story.jpeg" // Replace with a relevant image
                     alt="Our Story Hero"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -45,11 +45,12 @@ export default function Story() {
             {/* Image + Quote Split Section */}
             <section className="bg-black text-white py-20 px-4 sm:px-10">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                    <div className="relative" data-aos="fade-right">
-                        <img
-                            src="/images/factory-speaker.jpg" // Replace with appropriate brand image
-                            alt="Crafting Audio"
-                            className="rounded-lg shadow-lg w-full object-cover"
+                    <div className="relative h-64 md:h-80" data-aos="fade-right">
+                        <Image
+                            src="/images/stroy-2.jpeg"
+                            alt="Our Story Hero"
+                            fill
+                            className="object-cover"
                         />
                     </div>
                     <div data-aos="fade-left">

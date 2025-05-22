@@ -6,9 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add app page code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/about/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/blog/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/careers/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/careers/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/faq/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/faq/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/products/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/story/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/story/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/team/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/team/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/testimonials/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/testimonials/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +48,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -65,6 +74,7 @@
       <workItem from="1747809872171" duration="2229000" />
       <workItem from="1747815754208" duration="6317000" />
       <workItem from="1747822709334" duration="2604000" />
+      <workItem from="1747892743716" duration="3470000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />

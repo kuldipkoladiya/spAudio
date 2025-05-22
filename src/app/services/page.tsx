@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Wrench, Settings2, SlidersHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export default function Services() {
     useEffect(() => {
@@ -12,17 +13,17 @@ export default function Services() {
 
     const services = [
         {
-            icon: <Wrench className="w-8 h-8 text-cyan-400" />,
+            icon: <Wrench className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
             title: "Installation",
             description: "Seamless setup of amps, speakers, and audio systems in any environment.",
         },
         {
-            icon: <SlidersHorizontal className="w-8 h-8 text-cyan-400" />,
+            icon: <SlidersHorizontal className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
             title: "System Tuning",
             description: "Custom tuning to optimize audio clarity, bass response, and room acoustics.",
         },
         {
-            icon: <Settings2 className="w-8 h-8 text-cyan-400" />,
+            icon: <Settings2 className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
             title: "Maintenance",
             description: "Regular servicing to ensure peak performance and system longevity.",
         },
@@ -60,13 +61,14 @@ export default function Services() {
                 <p className="text-gray-400 mb-6 max-w-xl mx-auto">
                     Let our experienced team tailor a service plan for your project — from car audio to studio setup.
                 </p>
-                <a
+                <Link
                     href="/contact"
                     className="bg-cyan-500 hover:bg-cyan-600 text-black px-6 py-3 rounded-full font-semibold transition"
                 >
                     Contact Us
-                </a>
+                </Link>
             </section>
+
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 export default function Team() {
     const teamMembers = [
         {
@@ -93,39 +94,23 @@ export default function Team() {
             <section className="bg-[#1e1e1e] py-20 px-6">
                 <h2 className="text-4xl font-bold text-center mb-16">The Experts Behind SPAudio</h2>
                 <div className="max-w-6xl mx-auto grid gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {teamMembers.map(({ name, role, image, bio, social }, idx) => (
+                    {teamMembers.map(({ name, role, image, bio, social }) => (
                         <div
-                            key={idx}
-                            className="bg-[#2c2c2c] rounded-xl p-6 flex flex-col items-center text-center hover:bg-blue-800 transition-colors cursor-pointer"
+                            key={name}
+                            tabIndex={0}
+                            className="bg-[#2c2c2c] rounded-xl p-6 flex flex-col items-center text-center hover:bg-blue-800 transition-colors cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-500"
                         >
-                            <img
+                            <Image
                                 src={image}
                                 alt={name}
-                                className="w-36 h-36 rounded-full object-cover mb-6 border-4 border-blue-400"
+                                width={144}
+                                height={144}
+                                className="rounded-full object-cover mb-6 border-4 border-blue-400"
                             />
                             <h3 className="text-2xl font-semibold">{name}</h3>
                             <p className="text-blue-300 mb-4">{role}</p>
                             <p className="text-gray-300 text-sm mb-6">{bio}</p>
-                            <div className="flex space-x-5">
-                                <a href={social.twitter} target="_blank" rel="noopener noreferrer" aria-label={`${name} Twitter`}>
-                                    <svg
-                                        className="w-6 h-6 fill-blue-400 hover:fill-blue-200 transition-colors"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M24 4.557a9.828 9.828 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.865 9.865 0 01-3.127 1.195 4.916 4.916 0 00-8.373 4.482A13.934 13.934 0 011.671 3.15 4.916 4.916 0 003.195 9.72a4.9 4.9 0 01-2.228-.616c-.054 2.28 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.084 4.92 4.92 0 004.59 3.417 9.867 9.867 0 01-6.102 2.104c-.397 0-.79-.023-1.176-.068a13.945 13.945 0 007.548 2.213c9.058 0 14.01-7.514 14.01-14.02 0-.213-.005-.425-.014-.636A10.025 10.025 0 0024 4.557z" />
-                                    </svg>
-                                </a>
-                                <a href={social.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} LinkedIn`}>
-                                    <svg
-                                        className="w-6 h-6 fill-blue-400 hover:fill-blue-200 transition-colors"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M19 0h-14a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5v-14a5 5 0 00-5-5zm-11.75 20h-3v-10h3v10zm-1.5-11.3a1.74 1.74 0 110-3.48 1.74 1.74 0 010 3.48zm13.25 11.3h-3v-5.5c0-1.32-.02-3.02-1.84-3.02-1.84 0-2.12 1.44-2.12 2.93v5.59h-3v-10h2.88v1.36h.04a3.16 3.16 0 012.84-1.56c3.04 0 3.6 2 3.6 4.6v5.6z" />
-                                    </svg>
-                                </a>
-                            </div>
+                            {/* Social links... */}
                         </div>
                     ))}
                 </div>

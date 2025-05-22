@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
 
 const faqs = [
     {
@@ -40,7 +39,7 @@ export default function FAQ() {
     };
 
     return (
-        <div className="bg-[#0b0b0b] min-h-screen text-white font-[family-name:var(--font-geist-sans)] px-6 py-20">
+        <div className="bg-[#0b0b0b] min-h-screen text-white font-sans px-6 py-20">
             <div className="max-w-4xl mx-auto">
                 <h1
                     className="text-4xl sm:text-5xl font-bold text-center mb-8"
@@ -66,20 +65,26 @@ export default function FAQ() {
                         >
                             <button
                                 onClick={() => toggle(idx)}
-                                className="w-full text-left p-4 bg-[#1a1a1a] hover:bg-[#222] transition-colors duration-200 focus:outline-none"
+                                className="w-full text-left p-4 bg-[#1a1a1a] hover:bg-[#222] transition-colors duration-200 focus:outline-none flex justify-between items-center"
+                                aria-expanded={openIndex === idx}
+                                aria-controls={`faq-answer-${idx}`}
+                                id={`faq-question-${idx}`}
                             >
-                                <div className="flex justify-between items-center">
-                                    <h3 className="text-lg font-medium">{faq.question}</h3>
-                                    <span className="text-blue-400 text-2xl leading-none">
-                    {openIndex === idx ? "−" : "+"}
-                  </span>
-                                </div>
+                                <h3 className="text-lg font-medium">{faq.question}</h3>
+                                <span className="text-blue-400 text-2xl leading-none select-none">
+                                    {openIndex === idx ? "−" : "+"}
+                                </span>
                             </button>
-                            {openIndex === idx && (
-                                <div className="p-4 text-sm text-gray-300 bg-[#141414] border-t border-gray-700 transition-all duration-300">
-                                    {faq.answer}
-                                </div>
-                            )}
+                            <div
+                                id={`faq-answer-${idx}`}
+                                role="region"
+                                aria-labelledby={`faq-question-${idx}`}
+                                className={`text-sm text-gray-300 bg-[#141414] border-t border-gray-700 overflow-hidden transition-all duration-300 ${
+                                    openIndex === idx ? "max-h-96 p-4" : "max-h-0 p-0"
+                                }`}
+                            >
+                                {faq.answer}
+                            </div>
                         </div>
                     ))}
                 </div>

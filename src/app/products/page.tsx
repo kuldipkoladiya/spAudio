@@ -64,7 +64,7 @@ export default function Products() {
     ];
 
     return (
-        <div className="bg-[#0b0b0b] text-white font-[family-name:var(--font-geist-sans)] min-h-screen">
+        <div className="bg-[#0b0b0b] text-white font-sans min-h-screen">
             {/* Hero */}
             <section className="text-center py-20 px-6 sm:px-16">
                 <h1
@@ -93,7 +93,7 @@ export default function Products() {
                             tabIndex={0}
                             onKeyDown={(e) => e.key === "Enter" && router.push("/contact")}
                             className="group cursor-pointer bg-gradient-to-tr from-[#1a1a1a] to-[#121212] rounded-2xl shadow-lg
-                         hover:shadow-[0_0_25px_rgba(0,255,255,0.7)] transform hover:scale-[1.04] transition
+                         hover:scale-[1.04] transition
                          duration-300 ease-out overflow-hidden flex flex-col"
                             data-aos="fade-up"
                             data-aos-delay={idx * 120}
@@ -139,7 +139,7 @@ export default function Products() {
                 </p>
                 <button
                     onClick={() => router.push("/contact")}
-                    className="inline-block bg-cyan-500 hover:bg-cyan-600 text-black px-8 py-3 rounded-full font-semibold
+                    className="inline-block bg-cyan-500 text-black px-8 py-3 rounded-full font-semibold
                      tracking-wide transition"
                     data-aos="fade-up"
                     data-aos-delay="300"

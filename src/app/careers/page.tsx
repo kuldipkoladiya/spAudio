@@ -21,7 +21,7 @@ export default function Careers() {
             location: "HQ",
             type: "Full-Time",
             description:
-                "Lead global marketing campaigns to grow SPAudio’s brand presence.",
+                "Lead global marketing campaigns to grow SPAudio&apos;s brand presence.",
         },
     ];
 
@@ -62,7 +62,7 @@ export default function Careers() {
             <section className="mt-24 text-center max-w-xl mx-auto">
                 <h3 className="text-xl font-semibold mb-4 text-white">Not finding your dream role?</h3>
                 <p className="text-gray-400 mb-6">
-                    Send us your resume and a brief intro — we’re always on the lookout for talented audio enthusiasts.
+                    Send us your resume and a brief intro — we&apos;re always on the lookout for talented audio enthusiasts.
                 </p>
                 <a
                     href="mailto:careers@spaudio.com"
