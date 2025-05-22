@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add app page code">
+    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="fix all page error">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/about/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/blog/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/blog/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/careers/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/careers/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/contact/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/faq/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/faq/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/story/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/story/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/team/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/team/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/testimonials/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/testimonials/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +65,7 @@
       <workItem from="1747809872171" duration="2229000" />
       <workItem from="1747815754208" duration="6317000" />
       <workItem from="1747822709334" duration="2604000" />
-      <workItem from="1747892743716" duration="3470000" />
+      <workItem from="1747892743716" duration="4105000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />
@@ -100,7 +91,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747823997189</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix all page error">
+      <option name="closed" value="true" />
+      <created>1747898030760</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747898030760</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +120,7 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fix error" />
     <MESSAGE value="add app page code" />
-    <option name="LAST_COMMIT_MESSAGE" value="add app page code" />
+    <MESSAGE value="fix all page error" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix all page error" />
   </component>
 </project>

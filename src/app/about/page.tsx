@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Image from "next/image"; // ✅ Import Image
+import Image from "next/image";
 
 export default function About() {
     useEffect(() => {
@@ -11,12 +11,11 @@ export default function About() {
     }, []);
 
     return (
-        <div className="bg-[#0c0c0c] text-white font-[family-name:var(--font-geist-sans)]">
-
+        <div className="bg-[#0c0c0c] text-white font-geist-sans">
             {/* Dark Banner Section */}
             <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
                 <Image
-                    src="/images/about-dark.jpg"
+                    src="/images/about-1.jpeg"
                     alt="About Banner"
                     fill
                     className="object-cover opacity-40"
@@ -45,7 +44,7 @@ export default function About() {
                     </div>
                     <div data-aos="fade-left">
                         <Image
-                            src="/images/factory-dark.jpg"
+                            src="/images/e2843a51-d3bf-498b-99ce-a64cca1683ca.jpeg"
                             alt="Innovation"
                             width={700}
                             height={500}
@@ -85,7 +84,8 @@ export default function About() {
                 <a
                     href="/products"
                     className="inline-block bg-white text-black px-6 py-3 rounded-full hover:bg-gray-200 transition text-sm font-medium"
-                    data-aos="fade-up" data-aos-delay="300"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
                 >
                     Explore Our Gear
                 </a>
