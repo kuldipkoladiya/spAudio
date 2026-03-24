@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 /* ================= SCROLL HOOK ================= */
@@ -31,7 +32,6 @@ function useScrollReveal() {
 export default function Home() {
     return (
         <div className="bg-[#0B1120] text-white">
-
             <Header />
             <HeroSlider />
 
@@ -58,7 +58,6 @@ export default function Home() {
             <CTASection />
             <SpeakerShowcase />
             <BrandExperience />
-
         </div>
     );
 }
@@ -74,7 +73,6 @@ function TickerSection() {
 
     return (
         <section className="relative overflow-hidden py-4 bg-gradient-to-r from-blue-600 to-purple-600">
-
             <div className="flex whitespace-nowrap animate-ticker gap-10 px-4">
                 {[...items, ...items].map((text, i) => (
                     <div key={i} className="font-semibold text-sm sm:text-base">
@@ -87,13 +85,11 @@ function TickerSection() {
         .animate-ticker {
           animation: scrollX 20s linear infinite;
         }
-
         @keyframes scrollX {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
       `}</style>
-
         </section>
     );
 }
@@ -110,8 +106,11 @@ function FeatureSection({ image, title, highlight, desc, reverse }: any) {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
 
                 <div className={reverse ? "order-2" : ""}>
-                    <img
+                    <Image
                         src={image}
+                        alt={title}
+                        width={800}
+                        height={500}
                         className="w-full h-[250px] sm:h-[350px] md:h-[450px] object-cover rounded-2xl"
                     />
                 </div>
@@ -128,7 +127,6 @@ function FeatureSection({ image, title, highlight, desc, reverse }: any) {
                         {desc}
                     </p>
                 </div>
-
             </div>
         </section>
     );
@@ -199,8 +197,11 @@ function ProductCategories() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {categories.map((c, i) => (
                     <div key={i} className="relative rounded-2xl overflow-hidden">
-                        <img
+                        <Image
                             src={c.img}
+                            alt={c.name}
+                            width={500}
+                            height={300}
                             className="h-[250px] sm:h-[300px] w-full object-cover"
                         />
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -237,10 +238,7 @@ function CTASection() {
     }, []);
 
     return (
-        <section
-            ref={ref}
-            className="py-20 sm:py-32 text-center transition-all"
-        >
+        <section ref={ref} className="py-20 sm:py-32 text-center transition-all">
             <h2 className="text-2xl sm:text-4xl font-bold">
                 Upgrade Your Sound Experience
             </h2>
@@ -262,19 +260,23 @@ function SpeakerShowcase() {
 
     return (
         <section className="py-20 px-4 md:px-20">
-
             <div className="grid md:grid-cols-3 gap-6 h-[500px] overflow-hidden">
-
                 {[0, 1, 2].map((col) => (
                     <div key={col}>
                         <div className="flex flex-col gap-6 animate-scrollY">
                             {[...images, ...images].map((img, i) => (
-                                <img key={i} src={img} className="rounded-xl" />
+                                <Image
+                                    key={i}
+                                    src={img}
+                                    alt="Speaker"
+                                    width={400}
+                                    height={300}
+                                    className="rounded-xl"
+                                />
                             ))}
                         </div>
                     </div>
                 ))}
-
             </div>
 
             <style jsx>{`
@@ -286,7 +288,6 @@ function SpeakerShowcase() {
           100% { transform: translateY(-50%); }
         }
       `}</style>
-
         </section>
     );
 }
@@ -301,23 +302,24 @@ function BrandExperience() {
                 </h2>
             </div>
 
-            <img
+            <Image
                 src="https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg"
+                alt="Brand Experience"
+                width={600}
+                height={400}
                 className="rounded-2xl"
             />
         </section>
     );
 }
+
+/* ================= SIGNATURE ================= */
 function SignatureExperience() {
     return (
         <section className="relative py-24 px-4 md:px-20 overflow-hidden">
-
-            {/* BG */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#020617]" />
 
             <div className="relative max-w-7xl mx-auto">
-
-                {/* TITLE */}
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-6xl font-bold">
                         Signature{" "}
@@ -331,9 +333,7 @@ function SignatureExperience() {
                     </p>
                 </div>
 
-                {/* HORIZONTAL SCROLL */}
                 <div className="flex gap-6 overflow-x-auto no-scrollbar pb-6">
-
                     {[
                         {
                             img: "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
@@ -356,9 +356,11 @@ function SignatureExperience() {
                             key={i}
                             className="min-w-[280px] md:min-w-[400px] rounded-2xl overflow-hidden relative group"
                         >
-
-                            <img
+                            <Image
                                 src={item.img}
+                                alt={item.title}
+                                width={500}
+                                height={350}
                                 className="w-full h-[350px] object-cover group-hover:scale-110 transition duration-500"
                             />
 
@@ -367,12 +369,9 @@ function SignatureExperience() {
                             <h3 className="absolute bottom-6 left-6 text-xl font-semibold">
                                 {item.title}
                             </h3>
-
                         </div>
                     ))}
-
                 </div>
-
             </div>
         </section>
     );

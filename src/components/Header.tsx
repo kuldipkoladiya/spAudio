@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Home, Info, Package, Wrench, Phone } from "lucide-react";
 
+/* ✅ FIX: store icon as component */
 const navLinks = [
-    { name: "home", icon: <Home size={22} /> },
-    { name: "about", icon: <Info size={22} /> },
-    { name: "products", icon: <Package size={22} /> },
-    { name: "services", icon: <Wrench size={22} /> },
-    { name: "contact", icon: <Phone size={22} /> },
+    { name: "home", icon: Home },
+    { name: "about", icon: Info },
+    { name: "products", icon: Package },
+    { name: "services", icon: Wrench },
+    { name: "contact", icon: Phone },
 ];
 
 export default function Header() {
@@ -36,18 +37,21 @@ export default function Header() {
 
                 {/* 💻 DESKTOP */}
                 <nav className="hidden md:flex items-center gap-8 text-white font-medium">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={`/${link.name}`}
-                            className="relative group capitalize"
-                        >
-                            {link.name}
+                    {navLinks.map((link) => {
+                        const Icon = link.icon; // ✅ FIX
+                        return (
+                            <Link
+                                key={link.name}
+                                href={`/${link.name}`}
+                                className="relative group capitalize flex items-center gap-2"
+                            >
+                                <Icon size={18} />
+                                {link.name}
 
-                            {/* underline */}
-                            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
-                        </Link>
-                    ))}
+                                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                            </Link>
+                        );
+                    })}
 
                     {/* CTA */}
                     <Link
@@ -90,17 +94,20 @@ export default function Header() {
                     {/* MENU */}
                     <div className="flex flex-col items-center justify-center flex-1 gap-8 text-xl font-semibold">
 
-                        {navLinks.map((link, index) => (
-                            <Link
-                                key={link.name}
-                                href={`/${link.name}`}
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-3"
-                            >
-                                {link.icon}
-                                <span className="capitalize">{link.name}</span>
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const Icon = link.icon; // ✅ FIX
+                            return (
+                                <Link
+                                    key={link.name}
+                                    href={`/${link.name}`}
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex items-center gap-3"
+                                >
+                                    <Icon size={22} />
+                                    <span className="capitalize">{link.name}</span>
+                                </Link>
+                            );
+                        })}
 
                         <Link
                             href="/products"

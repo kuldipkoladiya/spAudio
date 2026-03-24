@@ -2,11 +2,15 @@
 
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
+type SocialIconProps = {
+  Icon: React.ElementType;
+};
+
 export default function Footer() {
   return (
       <footer className="relative text-white overflow-hidden">
 
-        {/* 🔥 NEW BG (SOFT DARK GRADIENT) */}
+        {/* 🔥 BG */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-[#0f172a] to-[#020617]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,#1d4ed8,transparent_40%)] opacity-40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_80%,#9333EA,transparent_40%)] opacity-40" />
@@ -14,7 +18,6 @@ export default function Footer() {
         {/* CONTENT */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
 
-          {/* GRID */}
           <div className="grid md:grid-cols-4 gap-10">
 
             {/* BRAND */}
@@ -52,47 +55,38 @@ export default function Footer() {
               <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
 
               <div className="flex gap-4">
-
-                <SocialIcon icon={<Facebook size={18} />} />
-                <SocialIcon icon={<Twitter size={18} />} />
-                <SocialIcon icon={<Instagram size={18} />} />
-                <SocialIcon icon={<Linkedin size={18} />} />
-
+                <SocialIcon Icon={Facebook} />
+                <SocialIcon Icon={Twitter} />
+                <SocialIcon Icon={Instagram} />
+                <SocialIcon Icon={Linkedin} />
               </div>
-
             </div>
 
           </div>
 
-          {/* DIVIDER */}
           <div className="border-t border-white/10 my-10" />
 
-          {/* BOTTOM */}
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
-
-            <p>
-              © {new Date().getFullYear()} SPAudio. All rights reserved.
-            </p>
+            <p>© {new Date().getFullYear()} SPAudio. All rights reserved.</p>
 
             <div className="flex gap-6">
               <span className="hover:text-white cursor-pointer">Privacy</span>
               <span className="hover:text-white cursor-pointer">Terms</span>
               <span className="hover:text-white cursor-pointer">Contact</span>
             </div>
-
           </div>
 
         </div>
-
       </footer>
   );
 }
 
 /* 🔥 SOCIAL ICON COMPONENT */
-function SocialIcon({ icon }: any) {
+
+function SocialIcon({ Icon }: SocialIconProps) {
   return (
       <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition duration-300 hover:scale-110 cursor-pointer">
-        {icon}
+        <Icon size={18} />
       </div>
   );
 }

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const words = ["powerful", "immersive", "premium", "next-level"];
 
 export default function HeroSlider() {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null!); // ✅ FIX
 
     const [text, setText] = useState("");
     const [wordIndex, setWordIndex] = useState(0);
@@ -14,7 +14,7 @@ export default function HeroSlider() {
     /* 🔥 TYPEWRITER */
     useEffect(() => {
         const currentWord = words[wordIndex];
-        let speed = isDeleting ? 50 : 100;
+        const speed = isDeleting ? 50 : 100;
 
         const timeout = setTimeout(() => {
             setText((prev) =>
@@ -42,8 +42,8 @@ export default function HeroSlider() {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        let w = 128;
-        let h = 128;
+        const w = 128;
+        const h = 128;
         let time = 0;
 
         const blobs = [
@@ -63,10 +63,8 @@ export default function HeroSlider() {
             ctx.globalCompositeOperation = "screen";
 
             blobs.forEach((b) => {
-                const x =
-                    w / 2 + Math.sin(time + b.t) * (w * 0.3);
-                const y =
-                    h / 2 + Math.cos(time + b.t) * (h * 0.3);
+                const x = w / 2 + Math.sin(time + b.t) * (w * 0.3);
+                const y = h / 2 + Math.cos(time + b.t) * (h * 0.3);
 
                 const radius = w * 0.5;
 
@@ -89,21 +87,21 @@ export default function HeroSlider() {
     return (
         <section className="relative w-full h-[80vh] md:h-screen flex items-center justify-center text-center overflow-hidden">
 
-            {/* 🔥 GRADIENT BASE */}
+            {/* BG */}
             <div className="absolute inset-0 bg-black" />
 
-            {/* 🔥 RADIAL GRADIENT LAYERS */}
+            {/* GRADIENT */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,#3843D0,transparent_70%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,#ff72e3,transparent_70%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,#2f39ba,transparent_70%)]" />
 
-            {/* 🔥 CANVAS */}
+            {/* CANVAS */}
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 w-full h-full blur-[100px] opacity-80"
             />
 
-            {/* 🔥 CONTENT */}
+            {/* CONTENT */}
             <div className="relative z-10 px-4">
 
                 <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white leading-tight">
@@ -125,7 +123,6 @@ export default function HeroSlider() {
                 </button>
 
             </div>
-
         </section>
     );
 }
