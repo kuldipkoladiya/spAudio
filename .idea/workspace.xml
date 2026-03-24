@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add new home page">
+    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="fix errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/3DCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeroSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeroSlider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PageTransition.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductSlider.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +65,7 @@
       <workItem from="1747822709334" duration="2604000" />
       <workItem from="1747892743716" duration="5104000" />
       <workItem from="1774241697366" duration="7850000" />
-      <workItem from="1774326062402" duration="12729000" />
+      <workItem from="1774326062402" duration="13702000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />
@@ -137,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774355115331</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix errors">
+      <option name="closed" value="true" />
+      <created>1774356261963</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774356261963</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,14 +162,15 @@
     <MESSAGE value="add app page code" />
     <MESSAGE value="fix all page error" />
     <MESSAGE value="add new home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new home page" />
+    <MESSAGE value="fix errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix errors" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/Header.tsx</url>
-          <line>39</line>
+          <line>40</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
