@@ -1,9 +1,9 @@
 "use client";
 
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, LucideIcon } from "lucide-react";
 
 type SocialIconProps = {
-  Icon: React.ElementType;
+  Icon: LucideIcon;
 };
 
 export default function Footer() {
