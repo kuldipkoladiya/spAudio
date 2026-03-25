@@ -221,7 +221,8 @@ function ProductCategories() {
 
 /* ================= CTA ================= */
 function CTASection() {
-    const ref = useRef<any>(null);
+    const ref = useRef<HTMLDivElement>(null!);
+
 
     useEffect(() => {
         let t = 0;
