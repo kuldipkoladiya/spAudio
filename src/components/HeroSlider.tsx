@@ -56,6 +56,8 @@ export default function HeroSlider() {
         canvas.width = w;
         canvas.height = h;
 
+        if (!ctx) return;
+
         function animate() {
             time += 0.01;
             ctx.clearRect(0, 0, w, h);
