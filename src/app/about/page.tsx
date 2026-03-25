@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Header from "@/components/Header";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -11,14 +10,11 @@ gsap.registerPlugin(ScrollTrigger);
 export default function About() {
     return (
         <div className="bg-[#020617] text-white font-sans">
-
-
             <HeroSection />
-            <AboutStory />   {/* GSAP */}
+            <AboutStory />
             <ImageSplit />
             <Features />
             <CTA />
-
         </div>
     );
 }
@@ -47,7 +43,6 @@ function HeroSection() {
 
     return (
         <section className="py-32 md:py-40 text-center px-4 overflow-hidden">
-
             <h1
                 ref={titleRef}
                 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight opacity-0"
@@ -67,7 +62,6 @@ function HeroSection() {
             >
                 Crafted for clarity. Built for performance. Designed for you.
             </p>
-
         </section>
     );
 }
@@ -75,7 +69,27 @@ function HeroSection() {
 /* ================= GSAP STORY ================= */
 function AboutStory() {
     const sectionRef = useRef<HTMLDivElement>(null!);
-    const refs = useRef<any[]>([]);
+
+    type FrameRefs = {
+        top: HTMLParagraphElement | null;
+        main: HTMLHeadingElement | null;
+        bottom: HTMLParagraphElement | null;
+    };
+
+    const refs = useRef<FrameRefs[]>([]);
+
+    const setRef =
+        <K extends keyof FrameRefs>(index: number, key: K) =>
+            (el: FrameRefs[K]) => {
+                if (!refs.current[index]) {
+                    refs.current[index] = {
+                        top: null,
+                        main: null,
+                        bottom: null,
+                    };
+                }
+                refs.current[index][key] = el;
+            };
 
     const frames = [
         {
@@ -107,6 +121,8 @@ function AboutStory() {
         });
 
         refs.current.forEach((frame) => {
+            if (!frame?.top || !frame?.main || !frame?.bottom) return;
+
             tl.fromTo(frame.top, { opacity: 0, y: 30 }, { opacity: 1, y: 0 });
             tl.fromTo(frame.main, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1 });
             tl.fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0 });
@@ -125,41 +141,65 @@ function AboutStory() {
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen flex items-center justify-center overflow-hidden"
+            className="relative h-screen flex items-center justify-center overflow-hidden px-4"
         >
             {/* BG Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2),transparent_70%)]" />
 
-            <div className="relative z-10 text-center px-6">
+            <div className="relative z-10 text-center w-full max-w-6xl mx-auto">
 
                 {frames.map((f, i) => (
                     <div
                         key={i}
-                        className="absolute inset-0 flex flex-col items-center justify-center"
-                        ref={(el) => {
-                            if (el) {
-                                refs.current[i] = {
-                                    top: el.children[0],
-                                    main: el.children[1],
-                                    bottom: el.children[2],
-                                };
-                            }
-                        }}
+                        className="absolute inset-0 flex flex-col items-center justify-center gap-4 sm:gap-6"
                     >
                         {/* TOP */}
-                        <p className="opacity-0 text-xs tracking-[0.3em] uppercase text-gray-400">
+                        <p
+                            ref={setRef(i, "top")}
+                            className="
+                opacity-0
+                text-[10px] sm:text-xs md:text-sm lg:text-base
+                tracking-[0.3em] md:tracking-[0.4em]
+                uppercase
+                text-gray-400
+              "
+                        >
                             {f.top}
                         </p>
 
-                        {/* MAIN (BETTER FONT LOOK) */}
-                        <h1 className="opacity-0 text-[clamp(3rem,10vw,8rem)] font-black tracking-tight leading-none">
+                        {/* MAIN */}
+                        <h1
+                            ref={setRef(i, "main")}
+                            className="
+                opacity-0
+                text-[clamp(2.5rem,12vw,8rem)]
+                font-black
+                tracking-tight
+                leading-[0.9]
+              "
+                        >
                             {f.main}
                         </h1>
 
-                        {/* BOTTOM */}
-                        <p className="opacity-0 mt-6 text-gray-400 max-w-md">
+                        {/* BOTTOM (FIXED) */}
+                        <p
+                            ref={setRef(i, "bottom")}
+                            className="
+                opacity-0
+                mt-4 sm:mt-6 md:mt-8
+                text-xs sm:text-sm md:text-lg lg:text-xl
+                text-gray-300
+                max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl
+                mx-auto
+                leading-relaxed
+                whitespace-normal
+                break-normal
+                text-center
+              "
+                        >
                             {f.bottom}
                         </p>
+
                     </div>
                 ))}
 
@@ -172,7 +212,6 @@ function AboutStory() {
 function ImageSplit() {
     return (
         <section className="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-
             <img
                 src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg"
                 className="rounded-2xl h-[400px] w-full object-cover"
@@ -184,10 +223,9 @@ function ImageSplit() {
                 </h2>
 
                 <p className="mt-4 text-gray-400">
-                    Whether you're working, traveling, or relaxing — our audio adapts to your lifestyle.
+                    Whether you&apos;re working, traveling, or relaxing — our audio adapts to your lifestyle.
                 </p>
             </div>
-
         </section>
     );
 }
@@ -198,7 +236,6 @@ function Features() {
 
     return (
         <section className="py-24 px-6 md:px-20 text-center">
-
             <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 Why SPAudio
             </h2>
@@ -213,7 +250,6 @@ function Features() {
                     </div>
                 ))}
             </div>
-
         </section>
     );
 }
@@ -243,7 +279,6 @@ function CTA() {
 
     return (
         <section ref={ref} className="py-28 text-center">
-
             <h2 className="text-3xl md:text-5xl font-bold">
                 Experience Sound Like Never Before
             </h2>
@@ -251,7 +286,6 @@ function CTA() {
             <button className="mt-6 px-8 py-3 bg-white text-black rounded-full">
                 Explore Products
             </button>
-
         </section>
     );
 }
