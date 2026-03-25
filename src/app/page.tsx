@@ -3,10 +3,16 @@
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
 import { useEffect, useRef } from "react";
-
+type FeatureSectionProps = {
+    image: string;
+    title: string;
+    highlight?: string;
+    desc: string;
+    reverse?: boolean;
+};
 /* ================= SCROLL HOOK ================= */
 function useScrollReveal() {
-    const ref = useRef<any>(null);
+    const ref = useRef<HTMLDivElement>(null!);
 
     useEffect(() => {
         const el = ref.current;
@@ -99,7 +105,7 @@ function TickerSection() {
 }
 
 /* ================= FEATURE ================= */
-function FeatureSection({ image, title, highlight, desc, reverse }: any) {
+function FeatureSection({ image, title, highlight, desc, reverse }: FeatureSectionProps) {
     const ref = useScrollReveal();
 
     return (
