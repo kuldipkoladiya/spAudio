@@ -88,3 +88,21 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes scrollDown {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.animate-scrollUp {
+  animation: scrollUp 25s linear infinite;
+}
+
+.animate-scrollDown {
+  animation: scrollDown 25s linear infinite;
+}

@@ -213,7 +213,7 @@ function ImageSplit() {
     return (
         <section className="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             <img
-                src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg"
+                src="/images/FeatureSection 2.png"
                 className="rounded-2xl h-[400px] w-full object-cover"
             />
 

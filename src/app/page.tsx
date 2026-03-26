@@ -2,7 +2,11 @@
 
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef ,useState } from "react";
+import { useRouter } from "next/navigation";
+import {router} from "next/client";
+import Link from "next/link";
+
 type FeatureSectionProps = {
     image: string;
     title: string;
@@ -44,14 +48,14 @@ export default function Home() {
             <TickerSection />
 
             <FeatureSection
-                image="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg"
+                image="/images/FeatureSection 1.png"
                 title="Powerful Sound"
                 highlight="Meets Design"
                 desc="Experience immersive audio with premium speakers."
             />
 
             <FeatureSection
-                image="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg"
+                image="/images/FeatureSection 2.png"
                 title="Wireless Freedom"
                 highlight="Pure Experience"
                 desc="Enjoy seamless audio anywhere."
@@ -76,6 +80,11 @@ function TickerSection() {
         "Premium Sound Experience",
         "Wireless Audio",
         "New Arrival",
+        "Premium Sound Experience",
+        "New Arrival",
+        "Premium Sound Experience",
+        "New Arrival",
+        "Premium Sound Experience",
     ];
 
     return (
@@ -115,14 +124,14 @@ function FeatureSection({ image, title, highlight, desc, reverse }: FeatureSecti
         >
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
 
-                <div className={reverse ? "order-2" : ""}>
+                <div className={reverse ? "md:order-2" : ""}>
                     <img
                         src={image}
                         className="w-full h-[250px] sm:h-[350px] md:h-[450px] object-cover rounded-2xl"
                     />
                 </div>
 
-                <div className={reverse ? "order-1" : ""}>
+                <div className={reverse ? "md:order-1" : ""}>
                     <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight">
                         {title} <br />
                         <span className="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
@@ -176,45 +185,77 @@ function FeatureGrid() {
 
 /* ================= CATEGORY ================= */
 function ProductCategories() {
-    const ref = useScrollReveal();
+    const router = require("next/navigation").useRouter();
+    const [active, setActive] = React.useState(0);
 
     const categories = [
         {
             name: "Speakers",
-            img: "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
+            desc: "Feel every beat with powerful immersive sound.",
+            img: "/images/FeatureSection 2.png",
+            link: "/products?category=speakers",
         },
         {
-            name: "Headphones",
-            img: "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg",
-        },
-        {
-            name: "Home Audio",
-            img: "https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg",
+            name: "Amps",
+            desc: "Amplify your audio with unmatched clarity.",
+            img: "/images/product-7.jpeg",
+            link: "/products?category=amps",
         },
     ];
 
     return (
-        <section
-            ref={ref}
-            className="py-20 px-4 sm:px-6 md:px-20 opacity-0 translate-y-10 transition duration-700"
-        >
-            <h2 className="text-2xl sm:text-4xl text-center font-bold mb-10">
-                Explore Categories
+        <section className="py-28 px-4 md:px-20">
+
+            <h2 className="text-3xl md:text-6xl text-center font-bold mb-16">
+                Explore{" "}
+                <span className="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                    Categories
+                </span>
             </h2>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {categories.map((c, i) => (
-                    <div key={i} className="relative rounded-2xl overflow-hidden">
-                        <img
-                            src={c.img}
-                            className="h-[250px] sm:h-[300px] w-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <h3 className="text-lg sm:text-xl">{c.name}</h3>
+            <div className="flex flex-col md:flex-row gap-6 md:gap-10 justify-center items-center">
+
+                {categories.map((c, i) => {
+                    const isActive = active === i;
+
+                    return (
+                        <div
+                            key={i}
+                            onMouseEnter={() => setActive(i)}
+                            onClick={() => router.push(c.link)}
+                            className={`cursor-pointer transition-all duration-500 w-full 
+                                ${isActive ? "md:w-[60%]" : "md:w-[40%] opacity-70"}
+                            `}
+                        >
+                            <div className="relative rounded-2xl overflow-hidden group">
+
+                                <img
+                                    src={c.img}
+                                    className="w-full h-[300px] sm:h-[380px] md:h-[450px]
+                                               object-cover group-hover:scale-105 transition duration-500"
+                                />
+
+                                <div className="absolute inset-0 bg-black/40" />
+
+                                <div className="absolute bottom-6 left-6">
+                                    <h3 className="text-2xl sm:text-4xl font-bold">
+                                        {c.name}
+                                    </h3>
+
+                                    <p className={`mt-2 text-gray-300 text-sm sm:text-base transition ${
+                                        isActive ? "opacity-100" : "opacity-0"
+                                    }`}>
+                                        {c.desc}
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
+
             </div>
+
         </section>
     );
 }
@@ -252,9 +293,11 @@ function CTASection() {
                 Upgrade Your Sound Experience
             </h2>
 
-            <button className="mt-6 px-6 py-3 sm:px-8 bg-white text-black rounded-full">
-                Shop Now
-            </button>
+            <Link href="/products?category=speakers">
+                <button className="mt-6 px-6 py-3 sm:px-8 bg-white text-black rounded-full">
+                    Shop Now
+                </button>
+            </Link>
         </section>
     );
 }
@@ -262,37 +305,50 @@ function CTASection() {
 /* ================= SHOWCASE ================= */
 function SpeakerShowcase() {
     const images = [
-        "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
-        "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg",
-        "https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg",
+        "/images/FeatureSection 1.png",
+        "/images/FeatureSection 2.png",
+        "/images/SpeakerShowcase.png",
     ];
 
     return (
-        <section className="py-20 px-4 md:px-20">
+        <section className="py-24 md:py-32 px-4 md:px-20">
 
-            <div className="grid md:grid-cols-3 gap-6 h-[500px] overflow-hidden">
+            {/* BIG HEIGHT */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8
+                            h-[550px] sm:h-[650px] md:h-[900px] overflow-hidden">
 
                 {[0, 1, 2].map((col) => (
-                    <div key={col}>
-                        <div className="flex flex-col gap-6 animate-scrollY">
+                    <div
+                        key={col}
+                        className={`
+                            overflow-hidden
+                            ${col !== 0 ? "hidden md:block" : ""}
+                        `}
+                    >
+
+                        <div
+                            className={`flex flex-col gap-8 ${
+                                col % 2 === 0 ? "animate-scrollUp" : "animate-scrollDown"
+                            }`}
+                        >
                             {[...images, ...images].map((img, i) => (
-                                <img key={i} src={img} className="rounded-xl" />
+                                <img
+                                    key={i}
+                                    src={img}
+                                    className="
+                                        rounded-2xl
+                                        w-full
+                                        h-[260px] sm:h-[320px] md:h-[420px]
+                                        object-cover
+                                    "
+                                />
                             ))}
                         </div>
+
                     </div>
                 ))}
 
             </div>
-
-            <style jsx>{`
-        .animate-scrollY {
-          animation: scrollY 20s linear infinite;
-        }
-        @keyframes scrollY {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-50%); }
-        }
-      `}</style>
 
         </section>
     );
@@ -309,7 +365,7 @@ function BrandExperience() {
             </div>
 
             <img
-                src="https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg"
+                src="/images/FeatureSection 1.png"
                 className="rounded-2xl"
             />
         </section>
@@ -343,19 +399,19 @@ function SignatureExperience() {
 
                     {[
                         {
-                            img: "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
+                            img: "/images/bass.png",
                             title: "Deep Bass",
                         },
                         {
-                            img: "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg",
-                            title: "Wireless Freedom",
+                            img: "/images/product1.png",
+                            title: "Designed for Real Life",
                         },
                         {
-                            img: "https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg",
+                            img: "/images/FeatureSection 2.png",
                             title: "Studio Quality",
                         },
                         {
-                            img: "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
+                            img: "/images/SpeakerShowcase.png",
                             title: "Premium Build",
                         },
                     ].map((item, i) => (
