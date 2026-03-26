@@ -2,9 +2,9 @@
 
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
-import React, { useEffect, useRef ,useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import {router} from "next/client";
+
 import Link from "next/link";
 
 type FeatureSectionProps = {
@@ -185,7 +185,7 @@ function FeatureGrid() {
 
 /* ================= CATEGORY ================= */
 function ProductCategories() {
-    const router = require("next/navigation").useRouter();
+    const router = useRouter();
     const [active, setActive] = React.useState(0);
 
     const categories = [
