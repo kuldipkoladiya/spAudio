@@ -2,9 +2,8 @@
 
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
 
 type FeatureSectionProps = {
@@ -14,6 +13,7 @@ type FeatureSectionProps = {
     desc: string;
     reverse?: boolean;
 };
+
 /* ================= SCROLL HOOK ================= */
 function useScrollReveal() {
     const ref = useRef<HTMLDivElement>(null!);
@@ -39,36 +39,62 @@ function useScrollReveal() {
 
 /* ================= HOME ================= */
 export default function Home() {
+
+    /* ================= MOUSE GLOW ================= */
+    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouse = (e: any) => {
+            setMouse({ x: e.clientX, y: e.clientY });
+        };
+
+        window.addEventListener("mousemove", handleMouse);
+        return () => window.removeEventListener("mousemove", handleMouse);
+    }, []);
+
     return (
-        <div className="bg-[#0B1120] text-white">
+        <div className="bg-[#0B1120] text-white relative overflow-hidden">
 
             <Header />
             <HeroSlider />
 
-            <TickerSection />
-
-            <FeatureSection
-                image="/images/FeatureSection 1.png"
-                title="Powerful Sound"
-                highlight="Meets Design"
-                desc="Experience immersive audio with premium speakers."
+            {/* 🔥 MOUSE GLOW (NOT ON HERO) */}
+            <div
+                className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-blue-500/20 blur-[120px] z-0"
+                style={{
+                    left: mouse.x - 200,
+                    top: mouse.y - 200,
+                }}
             />
 
-            <FeatureSection
-                image="/images/FeatureSection 2.png"
-                title="Wireless Freedom"
-                highlight="Pure Experience"
-                desc="Enjoy seamless audio anywhere."
-                reverse
-            />
+            {/* CONTENT */}
+            <div className="relative z-10">
 
-            <FeatureGrid />
-            <ProductCategories />
-            <SignatureExperience />
-            <CTASection />
-            <SpeakerShowcase />
-            <BrandExperience />
+                <TickerSection />
 
+                <FeatureSection
+                    image="/images/FeatureSection 1.png"
+                    title="Powerful Sound"
+                    highlight="Meets Design"
+                    desc="Experience immersive audio with premium speakers."
+                />
+
+                <FeatureSection
+                    image="/images/FeatureSection 2.png"
+                    title="Wireless Freedom"
+                    highlight="Pure Experience"
+                    desc="Enjoy seamless audio anywhere."
+                    reverse
+                />
+
+                <FeatureGrid />
+                <ProductCategories />
+                <SignatureExperience />
+                <CTASection />
+                <SpeakerShowcase />
+                <BrandExperience />
+
+            </div>
         </div>
     );
 }
@@ -82,9 +108,6 @@ function TickerSection() {
         "New Arrival",
         "Premium Sound Experience",
         "New Arrival",
-        "Premium Sound Experience",
-        "New Arrival",
-        "Premium Sound Experience",
     ];
 
     return (
@@ -102,7 +125,6 @@ function TickerSection() {
         .animate-ticker {
           animation: scrollX 20s linear infinite;
         }
-
         @keyframes scrollX {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -209,8 +231,8 @@ function ProductCategories() {
             <h2 className="text-3xl md:text-6xl text-center font-bold mb-16">
                 Explore{" "}
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
-                    Categories
-                </span>
+          Categories
+        </span>
             </h2>
 
             <div className="flex flex-col md:flex-row gap-6 md:gap-10 justify-center items-center">
@@ -227,6 +249,7 @@ function ProductCategories() {
                                 ${isActive ? "md:w-[60%]" : "md:w-[40%] opacity-70"}
                             `}
                         >
+
                             <div className="relative rounded-2xl overflow-hidden group">
 
                                 <img
@@ -264,7 +287,6 @@ function ProductCategories() {
 function CTASection() {
     const ref = useRef<HTMLDivElement>(null!);
 
-
     useEffect(() => {
         let t = 0;
 
@@ -285,10 +307,7 @@ function CTASection() {
     }, []);
 
     return (
-        <section
-            ref={ref}
-            className="py-20 sm:py-32 text-center transition-all"
-        >
+        <section ref={ref} className="py-20 sm:py-32 text-center transition-all">
             <h2 className="text-2xl sm:text-4xl font-bold">
                 Upgrade Your Sound Experience
             </h2>
@@ -312,44 +331,19 @@ function SpeakerShowcase() {
 
     return (
         <section className="py-24 md:py-32 px-4 md:px-20">
-
-            {/* BIG HEIGHT */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8
-                            h-[550px] sm:h-[650px] md:h-[900px] overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-[550px] md:h-[900px] overflow-hidden">
 
                 {[0, 1, 2].map((col) => (
-                    <div
-                        key={col}
-                        className={`
-                            overflow-hidden
-                            ${col !== 0 ? "hidden md:block" : ""}
-                        `}
-                    >
-
-                        <div
-                            className={`flex flex-col gap-8 ${
-                                col % 2 === 0 ? "animate-scrollUp" : "animate-scrollDown"
-                            }`}
-                        >
+                    <div key={col} className={`${col !== 0 ? "hidden md:block" : ""}`}>
+                        <div className={`flex flex-col gap-8 ${col % 2 === 0 ? "animate-scrollUp" : "animate-scrollDown"}`}>
                             {[...images, ...images].map((img, i) => (
-                                <img
-                                    key={i}
-                                    src={img}
-                                    className="
-                                        rounded-2xl
-                                        w-full
-                                        h-[260px] sm:h-[320px] md:h-[420px]
-                                        object-cover
-                                    "
-                                />
+                                <img key={i} src={img} className="rounded-2xl w-full h-[420px] object-cover" />
                             ))}
                         </div>
-
                     </div>
                 ))}
 
             </div>
-
         </section>
     );
 }
@@ -357,85 +351,25 @@ function SpeakerShowcase() {
 /* ================= FINAL ================= */
 function BrandExperience() {
     return (
-        <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-20 grid md:grid-cols-2 gap-10 items-center">
+        <section className="py-20 md:py-32 px-4 md:px-20 grid md:grid-cols-2 gap-10 items-center">
             <div>
-                <h2 className="text-3xl sm:text-5xl font-bold">
+                <h2 className="text-3xl md:text-5xl font-bold">
                     Designed for Sound Lovers
                 </h2>
             </div>
 
-            <img
-                src="/images/FeatureSection 1.png"
-                className="rounded-2xl"
-            />
+            <img src="/images/FeatureSection 1.png" className="rounded-2xl" />
         </section>
     );
 }
+
 function SignatureExperience() {
     return (
-        <section className="relative py-24 px-4 md:px-20 overflow-hidden">
-
-            {/* BG */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#020617]" />
-
-            <div className="relative max-w-7xl mx-auto">
-
-                {/* TITLE */}
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-6xl font-bold">
-                        Signature{" "}
-                        <span className="bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
-              Sound Experience
-            </span>
-                    </h2>
-
-                    <p className="mt-4 text-gray-400 max-w-xl mx-auto">
-                        Designed to deliver immersive audio like never before.
-                    </p>
-                </div>
-
-                {/* HORIZONTAL SCROLL */}
-                <div className="flex gap-6 overflow-x-auto no-scrollbar pb-6">
-
-                    {[
-                        {
-                            img: "/images/bass.png",
-                            title: "Deep Bass",
-                        },
-                        {
-                            img: "/images/product1.png",
-                            title: "Designed for Real Life",
-                        },
-                        {
-                            img: "/images/FeatureSection 2.png",
-                            title: "Studio Quality",
-                        },
-                        {
-                            img: "/images/SpeakerShowcase.png",
-                            title: "Premium Build",
-                        },
-                    ].map((item, i) => (
-                        <div
-                            key={i}
-                            className="min-w-[280px] md:min-w-[400px] rounded-2xl overflow-hidden relative group"
-                        >
-
-                            <img
-                                src={item.img}
-                                className="w-full h-[350px] object-cover group-hover:scale-110 transition duration-500"
-                            />
-
-                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition" />
-
-                            <h3 className="absolute bottom-6 left-6 text-xl font-semibold">
-                                {item.title}
-                            </h3>
-
-                        </div>
-                    ))}
-
-                </div>
-
+        <section className="py-24 px-4 md:px-20">
+            <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-6xl font-bold">
+                    Signature Sound Experience
+                </h2>
             </div>
         </section>
     );

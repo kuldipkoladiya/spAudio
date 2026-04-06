@@ -6,11 +6,11 @@ import { Menu, X, Home, Info, Package, Wrench, Phone } from "lucide-react";
 
 /* ✅ FIX: store icon as component */
 const navLinks = [
-    { name: "home", icon: Home },
-    { name: "about", icon: Info },
-    { name: "products", icon: Package },
-    { name: "services", icon: Wrench },
-    { name: "contact", icon: Phone },
+    { name: "home", icon: Home, path: "/" }, // ✅ FIX
+    { name: "about", icon: Info, path: "/about" },
+    { name: "products", icon: Package, path: "/products" },
+    // { name: "services", icon: Wrench, path: "/services" },
+    { name: "contact", icon: Phone, path: "/contact" },
 ];
 
 export default function Header() {
@@ -42,7 +42,7 @@ export default function Header() {
                         return (
                             <Link
                                 key={link.name}
-                                href={`/${link.name}`}
+                                href={link.path}
                                 className="relative group capitalize flex items-center gap-2"
                             >
                                 <Icon size={18} />
@@ -99,7 +99,7 @@ export default function Header() {
                             return (
                                 <Link
                                     key={link.name}
-                                    href={`/${link.name}`}
+                                    href={link.path}
                                     onClick={() => setIsOpen(false)}
                                     className="flex items-center gap-3"
                                 >

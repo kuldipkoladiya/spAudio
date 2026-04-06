@@ -121,11 +121,12 @@ export default function HeroSlider() {
                 <p className="mt-4 text-gray-300 text-sm sm:text-lg max-w-xl mx-auto">
                     We build powerful audio experiences that redefine how you hear music.
                 </p>
-
-                <button className="mt-8 px-8 py-3 bg-white text-black rounded-full font-semibold hover:scale-105 transition">
+               <a href="/products">
+                <button
+                    className="mt-8 px-8 py-3 bg-white text-black rounded-full font-semibold hover:scale-105 transition">
                     Explore Now
                 </button>
-
+               </a>
             </div>
         </section>
     );
