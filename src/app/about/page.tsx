@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -8,31 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ================= PAGE ================= */
 export default function About() {
-
-    /* ================= MOUSE GLOW ================= */
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const handleMouse = (e: any) => {
-            setMouse({ x: e.clientX, y: e.clientY });
-        };
-
-        window.addEventListener("mousemove", handleMouse);
-        return () => window.removeEventListener("mousemove", handleMouse);
-    }, []);
-
     return (
-        <div className="bg-[#020617] text-white font-sans relative overflow-hidden">
-
-            {/* 🔥 MOUSE GLOW EFFECT (ONLY ADDED) */}
-            <div
-                className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-blue-500/20 blur-[120px] z-0"
-                style={{
-                    left: mouse.x - 200,
-                    top: mouse.y - 200,
-                }}
-            />
-
+        <div className="bg-[#020617] text-white font-sans">
             <HeroSection />
             <AboutStory />
             <ImageSplit />
@@ -65,18 +42,18 @@ function HeroSection() {
     }, []);
 
     return (
-        <section className="py-32 md:py-40 text-center px-4 overflow-hidden relative z-10">
+        <section className="py-32 md:py-40 text-center px-4 overflow-hidden">
             <h1
                 ref={titleRef}
                 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight opacity-0"
             >
                 Redefining{" "}
                 <span className="relative inline-block">
-                    <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-                        Sound Experience
-                    </span>
-                    <span className="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-blue-400 to-purple-500"></span>
-                </span>
+          <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+            Sound Experience
+          </span>
+          <span className="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-blue-400 to-purple-500"></span>
+        </span>
             </h1>
 
             <p
@@ -164,38 +141,77 @@ function AboutStory() {
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen flex items-center justify-center overflow-hidden px-4 z-10"
+            className="relative h-screen flex items-center justify-center overflow-hidden px-4"
         >
+            {/* BG Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2),transparent_70%)]" />
 
             <div className="relative z-10 text-center w-full max-w-6xl mx-auto">
+
                 {frames.map((f, i) => (
                     <div
                         key={i}
                         className="absolute inset-0 flex flex-col items-center justify-center gap-4 sm:gap-6"
                     >
-                        <p ref={setRef(i, "top")} className="opacity-0 text-xs tracking-[0.3em] uppercase text-gray-400">
+                        {/* TOP */}
+                        <p
+                            ref={setRef(i, "top")}
+                            className="
+                opacity-0
+                text-[10px] sm:text-xs md:text-sm lg:text-base
+                tracking-[0.3em] md:tracking-[0.4em]
+                uppercase
+                text-gray-400
+              "
+                        >
                             {f.top}
                         </p>
 
-                        <h1 ref={setRef(i, "main")} className="opacity-0 text-[clamp(2.5rem,12vw,8rem)] font-black">
+                        {/* MAIN */}
+                        <h1
+                            ref={setRef(i, "main")}
+                            className="
+                opacity-0
+                text-[clamp(2.5rem,12vw,8rem)]
+                font-black
+                tracking-tight
+                leading-[0.9]
+              "
+                        >
                             {f.main}
                         </h1>
 
-                        <p ref={setRef(i, "bottom")} className="opacity-0 text-gray-300 max-w-xl">
+                        {/* BOTTOM (FIXED) */}
+                        <p
+                            ref={setRef(i, "bottom")}
+                            className="
+                opacity-0
+                mt-4 sm:mt-6 md:mt-8
+                text-xs sm:text-sm md:text-lg lg:text-xl
+                text-gray-300
+                max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl
+                mx-auto
+                leading-relaxed
+                whitespace-normal
+                break-normal
+                text-center
+              "
+                        >
                             {f.bottom}
                         </p>
+
                     </div>
                 ))}
+
             </div>
         </section>
     );
 }
 
-/* ================= IMAGE ================= */
+/* ================= IMAGE SPLIT ================= */
 function ImageSplit() {
     return (
-        <section className="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto relative z-10">
+        <section className="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             <img
                 src="/images/FeatureSection 2.png"
                 className="rounded-2xl h-[400px] w-full object-cover"
@@ -207,7 +223,7 @@ function ImageSplit() {
                 </h2>
 
                 <p className="mt-4 text-gray-400">
-                    Whether you're working, traveling, or relaxing — our audio adapts to your lifestyle.
+                    Whether you&apos;re working, traveling, or relaxing — our audio adapts to your lifestyle.
                 </p>
             </div>
         </section>
@@ -219,7 +235,7 @@ function Features() {
     const items = ["Deep Bass", "Wireless Freedom", "Premium Build"];
 
     return (
-        <section className="py-24 px-6 md:px-20 text-center relative z-10">
+        <section className="py-24 px-6 md:px-20 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 Why SPAudio
             </h2>
@@ -262,15 +278,14 @@ function CTA() {
     }, []);
 
     return (
-        <section ref={ref} className="py-28 text-center relative z-10">
+        <section ref={ref} className="py-28 text-center">
             <h2 className="text-3xl md:text-5xl font-bold">
                 Experience Sound Like Never Before
             </h2>
-            <a href="/products">
+
             <button className="mt-6 px-8 py-3 bg-white text-black rounded-full">
                 Explore Products
             </button>
-            </a>
         </section>
     );
 }

@@ -44,7 +44,7 @@ export default function ProductPage() {
     const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
-        const handleMouse = (e: any) => {
+        const handleMouse = (e: MouseEvent) => {
             setMouse({ x: e.clientX, y: e.clientY });
         };
 
@@ -101,7 +101,7 @@ export default function ProductPage() {
             });
 
             // PRODUCT ANIMATION
-            gsap["utils"].toArray(".product").forEach((el: any) => {
+            gsap["utils"].toArray<HTMLElement>(".product").forEach((el) => {
                 gsap.from(el, {
                     opacity: 0,
                     y: 80,

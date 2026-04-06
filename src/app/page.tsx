@@ -44,7 +44,7 @@ export default function Home() {
     const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
-        const handleMouse = (e: any) => {
+        const handleMouse = (e: MouseEvent) => {
             setMouse({ x: e.clientX, y: e.clientY });
         };
 

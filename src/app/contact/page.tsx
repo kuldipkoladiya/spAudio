@@ -50,7 +50,7 @@ export default function Contact() {
 
     /* ================= MOUSE GLOW ================= */
     useEffect(() => {
-        const handleMouse = (e: any) => {
+        const handleMouse = (e: MouseEvent) => {
             setMouse({ x: e.clientX, y: e.clientY });
         };
         window.addEventListener("mousemove", handleMouse);
@@ -58,7 +58,7 @@ export default function Contact() {
     }, []);
 
     /* ================= SUBMIT ================= */
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -196,11 +196,15 @@ export default function Contact() {
                         </div>
 
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+                            // type="submit"
+                            disabled={loading}
+                            whileHover={!loading ? { scale: 1.05 } : {}}
+                            whileTap={!loading ? { scale: 0.97 } : {}}
+                            className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-500 to-indigo-600
+             hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]
+             disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Let’s Connect 🚀
+                            {loading ? "Loading..." : "Let’s Connect 🚀"}
                         </motion.button>
 
                         <p className="text-xs text-gray-500 text-center">

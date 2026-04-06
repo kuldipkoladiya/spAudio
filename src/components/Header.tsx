@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Home, Info, Package, Wrench, Phone } from "lucide-react";
+import { Menu, X, Home, Info, Package, Phone } from "lucide-react";
 
 /* ✅ FIX: store icon as component */
 const navLinks = [
