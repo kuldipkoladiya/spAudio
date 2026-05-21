@@ -1,29 +1,29 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 
-export default function MagneticButton({children}:any){
+interface MagneticButtonProps {
+    children: React.ReactNode;
+}
 
+export default function MagneticButton({ children }: MagneticButtonProps) {
     const ref = useRef<HTMLButtonElement>(null);
 
-    const handleMouseMove=(e:any)=>{
+    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
 
-        const rect = ref.current!.getBoundingClientRect();
+        ref.current.style.transform = `translate(${x * 0.3}px,${y * 0.3}px)`;
+    };
 
-        const x = e.clientX - rect.left - rect.width/2;
-        const y = e.clientY - rect.top - rect.height/2;
+    const reset = () => {
+        if (!ref.current) return;
+        ref.current.style.transform = "translate(0px,0px)";
+    };
 
-        ref.current!.style.transform =
-            `translate(${x*0.3}px,${y*0.3}px)`;
-
-    }
-
-    const reset=()=>{
-        ref.current!.style.transform="translate(0px,0px)";
-    }
-
-    return(
-
+    return (
         <button
             ref={ref}
             onMouseMove={handleMouseMove}
@@ -32,7 +32,5 @@ export default function MagneticButton({children}:any){
         >
             {children}
         </button>
-
-    )
-
+    );
 }

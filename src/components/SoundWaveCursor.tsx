@@ -2,6 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+interface Ripple {
+    x: number;
+    y: number;
+    radius: number;
+    maxRadius: number;
+    alpha: number;
+    color: string;
+    speed: number;
+}
+
 export default function SoundWaveCursor() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -25,9 +35,9 @@ export default function SoundWaveCursor() {
         window.addEventListener("resize", handleResize);
         handleResize();
 
-        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        let cursor = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        let ripples: any[] = [];
+        const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        const cursor = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        const ripples: Ripple[] = [];
         let isHovered = false;
 
         const handleMouseMove = (e: MouseEvent) => {
