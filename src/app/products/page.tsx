@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import ProductTilt from "@/components/ProductTilt";
+import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +16,7 @@ const products = [
         category: "Speaker",
         img: "/images/product-5.jpeg",
         price: "₹12,999",
-        desc: `Thunder 8 delivers deep bass and powerful output with crystal-clear sound.
-Built for high-performance environments, it ensures immersive audio whether for home or professional use.`,
+        desc: `Thunder 8 delivers deep sub-bass frequencies and robust acoustic pressure. Built with premium internal dampening, it guarantees minimal turbulence and absolute clarity for home studios or live playback setups.`,
     },
     {
         id: 2,
@@ -23,8 +24,7 @@ Built for high-performance environments, it ensures immersive audio whether for 
         category: "Speaker",
         img: "/images/product-6.jpeg",
         price: "₹15,999",
-        desc: `Clarity Pro offers ultra-clear sound with perfect balance across frequencies.
-Ideal for studios and premium setups, it enhances every listening experience.`,
+        desc: `Clarity Pro offers ultra-linear acoustic reproduction with an optimized frequency response. Ideal for audiophiles and mixers who demand raw acoustic honesty and detailed nearfield dispersion.`,
     },
     {
         id: 3,
@@ -32,16 +32,14 @@ Ideal for studios and premium setups, it enhances every listening experience.`,
         category: "Amplifier",
         img: "/images/product-3.jpeg",
         price: "₹35,999",
-        desc: `AMP Ultra delivers unmatched power and stability.
-Designed with advanced cooling and optimized circuitry for long-lasting performance.`,
+        desc: `AMP Ultra supplies clean, low-distortion power. Engineered with a heavy toroidal transformer and passive cooling to drive demanding speaker loads while maintaining a silent noise floor.`,
     },
 ];
 
 export default function ProductPage() {
     const pageRef = useRef<HTMLDivElement>(null!);
-
-    /* ================= MOUSE GLOW ================= */
     const [mouse, setMouse] = useState({ x: 0, y: 0 });
+    const [activeTab, setActiveTab] = useState("All");
 
     useEffect(() => {
         const handleMouse = (e: MouseEvent) => {
@@ -56,73 +54,57 @@ export default function ProductPage() {
         if (!pageRef.current) return;
 
         const ctx = gsap.context(() => {
-            // HERO ANIMATION
+            // Hero typography entrance
             gsap.from(".hero-title", {
                 opacity: 0,
-                y: 50,
-                duration: 1,
+                y: 40,
+                duration: 1.2,
                 ease: "power3.out",
             });
 
             gsap.from(".hero-sub", {
                 opacity: 0,
-                y: 25,
-                delay: 0.3,
+                y: 20,
+                delay: 0.25,
                 duration: 1,
+                ease: "power2.out",
             });
 
-            gsap.fromTo(
-                ".hero-btn",
-                { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    delay: 0.6,
-                    duration: 1,
-                    ease: "power3.out",
-                }
-            );
-
-            // BACKGROUND FLOAT ANIMATION
+            // Float glowing blobs
             gsap.to(".glow-1", {
-                y: 30,
+                y: 20,
                 repeat: -1,
                 yoyo: true,
-                duration: 4,
+                duration: 5,
                 ease: "sine.inOut",
             });
 
             gsap.to(".glow-2", {
-                y: -30,
+                y: -20,
                 repeat: -1,
                 yoyo: true,
-                duration: 4,
+                duration: 5,
                 ease: "sine.inOut",
-            });
-
-            // PRODUCT ANIMATION
-            gsap["utils"].toArray<HTMLElement>(".product").forEach((el) => {
-                gsap.from(el, {
-                    opacity: 0,
-                    y: 80,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%",
-                    },
-                });
             });
         }, pageRef);
 
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div ref={pageRef} className="bg-[#020617] text-white overflow-hidden">
+    // Filter products list based on active tab
+    const filteredProducts = products.filter((product) => {
+        if (activeTab === "All") return true;
+        if (activeTab === "Speakers") return product.category === "Speaker";
+        if (activeTab === "Amplifiers") return product.category === "Amplifier";
+        return true;
+    });
 
-            {/* 🔥 MOUSE GLOW EFFECT (ADDED ONLY THIS) */}
+    return (
+        <div ref={pageRef} className="bg-[#020617] text-white overflow-hidden min-h-screen">
+
+            {/* 🔥 MOUSE GLOW BACKGROUND EFFECT */}
             <div
-                className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-blue-500/20 blur-[120px] z-0"
+                className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[130px] z-0"
                 style={{
                     left: mouse.x - 200,
                     top: mouse.y - 200,
@@ -134,100 +116,128 @@ export default function ProductPage() {
                 onMouseMove={(e) => {
                     const x = (e.clientX / window.innerWidth - 0.5) * 20;
                     const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-                    gsap.to(".glow-1", { x, y, duration: 0.5 });
-                    gsap.to(".glow-2", { x: -x, y: -y, duration: 0.5 });
+                    gsap.to(".glow-1", { x, y, duration: 0.6 });
+                    gsap.to(".glow-2", { x: -x, y: -y, duration: 0.6 });
                 }}
-                className="relative h-[65vh] md:h-[80vh] flex items-center justify-center text-center px-6 overflow-hidden"
+                className="relative h-[60vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden border-b border-white/5"
             >
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-50" />
 
-                {/* BACKGROUND */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="glow-1 absolute w-[350px] h-[350px] bg-blue-500/20 blur-[120px] top-[10%] left-[10%]" />
-                    <div className="glow-2 absolute w-[350px] h-[350px] bg-purple-500/20 blur-[120px] bottom-[10%] right-[10%]" />
+                    <div className="glow-1 absolute w-[300px] h-[300px] bg-cyan-500/10 blur-[110px] top-[15%] left-[15%]" />
+                    <div className="glow-2 absolute w-[300px] h-[300px] bg-purple-500/10 blur-[110px] bottom-[15%] right-[15%]" />
                 </div>
 
-                {/* CONTENT */}
                 <div className="relative z-10 max-w-3xl">
-
-                    <h1 className="hero-title text-4xl md:text-6xl font-bold leading-tight">
-                        Experience Sound <br />
-                        <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-              Like Never Before
-            </span>
+                    <p className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-4 animate-pulse">
+                        SPAUDIO HARDWARE
+                    </p>
+                    <h1 className="hero-title text-4xl md:text-7xl font-black leading-none tracking-tight">
+                        UNCOMPROMISING <br />
+                        <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 text-transparent bg-clip-text">
+                            SONIC RIGS
+                        </span>
                     </h1>
 
-                    <p className="hero-sub mt-4 text-gray-400 text-base md:text-lg leading-relaxed">
-                        Premium speakers and amplifiers crafted for deep bass,
-                        crystal clarity, and powerful performance.
+                    <p className="hero-sub mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light">
+                        Explore our selection of premium high-impedance monitors and low-noise floor power amplifiers built for audio purists.
                     </p>
-
-                    <a
-                        href="#products"
-                        className="hero-btn mt-6 inline-block px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 transition opacity-100"
-                    >
-                        Explore Products
-                    </a>
-
                 </div>
-
             </section>
 
-            {/* ================= PRODUCTS ================= */}
-            <section id="products" className="px-6 md:px-16 py-24 space-y-28">
+            {/* ================= CATEGORY TABS ================= */}
+            <section className="py-12 px-6 flex justify-center items-center">
+                <div className="flex bg-white/5 border border-white/10 rounded-full p-1.5 backdrop-blur-md">
+                    {["All", "Speakers", "Amplifiers"].map((tab) => {
+                        const isActive = activeTab === tab;
+                        return (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 relative ${
+                                    isActive ? "text-black" : "text-gray-400 hover:text-white"
+                                }`}
+                            >
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeTabIndicator"
+                                        className="absolute inset-0 bg-white rounded-full z-0"
+                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                    />
+                                )}
+                                <span className="relative z-10">{tab}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            </section>
 
-                {products.map((product, index) => {
-                    const reverse = index % 2 !== 0;
+            {/* ================= PRODUCTS LIST ================= */}
+            <section id="products" className="px-6 md:px-20 py-16 max-w-7xl mx-auto space-y-32">
+                <AnimatePresence mode="popLayout">
+                    {filteredProducts.map((product, index) => {
+                        const reverse = index % 2 !== 0;
 
-                    return (
-                        <div
-                            key={product.id}
-                            className={`product grid md:grid-cols-2 gap-14 items-center ${
-                                reverse ? "md:flex-row-reverse" : ""
-                            }`}
-                        >
+                        return (
+                            <motion.div
+                                layout
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -30 }}
+                                transition={{ duration: 0.5 }}
+                                key={product.id}
+                                className={`grid md:grid-cols-2 gap-12 md:gap-20 items-center ${
+                                    reverse ? "md:flex-row-reverse" : ""
+                                }`}
+                            >
+                                {/* CARD WRAPPER WITH TILT */}
+                                <div className={`flex justify-center ${reverse ? "md:order-2" : ""}`}>
+                                    <ProductTilt>
+                                        <div className="relative group p-6 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-cyan-500/40 shadow-2xl transition duration-500 max-w-[420px]">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-15 transition duration-500 pointer-events-none" />
+                                            <img
+                                                src={product.img}
+                                                className="relative w-full h-[280px] sm:h-[340px] object-contain rounded-2xl group-hover:scale-105 transition duration-500"
+                                                alt={product.name}
+                                            />
+                                        </div>
+                                    </ProductTilt>
+                                </div>
 
-                            {/* IMAGE */}
-                            <div className="flex justify-center">
-                                <img
-                                    src={product.img}
-                                    className="w-full max-w-[450px] object-contain hover:scale-105 transition duration-500"
-                                />
-                            </div>
+                                {/* CONTENT */}
+                                <div className={reverse ? "md:order-1" : ""}>
+                                    <div className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] bg-cyan-950 text-cyan-400 border border-cyan-500/20 uppercase mb-4">
+                                        {product.category}
+                                    </div>
 
-                            {/* CONTENT */}
-                            <div>
+                                    <h2 className="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+                                        {product.name}
+                                    </h2>
 
-                                <p className="text-sm text-blue-400 uppercase tracking-widest mb-3">
-                                    {product.category}
-                                </p>
+                                    <p className="mt-6 text-gray-400 text-sm sm:text-base leading-relaxed font-light max-w-xl">
+                                        {product.desc}
+                                    </p>
 
-                                <h2 className="text-3xl md:text-5xl font-bold">
-                                    {product.name}
-                                </h2>
+                                    <div className="mt-8 flex items-baseline gap-4">
+                                        <span className="text-gray-500 text-xs font-semibold tracking-wider uppercase">Price</span>
+                                        <p className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-400 to-indigo-400 text-transparent bg-clip-text">
+                                            {product.price}
+                                        </p>
+                                    </div>
 
-                                <p className="mt-6 text-gray-400 text-lg leading-relaxed whitespace-pre-line max-w-xl">
-                                    {product.desc}
-                                </p>
-
-                                <p className="mt-6 text-2xl font-semibold">
-                                    {product.price}
-                                </p>
-
-                                <a
-                                    href={`https://wa.me/919638470305?text=Hi, I'm interested in ${product.name}`}
-                                    target="_blank"
-                                    className="mt-8 inline-block px-6 py-3 rounded-full border border-white/20 hover:border-blue-400 hover:text-blue-400 transition"
-                                >
-                                    Inquiry Now
-                                </a>
-
-                            </div>
-
-                        </div>
-                    );
-                })}
-
+                                    <a
+                                        href={`https://wa.me/919638470305?text=Hi, I'm interested in SPAudio ${product.name}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-8 inline-block px-8 py-3.5 rounded-full border border-white/10 hover:border-cyan-400 text-white font-semibold bg-white/5 hover:text-cyan-400 backdrop-blur-md transition-all duration-300 hover:scale-[1.03]"
+                                    >
+                                        Inquiry on WhatsApp 💬
+                                    </a>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </AnimatePresence>
             </section>
 
         </div>

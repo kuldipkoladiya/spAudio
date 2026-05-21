@@ -25,6 +25,7 @@ const inter = Inter({
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ClientWrapper from '@/components/ClientWrapper';
 
 export default function RootLayout({
   children,
@@ -36,10 +37,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
-        <Header />
-        <main className="flex-grow">{children}
-          <Toaster position="top-right" /></main>
-        <Footer />
+        <ClientWrapper>
+          <Header />
+          <main className="flex-grow">{children}
+            <Toaster position="top-right" /></main>
+          <Footer />
+        </ClientWrapper>
       </body>
     </html>
   );

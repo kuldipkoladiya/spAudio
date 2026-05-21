@@ -3,13 +3,18 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ================= PAGE ================= */
 export default function About() {
     return (
-        <div className="bg-[#020617] text-white font-sans">
+        <div className="bg-[#020617] text-white font-sans overflow-hidden">
+            {/* Ambient gradients */}
+            <div className="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
+
             <HeroSection />
             <AboutStory />
             <ImageSplit />
@@ -29,44 +34,49 @@ function HeroSection() {
 
         tl.fromTo(
             titleRef.current,
-            { opacity: 0, y: 60 },
+            { opacity: 0, y: 50 },
             { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
         );
 
         tl.fromTo(
             subtitleRef.current,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-            "-=0.6"
+            "-=0.7"
         );
     }, []);
 
     return (
-        <section className="py-32 md:py-40 text-center px-4 overflow-hidden">
+        <section className="py-28 md:py-36 text-center px-6 relative">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-40" />
+            
+            <p className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-4 animate-pulse">
+                OUR AUDIO MANIFESTO
+            </p>
             <h1
                 ref={titleRef}
-                className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight opacity-0"
+                className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight leading-none opacity-0"
             >
-                Redefining{" "}
+                REDEFINING THE <br />
                 <span className="relative inline-block">
-          <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-            Sound Experience
-          </span>
-          <span className="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-blue-400 to-purple-500"></span>
-        </span>
+                    <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 text-transparent bg-clip-text">
+                        SOUND SPECTRUM
+                    </span>
+                    <span className="absolute inset-0 blur-3xl opacity-20 bg-gradient-to-r from-cyan-400 to-purple-500"></span>
+                </span>
             </h1>
 
             <p
                 ref={subtitleRef}
-                className="mt-6 text-gray-400 max-w-xl mx-auto text-lg opacity-0"
+                className="mt-8 text-gray-400 max-w-xl mx-auto text-base sm:text-lg font-light leading-relaxed opacity-0"
             >
-                Crafted for clarity. Built for performance. Designed for you.
+                Every voice, every chord, every beat. Engineered with acoustic precision, tuned for emotional purity.
             </p>
         </section>
     );
 }
 
-/* ================= GSAP STORY ================= */
+/* ================= GSAP PINNED STORY ================= */
 function AboutStory() {
     const sectionRef = useRef<HTMLDivElement>(null!);
 
@@ -93,19 +103,19 @@ function AboutStory() {
 
     const frames = [
         {
-            top: "Sound is emotion",
-            main: "FEEL EVERY NOTE",
-            bottom: "We create immersive audio experiences",
+            top: "Acoustic Connection",
+            main: "FEEL EVERY BEAT",
+            bottom: "We craft immersive audio rigs designed to pull you directly into the performance.",
         },
         {
-            top: "Engineered with precision",
-            main: "PURE PERFORMANCE",
-            bottom: "Every detail matters — inside and out",
+            top: "Precision Crafting",
+            main: "PURE SONIC OUTPUT",
+            bottom: "Every structural curve, every resonance chamber built with uncompromising materials.",
         },
         {
-            top: "Trusted globally",
-            main: "1M+ USERS",
-            bottom: "Built for those who expect more",
+            top: "Absolute Quality",
+            main: "BUILT FOR ENTHUSIASTS",
+            bottom: "Made for individuals who expect high resolution detail and rich dynamic range.",
         },
     ];
 
@@ -114,8 +124,8 @@ function AboutStory() {
             scrollTrigger: {
                 trigger: sectionRef.current,
                 start: "top top",
-                end: "+=500%",
-                scrub: 2,
+                end: "+=350%",
+                scrub: 1.5,
                 pin: true,
             },
         });
@@ -123,86 +133,60 @@ function AboutStory() {
         refs.current.forEach((frame) => {
             if (!frame?.top || !frame?.main || !frame?.bottom) return;
 
-            tl.fromTo(frame.top, { opacity: 0, y: 30 }, { opacity: 1, y: 0 });
-            tl.fromTo(frame.main, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1 });
-            tl.fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0 });
+            tl.fromTo(frame.top, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2 })
+              .fromTo(frame.main, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2 }, "-=1")
+              .fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1.2 }, "-=0.8");
 
-            tl.to({}, { duration: 1 });
+            tl.to({}, { duration: 1.5 }); // pause frame
 
             tl.to([frame.top, frame.main, frame.bottom], {
                 opacity: 0,
-                y: -40,
+                y: -30,
+                duration: 1.2
             });
         });
 
-        return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+        return () => {
+            ScrollTrigger.getAll().forEach((t) => t.kill());
+        };
     }, []);
 
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen flex items-center justify-center overflow-hidden px-4"
+            className="relative h-screen flex items-center justify-center overflow-hidden px-6 bg-slate-950/20 border-y border-white/5"
         >
-            {/* BG Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2),transparent_70%)]" />
+            {/* Background Soundwave Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.15),transparent_75%)] pointer-events-none" />
 
-            <div className="relative z-10 text-center w-full max-w-6xl mx-auto">
-
+            <div className="relative z-10 text-center w-full max-w-6xl mx-auto h-[300px]">
                 {frames.map((f, i) => (
                     <div
                         key={i}
                         className="absolute inset-0 flex flex-col items-center justify-center gap-4 sm:gap-6"
                     >
-                        {/* TOP */}
                         <p
                             ref={setRef(i, "top")}
-                            className="
-                opacity-0
-                text-[10px] sm:text-xs md:text-sm lg:text-base
-                tracking-[0.3em] md:tracking-[0.4em]
-                uppercase
-                text-gray-400
-              "
+                            className="opacity-0 text-[10px] sm:text-xs md:text-sm tracking-[0.4em] uppercase text-cyan-400 font-semibold"
                         >
                             {f.top}
                         </p>
 
-                        {/* MAIN */}
-                        <h1
+                        <h2
                             ref={setRef(i, "main")}
-                            className="
-                opacity-0
-                text-[clamp(2.5rem,12vw,8rem)]
-                font-black
-                tracking-tight
-                leading-[0.9]
-              "
+                            className="opacity-0 text-[clamp(2.2rem,8vw,6.5rem)] font-black tracking-tighter leading-none text-white"
                         >
                             {f.main}
-                        </h1>
+                        </h2>
 
-                        {/* BOTTOM (FIXED) */}
                         <p
                             ref={setRef(i, "bottom")}
-                            className="
-                opacity-0
-                mt-4 sm:mt-6 md:mt-8
-                text-xs sm:text-sm md:text-lg lg:text-xl
-                text-gray-300
-                max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl
-                mx-auto
-                leading-relaxed
-                whitespace-normal
-                break-normal
-                text-center
-              "
+                            className="opacity-0 mt-4 sm:mt-6 text-xs sm:text-sm md:text-lg text-gray-400 max-w-xl mx-auto leading-relaxed font-light text-center"
                         >
                             {f.bottom}
                         </p>
-
                     </div>
                 ))}
-
             </div>
         </section>
     );
@@ -211,42 +195,55 @@ function AboutStory() {
 /* ================= IMAGE SPLIT ================= */
 function ImageSplit() {
     return (
-        <section className="py-32 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            <img
-                src="/images/FeatureSection 2.png"
-                className="rounded-2xl h-[400px] w-full object-cover"
-            />
+        <section className="py-28 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500" />
+                <img
+                    src="/images/FeatureSection 2.png"
+                    className="relative rounded-2xl h-[350px] sm:h-[450px] w-full object-cover border border-white/10"
+                    alt="Engineered details"
+                />
+            </div>
 
             <div>
-                <h2 className="text-4xl md:text-5xl font-bold">
-                    Designed for Real Life
+                <p className="text-xs font-semibold tracking-[0.4em] text-cyan-400 uppercase mb-3">
+                    Crafted for Everyday Rhythms
+                </p>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                    DESIGNED FOR REAL DYNAMICS
                 </h2>
 
-                <p className="mt-4 text-gray-400">
-                    Whether you&apos;re working, traveling, or relaxing — our audio adapts to your lifestyle.
+                <p className="mt-6 text-gray-400 font-light leading-relaxed">
+                    Our units fit cleanly into your space while pushing optimal sound dynamics. From quiet acoustic listening sessions to high-energy studio master playbacks, SPAudio adapts to your specific listening environment.
                 </p>
             </div>
         </section>
     );
 }
 
-/* ================= FEATURES ================= */
+/* ================= WHY SPAUDIO ================= */
 function Features() {
-    const items = ["Deep Bass", "Wireless Freedom", "Premium Build"];
+    const items = [
+        { title: "Deep Resonant Bass", desc: "Acoustically tuned porting pipes that minimize turbulent air velocity." },
+        { title: "Low Noise Floor", desc: "Premium circuit paths that protect against system electromagnetic interference." },
+        { title: "Bespoke Material Finish", desc: "High-density cabinets chosen specifically for optimal acoustic impedance." }
+    ];
 
     return (
-        <section className="py-24 px-6 md:px-20 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                Why SPAudio
+        <section className="py-24 px-6 md:px-20 text-center bg-slate-950/10">
+            <h2 className="text-3xl md:text-5xl font-black mb-16 tracking-tight">
+                OUR CORE VALUES
             </h2>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 {items.map((item, i) => (
                     <div
                         key={i}
-                        className="p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:scale-105 transition"
+                        className="group relative p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-cyan-500/50 shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
                     >
-                        <h3 className="text-xl font-semibold">{item}</h3>
+                        <div className="absolute -inset-0.5 bg-gradient-to-b from-cyan-500 to-purple-500 rounded-2xl blur opacity-0 group-hover:opacity-10 transition duration-300 pointer-events-none" />
+                        <h3 className="text-xl font-bold mb-4 text-white tracking-wide">{item.title}</h3>
+                        <p className="text-gray-400 font-light text-sm leading-relaxed">{item.desc}</p>
                     </div>
                 ))}
             </div>
@@ -260,32 +257,46 @@ function CTA() {
 
     useEffect(() => {
         let t = 0;
+        let animationFrameId: number;
 
         function animate() {
-            t += 0.01;
+            t += 0.008;
 
             if (ref.current) {
                 ref.current.style.background = `
-          radial-gradient(circle at ${50 + Math.sin(t) * 30}% ${50 + Math.cos(t) * 30}%, #3b82f6, transparent),
-          radial-gradient(circle at ${50 + Math.cos(t) * 30}% ${50 + Math.sin(t) * 30}%, #a855f7, transparent)
-        `;
+                    radial-gradient(circle at ${50 + Math.sin(t) * 25}% ${50 + Math.cos(t) * 25}%, rgba(6, 182, 212, 0.25), transparent),
+                    radial-gradient(circle at ${50 + Math.cos(t) * 25}% ${50 + Math.sin(t) * 25}%, rgba(168, 85, 247, 0.25), transparent),
+                    #020617
+                `;
             }
 
-            requestAnimationFrame(animate);
+            animationFrameId = requestAnimationFrame(animate);
         }
 
         animate();
+        return () => cancelAnimationFrame(animationFrameId);
     }, []);
 
     return (
-        <section ref={ref} className="py-28 text-center">
-            <h2 className="text-3xl md:text-5xl font-bold">
-                Experience Sound Like Never Before
-            </h2>
+        <section ref={ref} className="py-24 sm:py-32 text-center border-t border-white/5 transition-all">
+            <div className="px-4 max-w-3xl mx-auto">
+                <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-none text-white">
+                    CHOOSE ABSOLUTE <br />
+                    <span className="bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
+                        SONIC PURITY
+                    </span>
+                </h2>
+                
+                <p className="mt-6 text-gray-400 font-light text-sm sm:text-lg">
+                    Check our premium active monitors and analog amplifiers.
+                </p>
 
-            <button className="mt-6 px-8 py-3 bg-white text-black rounded-full">
-                Explore Products
-            </button>
+                <Link href="/products">
+                    <button className="mt-10 px-8 py-3.5 bg-white text-black font-semibold rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/25">
+                        Explore Products
+                    </button>
+                </Link>
+            </div>
         </section>
     );
 }
