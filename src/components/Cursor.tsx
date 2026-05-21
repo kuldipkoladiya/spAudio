@@ -10,8 +10,8 @@ import Cursor from "@/components/Cursor";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-    const revealRefs = useRef<HTMLDivElement[]>([]);
-    const horizontal = useRef<HTMLDivElement>(null);
+    const revealRefs = useRef<HTMLElement[]>([]);
+    const horizontal = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const lenis = new Lenis();
@@ -47,7 +47,7 @@ export default function Home() {
                     trigger: horizontal.current,
                     pin: true,
                     scrub: 1,
-                    end: () => "+=" + (horizontal.current as HTMLDivElement).offsetWidth
+                    end: () => "+=" + (horizontal.current?.offsetWidth || 0)
                 }
             });
         }
