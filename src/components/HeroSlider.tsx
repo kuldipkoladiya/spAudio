@@ -36,7 +36,7 @@ export default function HeroSlider() {
 
         window.addEventListener("resize", handleResize);
 
-        let mouse = { x: width / 2, y: height / 2 };
+        const mouse = { x: width / 2, y: height / 2 };
         const handleMouseMove = (e: MouseEvent) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
