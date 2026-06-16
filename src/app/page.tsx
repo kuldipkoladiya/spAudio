@@ -281,8 +281,8 @@ function ProductCategories() {
 
 /* ================= SIGNATURE EXPERIENCE ================= */
 function SignatureExperience() {
-    const [viewMode, setViewMode] = useState<"render" | "real">("render");
-    const [selectedSpeaker, setSelectedSpeaker] = useState(0);
+    const [viewMode] = useState<"render" | "real">("render");
+    const [selectedSpeaker] = useState(0);
 
     const speakers = [
         {
