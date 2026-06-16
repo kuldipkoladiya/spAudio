@@ -141,10 +141,10 @@ function FeatureSection({ image, title, highlight, desc, reverse }: FeatureSecti
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center max-w-7xl mx-auto">
 
                 <div className={`${reverse ? "md:order-2" : ""} relative group`}>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-25 group-hover:opacity-45 transition duration-500" />
+                    <div className="absolute -inset-1 "/>
                     <img
                         src={image}
-                        className="relative w-full h-[280px] sm:h-[380px] md:h-[480px] object-cover rounded-2xl border border-white/10 group-hover:scale-[1.01] transition duration-500"
+                        className="relative w-full h-[280px] sm:h-[380px] md:h-[480px] object-cover rounded-xl group-hover:scale-[1.01] transition duration-500"
                         alt={title}
                     />
                 </div>
@@ -288,7 +288,7 @@ function SignatureExperience() {
         {
             name: "SPAudio Active Monitor",
             desc: "Custom-engineered high-power active stage monitor. Built with physical internal bracing to eliminate box colorations and deliver a completely flat frequency response.",
-            renderImg: "/images/render-speaker-1.png",
+            renderImg: "/images/RTGYDRFG.png",
             realImg: "/images/user-speaker-1.jpg",
             tag: "STAGE MONITOR",
         },
@@ -321,66 +321,23 @@ function SignatureExperience() {
                         {speakers[selectedSpeaker].desc}
                     </p>
 
-                    {/* Selector Buttons */}
-                    <div className="flex flex-col gap-4 sm:flex-row mb-8">
-                        {speakers.map((s, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setSelectedSpeaker(idx)}
-                                className={`px-5 py-3 rounded-xl border text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
-                                    selectedSpeaker === idx
-                                        ? "bg-gradient-to-r from-cyan-500 to-purple-600 border-transparent text-white"
-                                        : "border-white/10 text-gray-400 hover:border-cyan-400/50 hover:text-white bg-white/5"
-                                }`}
-                            >
-                                {s.name}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Toggle View Mode */}
-                    <div className="inline-flex bg-white/5 border border-white/10 p-1 rounded-xl">
-                        <button
-                            onClick={() => setViewMode("render")}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                                viewMode === "render"
-                                    ? "bg-cyan-500 text-black shadow-lg"
-                                    : "text-gray-400 hover:text-white"
-                            }`}
-                        >
-                            Designer Render
-                        </button>
-                        <button
-                            onClick={() => setViewMode("real")}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                                viewMode === "real"
-                                    ? "bg-purple-600 text-white shadow-lg"
-                                    : "text-gray-400 hover:text-white"
-                            }`}
-                        >
-                            Real-World Build
-                        </button>
-                    </div>
                 </div>
 
                 {/* Speaker Display Card */}
                 <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-3xl blur-xl opacity-20 group-hover:opacity-35 transition duration-500 pointer-events-none" />
+                    <div className="absolute -inset-1  pointer-events-none" />
                     
-                    <div className="relative rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 p-4 sm:p-8 flex items-center justify-center min-h-[380px] sm:min-h-[480px] overflow-hidden shadow-2xl backdrop-blur-md">
-                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.25em] bg-black/60 border border-white/10 uppercase z-10">
-                            {speakers[selectedSpeaker].tag}
-                        </span>
+
 
                         <img
                             key={`${selectedSpeaker}-${viewMode}`}
                             src={viewMode === "render" ? speakers[selectedSpeaker].renderImg : speakers[selectedSpeaker].realImg}
                             alt={speakers[selectedSpeaker].name}
-                            className={`max-w-full max-h-[300px] sm:max-h-[400px] object-contain rounded-2xl group-hover:scale-105 transition-all duration-500 animate-fadeIn ${
+                            className={`max-w-full max-h-[300px] sm:max-h-[400px] object-contain rounded-xl group-hover:scale-105 transition-all duration-500 animate-fadeIn ${
                                 viewMode === "real" ? "border border-white/10 shadow-lg shadow-black/50" : ""
                             }`}
                         />
-                    </div>
+
                 </div>
 
             </div>
