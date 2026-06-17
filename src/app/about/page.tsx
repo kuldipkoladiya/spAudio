@@ -199,7 +199,7 @@ function ImageSplit() {
             <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500" />
                 <img
-                    src="/images/FeatureSection 2.png"
+                    src="/images/amp3.png"
                     className="relative rounded-2xl h-[350px] sm:h-[450px] w-full object-cover border border-white/10"
                     alt="Engineered details"
                 />

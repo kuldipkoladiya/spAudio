@@ -30,7 +30,7 @@ const products = [
         id: 3,
         name: "AMP Ultra",
         category: "Amplifier",
-        img: "/images/product-3.jpeg",
+        img: "/images/amp1.png",
         price: "₹35,999",
         desc: `AMP Ultra supplies clean, low-distortion power. Engineered with a heavy toroidal transformer and passive cooling to drive demanding speaker loads while maintaining a silent noise floor.`,
     },
@@ -175,7 +175,7 @@ export default function ProductPage() {
             {/* ================= PRODUCTS LIST ================= */}
             <section id="products" className="px-6 md:px-20 py-16 max-w-7xl mx-auto space-y-32">
                 <AnimatePresence mode="popLayout">
-                    {filteredProducts.map((product, index) => {
+                    {(filteredProducts.map((product, index) => {
                         const reverse = index % 2 !== 0;
 
                         return (
@@ -236,7 +236,7 @@ export default function ProductPage() {
                                 </div>
                             </motion.div>
                         );
-                    })}
+                    }) as any)}
                 </AnimatePresence>
             </section>
 

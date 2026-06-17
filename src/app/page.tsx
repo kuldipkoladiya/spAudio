@@ -217,13 +217,13 @@ function ProductCategories() {
         {
             name: "Speakers",
             desc: "Feel every physical sub-bass beat with premium active studio speakers.",
-            img: "/images/FeatureSection 2.png",
+            img: "/images/spkr1.png",
             link: "/products",
         },
         {
             name: "Amps",
             desc: "Power your performance with custom low-noise stereo amplifiers.",
-            img: "/images/product-7.jpeg",
+            img: "/images/amp2.png",
             link: "/products",
         },
     ];
@@ -399,7 +399,9 @@ function SpeakerShowcase() {
     const images = [
         "/images/FeatureSection 1.png",
         "/images/FeatureSection 2.png",
-        "/images/SpeakerShowcase.png",
+        // "/images/SpeakerShowcase.png",
+        "/images/amp1.png",
+        "/images/amp2.png",
     ];
 
     return (
@@ -447,7 +449,7 @@ function BrandExperience() {
             <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition duration-500" />
                 <img 
-                    src="/images/FeatureSection 1.png" 
+                    src="/images/spkr2.png"
                     className="relative rounded-2xl border border-white/10 w-full object-cover" 
                     alt="Brand Design"
                 />
