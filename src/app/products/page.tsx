@@ -236,7 +236,7 @@ export default function ProductPage() {
                                 </div>
                             </motion.div>
                         );
-                    }) as any)}
+                    }) as React.ReactNode)}
                 </AnimatePresence>
             </section>
 
