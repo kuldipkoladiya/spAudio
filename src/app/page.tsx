@@ -6,7 +6,7 @@ import { StickyCardsSection } from "@/components/StickyCards";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Carousel as AppleCarousel, Card as AppleCard } from "@/components/ui/apple-cards-carousel";
 
 /* ── SCROLL REVEAL ───────────────────────────────── */
