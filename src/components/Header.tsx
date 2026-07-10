@@ -1,126 +1,272 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Home, Info, Package, Phone } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-/* ✅ FIX: store icon as component */
 const navLinks = [
-    { name: "home", icon: Home, path: "/" }, // ✅ FIX
-    { name: "about", icon: Info, path: "/about" },
-    { name: "products", icon: Package, path: "/products" },
-    // { name: "services", icon: Wrench, path: "/services" },
-    { name: "contact", icon: Phone, path: "/contact" },
+    { label: "Home", href: "/" },
+    {
+        label: "Products",
+        href: "/products",
+        children: [
+            { label: "Loudspeakers", href: "/products" },
+            { label: "Subwoofers", href: "/products" },
+            { label: "Amplifiers", href: "/products" },
+            { label: "Accessories", href: "/products" },
+        ],
+    },
+    { label: "Solutions", href: "/services" },
+    { label: "About Us", href: "/about" },
+    { label: "Projects", href: "/story" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const pathname = usePathname();
 
-    // 🔒 Lock scroll
     useEffect(() => {
-        document.body.style.overflow = isOpen ? "hidden" : "auto";
-    }, [isOpen]);
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    useEffect(() => {
+        setIsOpen(false);
+        setActiveDropdown(null);
+    }, [pathname]);
 
     return (
-        <header className="absolute top-0 left-0 w-full z-50 bg-transparent">
+        <header
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+                scrolled
+                    ? "bg-white/95 backdrop-blur-xl shadow-[0_1px_20px_rgba(0,0,0,0.08)]"
+                    : "bg-white/90 backdrop-blur-md"
+            }`}
+        >
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                <div className="flex items-center justify-between h-[68px]">
 
-            {/* NAVBAR */}
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 py-5">
-
-                {/* LOGO */}
-                <Link
-                    href="/"
-                    className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text"
-                >
-                    SPAudio
-                </Link>
-
-                {/* 💻 DESKTOP */}
-                <nav className="hidden md:flex items-center gap-8 text-white font-medium">
-                    {navLinks.map((link) => {
-                        const Icon = link.icon; // ✅ FIX
-                        return (
-                            <Link
-                                key={link.name}
-                                href={link.path}
-                                className="relative group capitalize flex items-center gap-2"
-                            >
-                                <Icon size={18} />
-                                {link.name}
-
-                                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
-                            </Link>
-                        );
-                    })}
-
-                    {/* CTA */}
-                    <Link
-                        href="/products"
-                        className="ml-4 px-5 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm hover:scale-105 transition"
-                    >
-                        Shop Now
+                    {/* ── Logo ─────────────────────────────── */}
+                    <Link href="/" className="flex items-center flex-shrink-0 group">
+                        <Image
+                            src="/images/spaudio logo png.png"
+                            alt="SP Audio Logo"
+                            width={100}
+                            height={24}
+                            priority
+                            className="h-[18px] w-auto md:h-[22px] transition-all duration-300"
+                        />
                     </Link>
-                </nav>
 
-                {/* 📱 MOBILE */}
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="md:hidden text-white"
-                >
-                    <Menu size={28} />
-                </button>
-            </div>
-
-            {/* 📱 MOBILE MENU */}
-            <div
-                className={`fixed inset-0 z-[999] transition-transform duration-500 ${
-                    isOpen ? "translate-x-0" : "translate-x-full"
-                }`}
-            >
-                {/* BG */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0B1120] via-[#1e1b4b] to-[#312e81]" />
-
-                <div className="relative flex flex-col h-full text-white">
-
-                    {/* TOP */}
-                    <div className="flex justify-between items-center px-6 py-5 border-b border-white/10">
-                        <h1 className="text-xl font-bold">SPAudio</h1>
-
-                        <button onClick={() => setIsOpen(false)}>
-                            <X size={28} />
-                        </button>
-                    </div>
-
-                    {/* MENU */}
-                    <div className="flex flex-col items-center justify-center flex-1 gap-8 text-xl font-semibold">
-
-                        {navLinks.map((link) => {
-                            const Icon = link.icon; // ✅ FIX
-                            return (
+                    {/* ── Desktop Nav ──────────────────────── */}
+                    <nav className="hidden lg:flex items-center gap-0.5">
+                        {navLinks.map((link) => (
+                            <div
+                                key={link.label}
+                                className="relative"
+                                onMouseEnter={() => link.children && setActiveDropdown(link.label)}
+                                onMouseLeave={() => setActiveDropdown(null)}
+                            >
                                 <Link
-                                    key={link.name}
-                                    href={link.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center gap-3"
+                                    href={link.href}
+                                    className={`font-display flex items-center gap-1 px-3.5 py-2 text-[13.5px] font-medium transition-colors duration-150 rounded-md ${
+                                        pathname === link.href
+                                            ? "text-[#0f1f3d]"
+                                            : "text-[#374151] hover:text-[#0f1f3d]"
+                                    }`}
                                 >
-                                    <Icon size={22} />
-                                    <span className="capitalize">{link.name}</span>
+                                    <motion.span initial="initial" whileHover="hovered" className="flex items-center gap-1">
+                                        <TextRoll>{link.label}</TextRoll>
+                                        {link.children && (
+                                            <ChevronDown
+                                                size={13}
+                                                className={`text-[#9ca3af] transition-transform duration-200 ${
+                                                    activeDropdown === link.label ? "rotate-180" : ""
+                                                }`}
+                                            />
+                                        )}
+                                    </motion.span>
                                 </Link>
-                            );
-                        })}
 
-                        <Link
-                            href="/products"
-                            onClick={() => setIsOpen(false)}
-                            className="mt-6 px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                        >
-                            Shop Now
+                                {/* Dropdown */}
+                                {link.children && (
+                                    <div
+                                        className={`absolute top-full left-0 mt-1 w-52 bg-white border border-[#e5e7eb] rounded-xl shadow-xl shadow-black/10 py-1.5 transition-all duration-200 ${
+                                            activeDropdown === link.label
+                                                ? "opacity-100 translate-y-0 pointer-events-auto"
+                                                : "opacity-0 -translate-y-2 pointer-events-none"
+                                        }`}
+                                    >
+                                        {link.children.map((child) => (
+                                            <Link
+                                                key={child.label}
+                                                href={child.href}
+                                                className="flex items-center px-4 py-2.5 text-sm text-[#374151] hover:text-[#0f1f3d] hover:bg-[#f3f4f6] transition-colors duration-150"
+                                            >
+                                                <motion.span initial="initial" whileHover="hovered">
+                                                    <TextRoll>{child.label}</TextRoll>
+                                                </motion.span>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </nav>
+
+                    {/* ── CTA Button ───────────────────────── */}
+                    <div className="hidden lg:flex">
+                        <Link href="/contact">
+                            <button className="flex items-center gap-2 px-6 py-2.5 bg-[#0f1f3d] hover:bg-[#162d57] text-white text-[13.5px] font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#0f1f3d]/25 hover:scale-[1.02]">
+                                Get In Touch
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
                         </Link>
-
                     </div>
+
+                    {/* ── Mobile Toggle ────────────────────── */}
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg text-[#0f1f3d] hover:bg-[#f3f4f6] transition-colors"
+                        aria-label="Toggle menu"
+                    >
+                        {isOpen ? <X size={22} /> : <Menu size={22} />}
+                    </button>
                 </div>
             </div>
 
+            {/* ── Mobile Menu ──────────────────────────────── */}
+            <div
+                className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+                    isOpen ? "max-h-screen" : "max-h-0"
+                }`}
+            >
+                <div className="bg-white border-t border-[#f0f0f0] px-5 py-4 space-y-1">
+                    {navLinks.map((link) => (
+                        <div key={link.label}>
+                            <Link
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                                    pathname === link.href
+                                        ? "bg-[#f0f4ff] text-[#0f1f3d] font-semibold"
+                                        : "text-[#374151] hover:bg-[#f9fafb] hover:text-[#0f1f3d]"
+                                }`}
+                            >
+                                {link.label}
+                            </Link>
+                            {link.children && (
+                                <div className="ml-4 mt-0.5 space-y-0.5">
+                                    {link.children.map((child) => (
+                                        <Link
+                                            key={child.label}
+                                            href={child.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex items-center px-4 py-2 rounded-lg text-xs text-[#6b7280] hover:text-[#0f1f3d] hover:bg-[#f9fafb] transition-colors"
+                                        >
+                                            {child.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                    <div className="pt-3 border-t border-[#f0f0f0]">
+                        <Link href="/contact" onClick={() => setIsOpen(false)}>
+                            <button className="w-full flex items-center justify-center gap-2 py-3 bg-[#0f1f3d] text-white text-sm font-semibold rounded-xl hover:bg-[#162d57] transition-colors">
+                                Get In Touch
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </header>
     );
 }
+
+const STAGGER = 0.035;
+
+const TextRoll: React.FC<{
+  children: string;
+  className?: string;
+  center?: boolean;
+}> = ({ children, className, center = false }) => {
+  return (
+    <span
+      className={`relative inline-block overflow-hidden ${className || ""}`}
+      style={{
+        lineHeight: 1.2,
+      }}
+    >
+      <span className="block">
+        {children.split("").map((l, i) => {
+          const delay = center
+            ? STAGGER * Math.abs(i - (children.length - 1) / 2)
+            : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: {
+                  y: 0,
+                },
+                hovered: {
+                  y: "-100%",
+                },
+              }}
+              transition={{
+                ease: "easeInOut",
+                delay,
+              }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+      <span className="absolute inset-0 block">
+        {children.split("").map((l, i) => {
+          const delay = center
+            ? STAGGER * Math.abs(i - (children.length - 1) / 2)
+            : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: {
+                  y: "100%",
+                },
+                hovered: {
+                  y: 0,
+                },
+              }}
+              transition={{
+                ease: "easeInOut",
+                delay,
+              }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+    </span>
+  );
+};

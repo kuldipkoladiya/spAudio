@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
@@ -46,12 +46,16 @@ export default function Contact() {
     });
 
     const [loading, setLoading] = useState(false);
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+    const glowRef = useRef<HTMLDivElement>(null);
 
     /* ================= MOUSE GLOW ================= */
     useEffect(() => {
+        const glow = glowRef.current;
+        if (!glow) return;
+
         const handleMouse = (e: MouseEvent) => {
-            setMouse({ x: e.clientX, y: e.clientY });
+            glow.style.left = `${e.clientX - 225}px`;
+            glow.style.top = `${e.clientY - 225}px`;
         };
         window.addEventListener("mousemove", handleMouse);
         return () => window.removeEventListener("mousemove", handleMouse);
@@ -91,8 +95,9 @@ export default function Contact() {
 
             {/* MOUSE GLOW */}
             <div
+                ref={glowRef}
                 className="hidden md:block pointer-events-none fixed w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[130px] z-0"
-                style={{ left: mouse.x - 225, top: mouse.y - 225 }}
+                style={{ left: "-450px", top: "-450px" }}
             />
 
             {/* ================= HERO ================= */}

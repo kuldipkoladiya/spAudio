@@ -1,92 +1,110 @@
 "use client";
 
-import { Facebook, Twitter, Instagram, Linkedin, LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 
-type SocialIconProps = {
-  Icon: LucideIcon;
+const footerLinks = {
+    Products: [
+        { label: "Loudspeakers", href: "/products" },
+        { label: "Subwoofers", href: "/products" },
+        { label: "Amplifiers", href: "/products" },
+        { label: "Line Arrays", href: "/products" },
+        { label: "Accessories", href: "/products" },
+    ],
+    Company: [
+        { label: "About Us", href: "/about" },
+        { label: "Our Story", href: "/story" },
+        { label: "Projects", href: "/story" },
+        { label: "Careers", href: "/careers" },
+        { label: "Blog", href: "/blog" },
+    ],
+    Support: [
+        { label: "Get a Quote", href: "/contact" },
+        { label: "Service Centers", href: "/contact" },
+        { label: "FAQ", href: "/faq" },
+        { label: "Privacy Policy", href: "/" },
+        { label: "Terms of Use", href: "/" },
+    ],
 };
 
+const socials = [
+    { Icon: Facebook, href: "#", label: "Facebook" },
+    { Icon: Instagram, href: "#", label: "Instagram" },
+    { Icon: Youtube, href: "#", label: "YouTube" },
+    { Icon: Linkedin, href: "#", label: "LinkedIn" },
+];
+
 export default function Footer() {
-  return (
-      <footer className="relative text-white overflow-hidden">
 
-        {/* 🔥 BG */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-[#0f172a] to-[#020617]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,#1d4ed8,transparent_40%)] opacity-40" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_80%,#9333EA,transparent_40%)] opacity-40" />
+    return (
+        <footer className="bg-[#0f1f3d] text-white overflow-hidden">
 
-        {/* CONTENT */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
-
-          <div className="grid md:grid-cols-4 gap-10">
-
-            {/* BRAND */}
-            <div>
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
-                SPAudio
-              </h2>
-              <p className="mt-4 text-gray-400 text-sm">
-                Premium sound experience with modern design and powerful performance.
-              </p>
+            {/* ── Giant Header Text at Top ─────────────────── */}
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-12 select-none pointer-events-none">
+                <h2 className="text-[9vw] lg:text-[7vw] font-black leading-none tracking-tighter text-white uppercase border-b border-white/10 pb-8">
+                    spaudio.com
+                </h2>
             </div>
 
-            {/* COMPANY */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li className="hover:text-white cursor-pointer">About</li>
-                <li className="hover:text-white cursor-pointer">Careers</li>
-                <li className="hover:text-white cursor-pointer">Blog</li>
-              </ul>
+            {/* ── Main Grid ───────────────────────────────── */}
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-10 pb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+
+                    {/* Brand */}
+                    <div className="lg:col-span-2">
+                        <Link href="/" className="inline-flex flex-col mb-4">
+                            <span className="text-[20px] font-black text-white tracking-tight leading-none">SP</span>
+                            <span className="text-[8px] font-bold tracking-[0.28em] text-white/60 uppercase leading-none mt-[2px]">AUDIO</span>
+                        </Link>
+                        <p className="text-white/50 text-sm leading-relaxed max-w-xs">
+                            Sound that Moves. Performance that Lasts. Professional audio, globally recognized for power, clarity, and reliability.
+                        </p>
+                        <div className="flex gap-2.5 mt-5">
+                            {socials.map(({ Icon, href, label }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    aria-label={label}
+                                    className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/8 border border-white/12 hover:bg-white/15 hover:border-white/25 text-white/60 hover:text-white transition-all duration-200"
+                                >
+                                    <Icon size={15} />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Link columns */}
+                    {Object.entries(footerLinks).map(([title, links]) => (
+                        <div key={title}>
+                            <h4 className="text-white text-xs font-bold tracking-[0.12em] uppercase mb-4">{title}</h4>
+                            <ul className="space-y-2.5">
+                                {links.map((link) => (
+                                    <li key={link.label}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-white/50 text-sm hover:text-white transition-colors duration-150"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+
+
+
+                {/* ── Bottom Bar ──────────────────────────────── */}
+                <div className="border-t border-white/10 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
+                    <p>© {new Date().getFullYear()} SP Audio. All rights reserved.</p>
+                    <div className="flex gap-5">
+                        <Link href="/" className="hover:text-white/60 transition-colors">Privacy Policy</Link>
+                        <Link href="/" className="hover:text-white/60 transition-colors">Terms of Use</Link>
+                        <Link href="/contact" className="hover:text-white/60 transition-colors">Contact</Link>
+                    </div>
+                </div>
             </div>
-
-            {/* SUPPORT */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li className="hover:text-white cursor-pointer">Help Center</li>
-                <li className="hover:text-white cursor-pointer">Privacy Policy</li>
-                <li className="hover:text-white cursor-pointer">Terms</li>
-              </ul>
-            </div>
-
-            {/* SOCIAL */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-
-              <div className="flex gap-4">
-                <SocialIcon Icon={Facebook} />
-                <SocialIcon Icon={Twitter} />
-                <SocialIcon Icon={Instagram} />
-                <SocialIcon Icon={Linkedin} />
-              </div>
-            </div>
-
-          </div>
-
-          <div className="border-t border-white/10 my-10" />
-
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
-            <p>© {new Date().getFullYear()} SPAudio. All rights reserved.</p>
-
-            <div className="flex gap-6">
-              <span className="hover:text-white cursor-pointer">Privacy</span>
-              <span className="hover:text-white cursor-pointer">Terms</span>
-              <span className="hover:text-white cursor-pointer">Contact</span>
-            </div>
-          </div>
-
-        </div>
-      </footer>
-  );
-}
-
-/* 🔥 SOCIAL ICON COMPONENT */
-
-function SocialIcon({ Icon }: SocialIconProps) {
-  return (
-      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition duration-300 hover:scale-110 cursor-pointer">
-        <Icon size={18} />
-      </div>
-  );
+        </footer>
+    );
 }

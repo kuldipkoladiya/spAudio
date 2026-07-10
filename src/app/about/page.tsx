@@ -49,7 +49,7 @@ function HeroSection() {
     return (
         <section className="py-28 md:py-36 text-center px-6 relative">
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-40" />
-            
+
             <p className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-4 animate-pulse">
                 OUR AUDIO MANIFESTO
             </p>
@@ -134,8 +134,8 @@ function AboutStory() {
             if (!frame?.top || !frame?.main || !frame?.bottom) return;
 
             tl.fromTo(frame.top, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2 })
-              .fromTo(frame.main, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2 }, "-=1")
-              .fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1.2 }, "-=0.8");
+                .fromTo(frame.main, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2 }, "-=1")
+                .fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1.2 }, "-=0.8");
 
             tl.to({}, { duration: 1.5 }); // pause frame
 
@@ -286,7 +286,7 @@ function CTA() {
                         SONIC PURITY
                     </span>
                 </h2>
-                
+
                 <p className="mt-6 text-gray-400 font-light text-sm sm:text-lg">
                     Check our premium active monitors and analog amplifiers.
                 </p>

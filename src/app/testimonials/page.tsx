@@ -1,57 +1,66 @@
 "use client";
 
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 export default function Testimonials() {
-    useEffect(() => {
-        AOS.init({ duration: 1000, once: true });
-    }, []);
+  const testimonials = [
+    {
+      quote:
+        "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
+      name: "Sarah Chen",
+      designation: "Product Manager at TechFlow",
+      src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote:
+        "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
+      name: "Michael Rodriguez",
+      designation: "CTO at InnovateSphere",
+      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote:
+        "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
+      name: "Emily Watson",
+      designation: "Operations Director at CloudScale",
+      src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote:
+        "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
+      name: "James Kim",
+      designation: "Engineering Lead at DataPro",
+      src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      quote:
+        "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
+      name: "Lisa Thompson",
+      designation: "VP of Technology at FutureNet",
+      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+  ];
 
-    const testimonials = [
-        {
-            name: "Alex Rivera",
-            role: "DJ & Producer",
-            quote: "SPAudio amps deliver insane power and precision. My setup has never sounded this clean.",
-        },
-        {
-            name: "Lena Morris",
-            role: "Home Audio Enthusiast",
-            quote: "The clarity and depth of their speakers blew me away. It is like a concert in my living room.",
-        },
-        {
-            name: "Mark Johnson",
-            role: "Custom Installer",
-            quote: "Reliable gear, sleek design, and unbeatable customer support. I recommend SPAudio to all my clients.",
-        },
-    ];
+  return (
+    <div className="bg-[#f8fafc] min-h-screen font-sans flex flex-col items-center justify-center pt-24 pb-12 px-6">
+      {/* Header */}
+      <section className="text-center mb-12 max-w-3xl mx-auto">
+        <span className="text-[#3b82f6] font-display text-[12px] font-extrabold tracking-[0.3em] uppercase mb-4 block">
+          Client Feedback
+        </span>
+        <h1 className="text-4xl sm:text-5xl font-black text-[#0f1f3d] tracking-tight leading-none">
+          What our partners say
+        </h1>
+        <p className="text-gray-500 mt-4 font-medium text-base sm:text-lg">
+          Discover how SP Audio delivers unmatched performance and value globally.
+        </p>
+      </section>
 
-    return (
-        <div className="bg-[#0a0a0a] text-white px-6 py-20 min-h-screen font-sans">
-            {/* Header */}
-            <section className="text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up">
-                <h1 className="text-5xl font-bold mb-4">Customer Testimonials</h1>
-                <p className="text-gray-400 text-lg">
-                    Hear what our users say about SPAudio&apos;s unmatched sound and service.
-                </p>
-            </section>
-
-            {/* Testimonials Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
-                {testimonials.map((testimonial, index) => (
-                    <div
-                        key={index}
-                        className="bg-[#1a1a1a] rounded-xl p-6 text-center"
-                        data-aos="zoom-in"
-                        data-aos-delay={index * 150}
-                    >
-                        <p className="text-gray-300 italic text-sm mb-4">&quot;{testimonial.quote}&quot;</p>
-                        <h3 className="text-lg font-semibold text-white">{testimonial.name}</h3>
-                        <p className="text-blue-500 text-sm">{testimonial.role}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+      {/* Main Interactive Testimonials Slider */}
+      <div className="w-full max-w-5xl bg-white rounded-[32px] shadow-xl border border-gray-100/50 p-4 sm:p-8">
+        <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+      </div>
+    </div>
+  );
 }

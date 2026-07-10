@@ -4,13 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add pages">
+    <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/Designed for Real Life.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/FeatureSection 1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/FeatureSection 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/about-1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/anthony-jacobson-t0X2QkjcRSE-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/asida_-eRp1ogul_gQ-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/bass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/caleb-woods-VVuRLhyTmXM-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/con-se-DTYxUowydHk-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/main.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-4.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product-8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/product3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/render-speaker-01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/sp logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/steven-aguilar-kHGf1DdbILE-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/story.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/stroy-2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/xhon-dang-wDQFdqKCA9I-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/videos/27669-365224683_tiny.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/videos/hero.mp4" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/about/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/products/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ClientWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ClientWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeroSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeroSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ScrollProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ScrollProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SoundWaveCursor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SoundWaveCursor.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +73,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/extraprojects/spaudio/public/images&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -50,6 +86,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\extraprojects\spaudio\public\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\extraprojects\spaudio\public\images" />
       <recent name="D:\extraprojects\spaudio\public\videos" />
@@ -76,7 +115,20 @@
       <workItem from="1774847712444" duration="1795000" />
       <workItem from="1774931305123" duration="1491000" />
       <workItem from="1775189389168" duration="7864000" />
-      <workItem from="1775444631204" duration="6308000" />
+      <workItem from="1775444631204" duration="6980000" />
+      <workItem from="1776258392829" duration="877000" />
+      <workItem from="1779254301192" duration="2038000" />
+      <workItem from="1779338926887" duration="16000" />
+      <workItem from="1781613824880" duration="2416000" />
+      <workItem from="1781636092335" duration="1252000" />
+      <workItem from="1781673162276" duration="12000" />
+      <workItem from="1781700653861" duration="3271000" />
+      <workItem from="1782213329111" duration="2932000" />
+      <workItem from="1782882561670" duration="7588000" />
+      <workItem from="1782910939686" duration="1371000" />
+      <workItem from="1782970899232" duration="7135000" />
+      <workItem from="1783059856383" duration="623000" />
+      <workItem from="1783319652320" duration="1157000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />
@@ -246,7 +298,39 @@
       <option name="project" value="LOCAL" />
       <updated>1775448507147</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix errors">
+      <option name="closed" value="true" />
+      <created>1775451487407</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1775451487407</updated>
+    </task>
+    <task id="LOCAL-00023" summary="ADD SOME IMAGES">
+      <option name="closed" value="true" />
+      <created>1781617810000</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1781617810000</updated>
+    </task>
+    <task id="LOCAL-00024" summary="FIX ERROR">
+      <option name="closed" value="true" />
+      <created>1781617999192</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1781617999192</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add image">
+      <option name="closed" value="true" />
+      <created>1781705586373</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1781705586373</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +352,6 @@
     <MESSAGE value="add app page code" />
     <MESSAGE value="fix all page error" />
     <MESSAGE value="add new home page" />
-    <MESSAGE value="fix errors" />
     <MESSAGE value="fix errors ref" />
     <MESSAGE value="fix errors footer" />
     <MESSAGE value="fix errors hero" />
@@ -276,30 +359,33 @@
     <MESSAGE value="add about page" />
     <MESSAGE value="fix error" />
     <MESSAGE value="add pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pages" />
+    <MESSAGE value="fix errors" />
+    <MESSAGE value="ADD SOME IMAGES" />
+    <MESSAGE value="FIX ERROR" />
+    <MESSAGE value="add image" />
+    <option name="LAST_COMMIT_MESSAGE" value="add image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/Header.tsx</url>
-          <line>40</line>
+          <line>53</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/about/page.tsx</url>
-          <line>22</line>
+          <line>179</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/page.tsx</url>
-          <line>138</line>
+          <line>50</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/about/page.tsx</url>
           <line>12</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

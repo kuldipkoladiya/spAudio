@@ -12,11 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
 const products = [
     {
         id: 1,
-        name: "Thunder 8",
+        name: "Passive 12",
         category: "Speaker",
         img: "/images/product-5.jpeg",
-        price: "₹12,999",
-        desc: `Thunder 8 delivers deep sub-bass frequencies and robust acoustic pressure. Built with premium internal dampening, it guarantees minimal turbulence and absolute clarity for home studios or live playback setups.`,
+        desc: `Professional 12-inch speaker enclosure delivering crystal-clear sound, powerful bass response, and reliable performance. Ideal for DJs, live events, auditoriums, stage applications, and professional sound reinforcement systems.`,
     },
     {
         id: 2,
@@ -38,12 +37,16 @@ const products = [
 
 export default function ProductPage() {
     const pageRef = useRef<HTMLDivElement>(null!);
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+    const glowRef = useRef<HTMLDivElement>(null);
     const [activeTab, setActiveTab] = useState("All");
 
     useEffect(() => {
+        const glow = glowRef.current;
+        if (!glow) return;
+
         const handleMouse = (e: MouseEvent) => {
-            setMouse({ x: e.clientX, y: e.clientY });
+            glow.style.left = `${e.clientX - 200}px`;
+            glow.style.top = `${e.clientY - 200}px`;
         };
 
         window.addEventListener("mousemove", handleMouse);
@@ -104,10 +107,11 @@ export default function ProductPage() {
 
             {/* 🔥 MOUSE GLOW BACKGROUND EFFECT */}
             <div
+                ref={glowRef}
                 className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[130px] z-0"
                 style={{
-                    left: mouse.x - 200,
-                    top: mouse.y - 200,
+                    left: "-400px",
+                    top: "-400px",
                 }}
             />
 
@@ -154,9 +158,8 @@ export default function ProductPage() {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 relative ${
-                                    isActive ? "text-black" : "text-gray-400 hover:text-white"
-                                }`}
+                                className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 relative ${isActive ? "text-black" : "text-gray-400 hover:text-white"
+                                    }`}
                             >
                                 {isActive && (
                                     <motion.div
@@ -186,9 +189,8 @@ export default function ProductPage() {
                                 exit={{ opacity: 0, y: -30 }}
                                 transition={{ duration: 0.5 }}
                                 key={product.id}
-                                className={`grid md:grid-cols-2 gap-12 md:gap-20 items-center ${
-                                    reverse ? "md:flex-row-reverse" : ""
-                                }`}
+                                className={`grid md:grid-cols-2 gap-12 md:gap-20 items-center ${reverse ? "md:flex-row-reverse" : ""
+                                    }`}
                             >
                                 {/* CARD WRAPPER WITH TILT */}
                                 <div className={`flex justify-center ${reverse ? "md:order-2" : ""}`}>
@@ -219,9 +221,9 @@ export default function ProductPage() {
                                     </p>
 
                                     <div className="mt-8 flex items-baseline gap-4">
-                                        <span className="text-gray-500 text-xs font-semibold tracking-wider uppercase">Price</span>
+                                        {/*<span className="text-gray-500 text-xs font-semibold tracking-wider uppercase">Price</span>*/}
                                         <p className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-400 to-indigo-400 text-transparent bg-clip-text">
-                                            {product.price}
+
                                         </p>
                                     </div>
 

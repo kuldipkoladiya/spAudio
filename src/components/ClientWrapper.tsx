@@ -29,7 +29,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
 
     return (
         <ScrollProvider>
-            <div className={`transition-opacity duration-1000 ${loading ? "opacity-0" : "opacity-100"}`}>
+            <div className={`transition-opacity duration-1000 overflow-x-hidden ${loading ? "opacity-0" : "opacity-100"}`}>
                 {loading && <Loader />}
                 <SoundWaveCursor />
                 {children}

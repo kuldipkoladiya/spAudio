@@ -30,6 +30,9 @@ export default function SoundWaveCursor() {
         const handleResize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            // Also reset the CSS so canvas never exceeds the viewport
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
         };
 
         window.addEventListener("resize", handleResize);
@@ -105,21 +108,22 @@ export default function SoundWaveCursor() {
             cursor.x += (mouse.x - cursor.x) * ease;
             cursor.y += (mouse.y - cursor.y) * ease;
 
-            // 1. Draw all active ripple wave trails
-            ripples.forEach((ripple, i) => {
+            // 1. Draw all active ripple wave trails (backward iteration allows safe splicing)
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const ripple = ripples[i];
                 ripple.radius += ripple.speed;
                 ripple.alpha -= 0.015;
 
-                ctx.beginPath();
-                ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `${ripple.color}${ripple.alpha})`;
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
                 if (ripple.alpha <= 0 || ripple.radius >= ripple.maxRadius) {
                     ripples.splice(i, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `${ripple.color}${ripple.alpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
                 }
-            });
+            }
 
             // 2. Draw outer expanding target ring
             const ringRadius = isHovered ? 26 : 14;
@@ -155,7 +159,8 @@ export default function SoundWaveCursor() {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed top-0 left-0 w-full h-full pointer-events-none z-[9999] hidden md:block"
+            style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", pointerEvents: "none", zIndex: 9999 }}
+            className="hidden md:block"
         />
     );
 }
