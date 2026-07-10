@@ -14,7 +14,7 @@ import Image from "next/image";
 const cn = (...classes: (string | boolean | undefined | null)[]) => classes.filter(Boolean).join(" ");
 
 interface CarouselProps {
-  items: JSX.Element[];
+  items: React.ReactNode[];
   initialScroll?: number;
 }
 
