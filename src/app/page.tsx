@@ -6,8 +6,7 @@ import { StickyCardsSection } from "@/components/StickyCards";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useInView } from "framer-motion";
-import { Carousel as AppleCarousel, Card as AppleCard } from "@/components/ui/apple-cards-carousel";
+import { motion, useInView } from "framer-motion";
 
 /* ── SCROLL REVEAL ───────────────────────────────── */
 function useReveal() {
@@ -25,6 +24,8 @@ function useReveal() {
     return ref;
 }
 
+import HoverImageReveal from "@/components/ui/HoverImageReveal";
+
 /* ══════════════════════════════════════════════════ */
 export default function Home() {
     return (
@@ -32,14 +33,64 @@ export default function Home() {
             <HeroSlider />
             <ScrollProgressSection />
             <StickyCardsSection />
+            <HoverImageRevealSection />
             
             <ProductsSection />
             <WhyChooseSection />
+            <TrustedBySection />
             
             <CustomSolutionsSection />
             <StatsSection />
             <BuildTogetherSection />
         </div>
+    );
+}
+
+function HoverImageRevealSection() {
+    const ref = useReveal();
+    const items = {
+        itemCount: 6,
+        item1: { text: "CONCERT LOUDSPEAKERS", image: { src: "/images/spkr2.png" }, link: "/products" },
+        item2: { text: "SUBWOOFER SYSTEMS", image: { src: "/images/FeatureSection_1.png" }, link: "/products" },
+        item3: { text: "POWER AMPLIFIERS", image: { src: "/images/amp2.png" }, link: "/products" },
+        item4: { text: "LINE ARRAY STACKS", image: { src: "/images/stack_1.png" }, link: "/products" },
+        item5: { text: "COLUMN ARRAYS", image: { src: "/images/stack_4.png" }, link: "/products" },
+        item6: { text: "SPECIALIZED ACOUSTICS", image: { src: "/images/SpeakerShowcase.png" }, link: "/products" },
+    };
+
+    return (
+        <section
+            ref={ref as React.RefObject<HTMLElement>}
+            className="hidden md:block sp-reveal bg-[#090d16] text-white py-20 md:py-28 border-b border-slate-800/80 overflow-visible relative"
+        >
+            <div className="max-w-7xl mx-auto px-5 text-center mb-10">
+                <span className="text-[#3b82f6] font-display text-xs font-extrabold tracking-[0.3em] uppercase mb-3 block">
+                    OUR PRODUCT CATALOG
+                </span>
+                <h3 className="font-display text-3xl sm:text-5xl font-black text-white">
+                    Hover To Discover Systems
+                </h3>
+            </div>
+            <div className="w-full min-h-[500px] flex items-center justify-center py-6">
+                <HoverImageReveal
+                    items={items}
+                    textColor="#FFFFFF"
+                    dimColor="#475569"
+                    backgroundColor="transparent"
+                    imageWidth={340}
+                    imageHeight={440}
+                    rowGap={20}
+                    align="center"
+                    font={{
+                        fontSize: "clamp(26px, 5vw, 54px)",
+                        fontWeight: 900,
+                        lineHeight: "1.1em",
+                        letterSpacing: "-0.03em",
+                        textAlign: "center",
+                    }}
+                />
+            </div>
+        </section>
     );
 }
 // Cleaned up old section code
@@ -50,7 +101,7 @@ const PRODUCTS = [
     {
         name: "SPX 15A",
         model: "Active Speaker",
-        power: "1200W Peak Power",
+        power: "1500W Peak Power",
         img: "/images/spkr2.png",
         cat: "Loudspeakers",
     },
@@ -62,16 +113,16 @@ const PRODUCTS = [
         cat: "Subwoofers",
     },
     {
-        name: "SPX SP",
-        model: "Stage Monitor",
+        name: "SPX 12P",
+        model: "Passive Speaker",
         power: "1000W Peak Power",
         img: "/images/RTGYDRFG.png",
         cat: "Loudspeakers",
     },
     {
         name: "SPA 4.8",
-        model: "Amplifier",
-        power: "4×2000W",
+        model: "Power Amplifier",
+        power: "4×2000W Power",
         img: "/images/amp2.png",
         cat: "Amplifiers",
     },
@@ -92,23 +143,23 @@ function ProductsSection() {
                 {/* Header */}
                 <div className="text-center mb-10">
                     <p className="font-display text-[11px] font-bold tracking-[0.25em] text-[#6b7280] uppercase mb-3">
-                        Our Products
+                        OUR PRODUCTS
                     </p>
                     <h2 className="font-display text-3xl sm:text-4xl md:text-[46px] font-black text-[#0f1f3d] leading-tight">
                         Built for professionals.
                     </h2>
                     <p className="mt-3 text-[#6b7280] text-sm max-w-md mx-auto">
-                        Discover a wide range of premium speakers and amps engineered for superior performance.
+                        Discover our range of premium speakers and audio equipment designed for superior performance.
                     </p>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-10">
+                <div className="flex flex-wrap gap-2 mb-10 justify-center">
                     {TABS.map((t) => (
                         <button
                             key={t}
                             onClick={() => setTab(t)}
-                            className={`font-display px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                            className={`font-display px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                                 tab === t
                                     ? "bg-[#0f1f3d] text-white shadow-md shadow-[#0f1f3d]/20"
                                     : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e5e7eb] hover:text-[#0f1f3d]"
@@ -124,23 +175,27 @@ function ProductsSection() {
                     {filtered.map((p, i) => (
                         <div
                             key={i}
-                            className="group bg-[#f7f8fc] rounded-2xl overflow-hidden border border-[#eaecf0] hover:border-[#0f1f3d]/20 hover:shadow-xl hover:shadow-black/8 transition-all duration-300 hover:-translate-y-1"
+                            className="group bg-white rounded-2xl overflow-hidden border border-[#eaecf0] hover:border-[#0f1f3d]/20 hover:shadow-xl hover:shadow-black/8 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
                         >
-                            <div className="h-52 overflow-hidden relative bg-[#eef0f5]">
-                                <Image
-                                    src={p.img}
-                                    alt={p.name}
-                                    fill
-                                    className="object-cover group-hover:scale-[1.06] transition-transform duration-500"
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                />
+                            <div>
+                                <div className="h-60 overflow-hidden relative bg-[#f8fafc] border-b border-[#f0f0f0] flex items-center justify-center p-6">
+                                    <Image
+                                        src={p.img}
+                                        alt={p.name}
+                                        fill
+                                        className="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                    />
+                                </div>
+                                <div className="p-5">
+                                    <h4 className="font-display font-black text-[#0f1f3d] text-lg mb-1">{p.name}</h4>
+                                    <p className="text-[#9ca3af] text-xs font-semibold uppercase tracking-wider mb-2">{p.model}</p>
+                                    <p className="text-[#6b7280] text-xs font-medium">{p.power}</p>
+                                </div>
                             </div>
-                            <div className="p-5 bg-white">
-                                <p className="text-[#9ca3af] text-xs mb-1">{p.model}</p>
-                                <h4 className="font-display font-black text-[#0f1f3d] text-lg">{p.name}</h4>
-                                <p className="text-[#d1d5db] text-xs mt-0.5">{p.power}</p>
+                            <div className="px-5 pb-5">
                                 <Link href="/products">
-                                    <button className="mt-4 w-full flex items-center justify-between text-[#0f1f3d] text-sm font-semibold pt-3 border-t border-[#f0f0f0] hover:text-[#162d57] transition-colors group/btn">
+                                    <button className="w-full flex items-center justify-between text-[#0f1f3d] text-xs sm:text-sm font-semibold pt-3 border-t border-[#f0f0f0] hover:text-[#3b82f6] transition-colors group/btn">
                                         <span>View Details</span>
                                         <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -255,135 +310,144 @@ function WhyChooseSection() {
     );
 }
 
-
-
-/* ── CUSTOM SOLUTIONS ────────────────────────────── */
-const DummyCardContent = ({ title, desc, imgSrc }: { title: string; desc: string; imgSrc: string }) => {
-  return (
-    <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4 text-[#0f1f3d] dark:text-white">
-      <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto leading-relaxed mb-8">
-        <span className="font-bold text-neutral-800 dark:text-neutral-200 block mb-3 text-lg md:text-3xl">
-          {title}
-        </span>
-        {desc}
-      </p>
-      <div className="relative h-64 md:h-96 w-full max-w-xl mx-auto rounded-2xl overflow-hidden bg-white/50 border border-gray-100 shadow-lg">
-        <Image
-          src={imgSrc}
-          alt={title}
-          fill
-          className="object-contain p-4"
-        />
-      </div>
-    </div>
-  );
-};
-
-function CustomSolutionsSection() {
-    const appleCarouselData = [
-        {
-            category: "Reference System",
-            title: "SP Audio DS Flagship Series.",
-            src: "/images/ds.png",
-            content: (
-                <DummyCardContent
-                    title="High-Fidelity Architectural Reference Sound"
-                    desc="Our signature high-power architectural sound system designed to stand out. Custom crossovers, premium drivers, and no compromise engineering."
-                    imgSrc="/images/ds.png"
-                />
-            ),
-        },
-        {
-            category: "Line Array",
-            title: "SPX 15A Active Touring Assembly.",
-            src: "/images/stack_1.png",
-            content: (
-                <DummyCardContent
-                    title="1200W Peak Professional Touring Cabinet"
-                    desc="Features custom-guided horn patterns, lightweight design, and active thermal cooling, delivering ultra-clear projection over massive audiences."
-                    imgSrc="/images/stack_1.png"
-                />
-            ),
-        },
-        {
-            category: "Subwoofer",
-            title: "SPX 18S Active Low Subwoofer.",
-            src: "/images/stack_2.png",
-            content: (
-                <DummyCardContent
-                    title="Massive Low Frequency Transient Response"
-                    desc="Baltic birch enclosure featuring a 18-inch high-excursion transducer with integrated active limiter protection for safe, high SPL low-end performance."
-                    imgSrc="/images/stack_2.png"
-                />
-            ),
-        },
-        {
-            category: "Amplifier",
-            title: "Onboard DSP Tuning & Power Control.",
-            src: "/images/stack_3.png",
-            content: (
-                <DummyCardContent
-                    title="Smart DSP Sound Processing & Safety Limits"
-                    desc="Integrated digital sound processors monitor thermal status and dynamic load lines in real-time to prevent sound distortion and system failure."
-                    imgSrc="/images/stack_3.png"
-                />
-            ),
-        },
-        {
-            category: "Column Array",
-            title: "Architectural Speaker Columns.",
-            src: "/images/stack_4.png",
-            content: (
-                <DummyCardContent
-                    title="Sleek Vertical Beam Directivity Control"
-                    desc="Extremely narrow vertical dispersion with wide horizontal coverage patterns. Designed for perfect speech and acoustic balances inside houses of worship."
-                    imgSrc="/images/stack_4.png"
-                />
-            ),
-        },
-    ];
-
-    const cards = appleCarouselData.map((card, index) => (
-        <AppleCard key={card.src} card={card} index={index} layout={true} />
-    ));
-
+/* ── TRUSTED BY ─────────────────────────────────── */
+function TrustedBySection() {
+    const ref = useReveal();
     return (
-        <section className="bg-white py-20 text-[#0f1f3d]">
-            <div className="max-w-7xl mx-auto px-4">
-                <span className="text-[#3b82f6] font-display text-[12px] font-extrabold tracking-[0.3em] uppercase mb-4 block text-center lg:text-left pl-4">
-                    Specialized Systems
+        <section
+            ref={ref as React.RefObject<HTMLElement>}
+            className="sp-reveal bg-white py-14 border-t border-b border-gray-100"
+        >
+            <div className="max-w-7xl mx-auto px-5 text-center">
+                <span className="text-[#3b82f6] font-display text-[10px] font-extrabold tracking-[0.25em] uppercase mb-2 block">
+                    TRUSTED BY
                 </span>
-                <h2 className="max-w-7xl pl-4 mx-auto text-3xl md:text-5xl font-black text-[#0f1f3d] tracking-tight leading-tight text-center lg:text-left font-display mb-10">
-                    Custom audio solutions <br /> for your unique needs.
-                </h2>
-                <AppleCarousel items={cards} />
+                <p className="text-sm font-semibold text-gray-500 mb-8 font-display">
+                    Proud to be part of incredible experiences.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-40 grayscale hover:opacity-75 transition-all duration-300">
+                    {/* ZEE Logo */}
+                    <div className="flex items-center gap-1 font-display font-black text-2xl tracking-tighter text-[#0f1f3d]">
+                        ZEE
+                    </div>
+                    {/* Colors Logo */}
+                    <div className="font-display font-bold text-xl tracking-wide text-[#0f1f3d]">
+                        colors
+                    </div>
+                    {/* Sunburn Logo */}
+                    <div className="font-display font-black text-lg tracking-[0.15em] text-[#0f1f3d]">
+                        SUNBURN
+                    </div>
+                    {/* BookMyShow Logo */}
+                    <div className="font-display font-extrabold text-lg tracking-tight text-[#0f1f3d] flex items-center">
+                        book<span className="font-medium text-xs border border-current px-1 py-0.5 rounded ml-0.5">my</span>show
+                    </div>
+                    {/* Wizcraft Logo */}
+                    <div className="font-display font-black text-lg tracking-wide text-[#0f1f3d] border-b-2 border-current pb-0.5">
+                        WIZCRAFT
+                    </div>
+                    {/* LiveNation Logo */}
+                    <div className="font-display font-extrabold text-xl tracking-tight text-[#0f1f3d] italic">
+                        LIVENATION
+                    </div>
+                    {/* OML Logo */}
+                    <div className="font-mono font-bold text-lg text-[#0f1f3d] tracking-widest bg-gray-100 px-2 py-0.5 rounded">
+                        ||| OML
+                    </div>
+                    {/* JBL Logo */}
+                    <div className="font-display font-black text-2xl text-[#0f1f3d] bg-gray-100 px-3 py-1 rounded-lg">
+                        JBL
+                    </div>
+                </div>
             </div>
         </section>
     );
 }
 
+/* ── CUSTOM SOLUTIONS ────────────────────────────── */
+function CustomSolutionsSection() {
+    const ref = useReveal();
+    return (
+        <section
+            ref={ref as React.RefObject<HTMLElement>}
+            className="sp-reveal bg-gradient-to-b from-white to-[#f8fafc] py-20 md:py-28 overflow-hidden text-[#0f1f3d]"
+        >
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    
+                    {/* Left content */}
+                    <div className="flex flex-col items-start text-left max-w-lg">
+                        <span className="text-[#3b82f6] font-display text-[11px] font-extrabold tracking-[0.25em] uppercase mb-4">
+                            Specialized Systems
+                        </span>
+                        <h2 className="font-display text-4xl sm:text-5xl font-black text-[#0f1f3d] leading-[1.15] tracking-tight mb-6">
+                            Custom audio solutions <br /> for your unique needs.
+                        </h2>
+                        <p className="text-[#6b7280] text-sm sm:text-base leading-relaxed mb-8 font-medium">
+                            We design and deliver tailor-made audio systems to match your venue, acoustics, and audience size perfectly. Let our engineering team design your coverage map.
+                        </p>
+                        <button className="group/btn flex items-center gap-2 px-8 py-4 bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-sm font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#3b82f6]/20 hover:scale-[1.02]">
+                            Request a Quote
+                            <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
 
-const AnimatedCounter = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
-    const [count, setCount] = useState(0);
-    const ref = useRef<HTMLSpanElement>(null);
+                    {/* Right speaker showcase image (no cutting from upper side) */}
+                    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[450px] flex items-center justify-center bg-transparent rounded-3xl overflow-hidden">
+                        <Image
+                            src="/images/SpeakerShowcase.png"
+                            alt="Custom Solutions"
+                            fill
+                            className="object-contain p-2 md:p-6 rounded-3xl"
+                            priority
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── STATS SECTION (Responsive Circular Design) ── */
+interface CircularStatRingProps {
+    value: number;
+    suffix?: string;
+    label: string;
+    targetPercent?: number;
+}
+
+const CircularStatRing = ({ value, suffix = "", label, targetPercent = 75 }: CircularStatRingProps) => {
+    const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const [count, setCount] = useState(0);
+
+    const baseSize = 180;
+    const strokeWidth = 8;
+    const center = baseSize / 2;
+    const radius = center - strokeWidth - 6;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (targetPercent / 100) * circumference;
 
     useEffect(() => {
         if (!isInView) return;
+        let start = 0;
         const end = value;
-        const duration = 2000;
+        const duration = 1800;
         const stepTime = 30;
         const steps = duration / stepTime;
         const increment = end / steps;
-        
-        let current = 0;
+
         const timer = setInterval(() => {
-            current += increment;
-            if (current >= end) {
+            start += increment;
+            if (start >= end) {
                 clearInterval(timer);
                 setCount(end);
             } else {
-                setCount(Math.floor(current));
+                setCount(Math.floor(start));
             }
         }, stepTime);
 
@@ -391,80 +455,94 @@ const AnimatedCounter = ({ value, suffix = "" }: { value: number; suffix?: strin
     }, [isInView, value]);
 
     return (
-        <span ref={ref} className="font-mono">
-            {count}
-            {suffix}
-        </span>
+        <div ref={ref} className="flex flex-col items-center justify-center group">
+            <div className="relative flex items-center justify-center w-[135px] h-[135px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] transition-transform duration-300 group-hover:scale-105">
+
+                {/* Solid Dark Center Disc */}
+                <div className="absolute inset-2 rounded-full bg-[#0d172a] border border-slate-700/60 shadow-xl flex flex-col items-center justify-center z-10" />
+
+                {/* Responsive Scaled SVG Progress Circle */}
+                <svg viewBox={`0 0 ${baseSize} ${baseSize}`} className="w-full h-full transform -rotate-90 relative z-20">
+                    {/* Outer Track Circle */}
+                    <circle
+                        cx={center}
+                        cy={center}
+                        r={radius}
+                        stroke="rgba(255, 255, 255, 0.12)"
+                        strokeWidth={strokeWidth}
+                        fill="transparent"
+                    />
+
+                    {/* Clean Green Arc */}
+                    <motion.circle
+                        cx={center}
+                        cy={center}
+                        r={radius}
+                        stroke="#22c55e"
+                        strokeWidth={strokeWidth}
+                        fill="transparent"
+                        strokeDasharray={circumference}
+                        initial={{ strokeDashoffset: circumference }}
+                        animate={isInView ? { strokeDashoffset } : { strokeDashoffset: circumference }}
+                        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                        strokeLinecap="round"
+                    />
+                </svg>
+
+                {/* Number & Label */}
+                <div className="absolute z-30 flex flex-col items-center justify-center text-center px-2 w-full">
+                    <span className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-none mb-1">
+                        {count}
+                        <span className="text-[#22c55e] ml-0.5">{suffix}</span>
+                    </span>
+                    <span className="font-display text-[8px] sm:text-[10px] md:text-[11px] font-extrabold tracking-[0.12em] text-slate-200 uppercase leading-tight max-w-[110px] sm:max-w-[130px]">
+                        {label}
+                    </span>
+                </div>
+            </div>
+        </div>
     );
 };
 
-/* ── STATS ───────────────────────────────────────── */
 function StatsSection() {
     const ref = useReveal();
     const stats = [
-        {
-            icon: (
-                <svg className="w-6 h-6 text-[#C2F84F]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-            ),
-            value: 10,
-            suffix: "+",
-            label: "Years of Excellence",
-        },
-        {
-            icon: (
-                <svg className="w-6 h-6 text-[#C2F84F]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-            ),
-            value: 1000,
-            suffix: "+",
-            label: "Units Installed",
-        },
-        {
-            icon: (
-                <svg className="w-6 h-6 text-[#C2F84F]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-            ),
-            value: 500,
-            suffix: "+",
-            label: "Installations",
-        },
-        {
-            icon: (
-                <svg className="w-6 h-6 text-[#C2F84F]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2m-4-3h1.5a2.5 2.5 0 012.5 2.5V12a9 9 0 11-18 0c0-1.77.51-3.41 1.39-4.81" />
-                </svg>
-            ),
-            value: 50,
-            suffix: "+",
-            label: "Countries Served",
-        },
+        { value: 10, suffix: "+", label: "YEARS EXCELLENCE", percent: 85 },
+        { value: 1000, suffix: "+", label: "EVENTS POWERED", percent: 95 },
+        { value: 500, suffix: "+", label: "INSTALLATIONS", percent: 78 },
+        { value: 50, suffix: "+", label: "COUNTRIES SERVED", percent: 65 },
     ];
 
     return (
         <section
             ref={ref as React.RefObject<HTMLElement>}
-            className="sp-reveal bg-[#0a1526] py-20 md:py-24 relative overflow-hidden border-t border-white/5"
+            className="sp-reveal bg-[#070d19] py-20 md:py-28 text-white relative overflow-hidden"
         >
-            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {/* Ambient Background Gradient Glows */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+                {/* Header */}
+                <div className="text-center mb-14">
+                    <span className="text-[#22c55e] font-display text-xs font-extrabold tracking-[0.3em] uppercase mb-3 block">
+                        OUR IMPACT IN NUMBERS
+                    </span>
+                    <h3 className="font-display text-3xl sm:text-5xl font-black text-white tracking-tight">
+                        Proven Industry Leadership
+                    </h3>
+                </div>
+
+                {/* Circular Stat Rings Container */}
+                <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[24px] sm:rounded-[36px] p-4 sm:p-8 md:p-12 shadow-2xl shadow-black/40 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-10 items-center justify-center">
                     {stats.map((s, i) => (
-                        <div 
-                            key={i} 
-                            className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center backdrop-blur-sm hover:scale-[1.03] transition-all duration-300 group"
-                        >
-                            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 group-hover:bg-[#C2F84F]/10 transition-colors duration-300">
-                                {s.icon}
-                            </div>
-                            <p className="font-display text-4xl sm:text-5xl font-black text-white leading-tight">
-                                <AnimatedCounter value={s.value} suffix={s.suffix} />
-                            </p>
-                            <p className="mt-3 text-white/60 text-xs sm:text-sm font-medium tracking-wide text-center">{s.label}</p>
-                        </div>
+                        <CircularStatRing
+                            key={i}
+                            value={s.value}
+                            suffix={s.suffix}
+                            label={s.label}
+                            targetPercent={s.percent}
+                        />
                     ))}
                 </div>
             </div>
@@ -480,18 +558,18 @@ function BuildTogetherSection() {
             ref={ref as React.RefObject<HTMLElement>}
             className="sp-reveal bg-white py-20 md:py-28"
         >
-            <div className="max-w-xl mx-auto px-5 text-center">
-                <h2 className="font-display text-3xl sm:text-4xl md:text-[46px] font-black text-[#0f1f3d] leading-tight">
-                    Let&apos;s build something that sounds amazing.
+            <div className="max-w-xl mx-auto px-5 text-center flex flex-col items-center">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-[46px] font-black text-[#0f1f3d] leading-tight mb-4">
+                    Let&apos;s build something <br /> that sounds amazing.
                 </h2>
-                <p className="mt-4 text-[#6b7280] text-sm sm:text-[15px] leading-relaxed">
-                    Connect with our experts and design the perfect audio system for your needs.
+                <p className="text-[#6b7280] text-sm sm:text-[15px] leading-relaxed max-w-md">
+                    Get in touch with our team and take your sound experience to the next level.
                 </p>
                 <Link href="/contact">
-                    <button className="mt-8 inline-flex items-center gap-2 px-10 py-4 bg-[#0f1f3d] hover:bg-[#162d57] text-white text-sm font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#0f1f3d]/25 hover:scale-[1.03]">
+                    <button className="mt-8 inline-flex items-center gap-2 px-10 py-4 bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-sm font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#3b82f6]/25 hover:scale-[1.03]">
                         Get In Touch
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
                 </Link>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ScrollProvider from "./ScrollProvider";
-import SoundWaveCursor from "./SoundWaveCursor";
+import MouseEffects from "./ui/MouseEffects";
 import Loader from "./Loader";
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
@@ -31,7 +31,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
         <ScrollProvider>
             <div className={`transition-opacity duration-1000 overflow-x-hidden ${loading ? "opacity-0" : "opacity-100"}`}>
                 {loading && <Loader />}
-                <SoundWaveCursor />
+                <MouseEffects color="#3b82f6" interactionMode="sniper" showLabel={false} />
                 {children}
             </div>
         </ScrollProvider>

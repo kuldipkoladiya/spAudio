@@ -41,7 +41,7 @@ export default function Footer() {
 
             {/* ── Giant Header Text at Top ─────────────────── */}
             <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-12 select-none pointer-events-none">
-                <h2 className="text-[9vw] lg:text-[7vw] font-black leading-none tracking-tighter text-white uppercase border-b border-white/10 pb-8">
+                <h2 className="text-center text-[9vw] lg:text-[7vw] font-black leading-none tracking-tighter uppercase border-b border-white/10 pb-8 bg-gradient-to-t from-white/15 via-white/60 to-white bg-clip-text text-transparent">
                     spaudio.com
                 </h2>
             </div>
