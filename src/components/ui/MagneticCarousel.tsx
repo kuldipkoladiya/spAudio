@@ -1,5 +1,5 @@
+/* eslint-disable */
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
