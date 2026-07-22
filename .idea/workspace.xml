@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fba1b32e-855f-4a91-9838-03f0a93a3c27" name="Changes" comment="add image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StickyCards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/StickyCards.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +92,7 @@
       <workItem from="1783663776445" duration="972000" />
       <workItem from="1783664873903" duration="1114000" />
       <workItem from="1784555324657" duration="209000" />
+      <workItem from="1784701139452" duration="1742000" />
     </task>
     <task id="LOCAL-00001" summary="fix">
       <option name="closed" value="true" />

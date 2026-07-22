@@ -1,302 +1,349 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import React from "react";
 import Link from "next/link";
+import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import KineticGrid from "@/components/ui/KineticGrid";
+import { motion } from "framer-motion";
 
-gsap.registerPlugin(ScrollTrigger);
+export default function AboutPage() {
+    // ---------------------------------------------------------
+    // Carousel Items: Pillars of SPAudio Engineering
+    // ---------------------------------------------------------
+    const cardsData = [
+        {
+            category: "Audio Design",
+            title: "Transducer Engineering",
+            src: "/images/SpeakerShowcase.png",
+            content: (
+                <div className="bg-[#f8fafc] p-8 md:p-14 rounded-3xl text-[#0f1f3d] font-sans">
+                    <span className="text-[#3b82f6] text-xs font-bold tracking-[0.2em] uppercase">PILLARS OF EXCELLENCE</span>
+                    <h3 className="text-3xl md:text-5xl font-display font-black mt-2 mb-6">Transducer Engineering</h3>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed mb-6">
+                        At the heart of every SPAudio loudspeaker is a meticulously designed transducer. We don&apos;t use off-the-shelf components. Instead, we custom-engineer voice coils, high-excursion cones, and neodymium magnets to work in perfect harmony.
+                    </p>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed">
+                        By designing our own compression drivers and woofers, we achieve extremely low harmonic distortion even at maximum sound pressure levels. Every batch of transducers is measured and matched within 0.5dB tolerance before assembly.
+                    </p>
+                </div>
+            )
+        },
+        {
+            category: "Structural Physics",
+            title: "Bespoke Cabinets & Resonance",
+            src: "/images/stack_1.png",
+            content: (
+                <div className="bg-[#f8fafc] p-8 md:p-14 rounded-3xl text-[#0f1f3d] font-sans">
+                    <span className="text-[#3b82f6] text-xs font-bold tracking-[0.2em] uppercase">STRUCTURAL PHYSICALITY</span>
+                    <h3 className="text-3xl md:text-5xl font-display font-black mt-2 mb-6">Baltic Birch & Impedance Tuning</h3>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed mb-6">
+                        A loudspeaker cabinet is not just a box; it is a precision instrument. SPAudio enclosures are constructed from multi-ply premium Baltic Birch plywood, selected specifically for its structural stability and low resonance.
+                    </p>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed">
+                        We apply advanced internal bracing patterns and tuned porting chambers to eliminate standing waves inside the enclosure. This ensures that the sound you hear is purely from the drivers, with zero boxy coloration or vibration.
+                    </p>
+                </div>
+            )
+        },
+        {
+            category: "Intelligent Audio",
+            title: "Advanced DSP & Amplification",
+            src: "/images/amp2.png",
+            content: (
+                <div className="bg-[#f8fafc] p-8 md:p-14 rounded-3xl text-[#0f1f3d] font-sans">
+                    <span className="text-[#3b82f6] text-xs font-bold tracking-[0.2em] uppercase">INTELLIGENT AUDIO</span>
+                    <h3 className="text-3xl md:text-5xl font-display font-black mt-2 mb-6">Active DSP Architectures</h3>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed mb-6">
+                        Our active speaker systems are powered by state-of-the-art Class-D amplifier modules coupled with advanced onboard digital signal processors (DSP). This gives live engineers absolute control over crossover, delay, and EQ.
+                    </p>
+                    <p className="text-base md:text-lg text-[#6b7280] font-medium leading-relaxed">
+                        Using smart limiter circuits and thermal feedback loops, SPAudio units protect themselves automatically from damage, delivering maximum performance all night long without clipping or sound quality degradation.
+                    </p>
+                </div>
+            )
+        }
+    ];
 
-/* ================= PAGE ================= */
-export default function About() {
-    return (
-        <div className="bg-[#020617] text-white font-sans overflow-hidden">
-            {/* Ambient gradients */}
-            <div className="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
+    const carouselItems = cardsData.map((card, index) => (
+        <Card key={index} card={card} index={index} />
+    ));
 
-            <HeroSection />
-            <AboutStory />
-            <ImageSplit />
-            <Features />
-            <CTA />
-        </div>
-    );
-}
+    // ---------------------------------------------------------
+    // Team Members Showcase
+    // ---------------------------------------------------------
+    const teamData = [
+        {
+            quote: "Engineering audio is a beautiful marriage between rigorous science and artistic emotion. We design systems that make you feel like the band is in the room with you.",
+            name: "Dr. Vikram Mehta",
+            designation: "Chief Sound Architect",
+            src: "/images/speaker2.png"
+        },
+        {
+            quote: "Every material choice, from cabinet wood to speaker glue, dictates the final sonic response. We tune for absolute authenticity and linear dispersion.",
+            name: "Sarah Jenkins",
+            designation: "Materials Science Lead",
+            src: "/images/FeatureSection_1.png"
+        },
+        {
+            quote: "By writing custom DSP limiters and linear-phase crossovers, we ensure the sound is crisp, phase-aligned, and extremely reliable on the road.",
+            name: "Rajesh Patel",
+            designation: "DSP & Electronics Engineer",
+            src: "/images/amp3.png"
+        }
+    ];
 
-/* ================= HERO ================= */
-function HeroSection() {
-    const titleRef = useRef<HTMLHeadingElement>(null!);
-    const subtitleRef = useRef<HTMLParagraphElement>(null!);
-
-    useEffect(() => {
-        const tl = gsap.timeline();
-
-        tl.fromTo(
-            titleRef.current,
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
-        );
-
-        tl.fromTo(
-            subtitleRef.current,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-            "-=0.7"
-        );
-    }, []);
-
-    return (
-        <section className="py-28 md:py-36 text-center px-6 relative">
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-40" />
-
-            <p className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-4 animate-pulse">
-                OUR AUDIO MANIFESTO
-            </p>
-            <h1
-                ref={titleRef}
-                className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight leading-none opacity-0"
-            >
-                REDEFINING THE <br />
-                <span className="relative inline-block">
-                    <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 text-transparent bg-clip-text">
-                        SOUND SPECTRUM
-                    </span>
-                    <span className="absolute inset-0 blur-3xl opacity-20 bg-gradient-to-r from-cyan-400 to-purple-500"></span>
-                </span>
-            </h1>
-
-            <p
-                ref={subtitleRef}
-                className="mt-8 text-gray-400 max-w-xl mx-auto text-base sm:text-lg font-light leading-relaxed opacity-0"
-            >
-                Every voice, every chord, every beat. Engineered with acoustic precision, tuned for emotional purity.
-            </p>
-        </section>
-    );
-}
-
-/* ================= GSAP PINNED STORY ================= */
-function AboutStory() {
-    const sectionRef = useRef<HTMLDivElement>(null!);
-
-    type FrameRefs = {
-        top: HTMLParagraphElement | null;
-        main: HTMLHeadingElement | null;
-        bottom: HTMLParagraphElement | null;
+    const scrollToPillars = () => {
+        const target = document.getElementById("pillars-section");
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
-    const refs = useRef<FrameRefs[]>([]);
-
-    const setRef =
-        <K extends keyof FrameRefs>(index: number, key: K) =>
-            (el: FrameRefs[K]) => {
-                if (!refs.current[index]) {
-                    refs.current[index] = {
-                        top: null,
-                        main: null,
-                        bottom: null,
-                    };
-                }
-                refs.current[index][key] = el;
-            };
-
-    const frames = [
-        {
-            top: "Acoustic Connection",
-            main: "FEEL EVERY BEAT",
-            bottom: "We craft immersive audio rigs designed to pull you directly into the performance.",
-        },
-        {
-            top: "Precision Crafting",
-            main: "PURE SONIC OUTPUT",
-            bottom: "Every structural curve, every resonance chamber built with uncompromising materials.",
-        },
-        {
-            top: "Absolute Quality",
-            main: "BUILT FOR ENTHUSIASTS",
-            bottom: "Made for individuals who expect high resolution detail and rich dynamic range.",
-        },
-    ];
-
-    useEffect(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: "+=350%",
-                scrub: 1.5,
-                pin: true,
-            },
-        });
-
-        refs.current.forEach((frame) => {
-            if (!frame?.top || !frame?.main || !frame?.bottom) return;
-
-            tl.fromTo(frame.top, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2 })
-                .fromTo(frame.main, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2 }, "-=1")
-                .fromTo(frame.bottom, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1.2 }, "-=0.8");
-
-            tl.to({}, { duration: 1.5 }); // pause frame
-
-            tl.to([frame.top, frame.main, frame.bottom], {
-                opacity: 0,
-                y: -30,
-                duration: 1.2
-            });
-        });
-
-        return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill());
-        };
-    }, []);
-
     return (
-        <section
-            ref={sectionRef}
-            className="relative h-screen flex items-center justify-center overflow-hidden px-6 bg-slate-950/20 border-y border-white/5"
-        >
-            {/* Background Soundwave Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.15),transparent_75%)] pointer-events-none" />
+        <div className="bg-white text-[#0f1f3d] font-sans overflow-hidden min-h-screen relative">
+            {/* 1. HERO SECTION (Centered Layout with Normal Text & Kinetic Grid) */}
+            <section className="py-28 md:py-36 text-center px-6 relative z-10 border-b border-gray-100 min-h-[75vh] flex flex-col justify-center items-center">
+                {/* Kinetic Grid Background */}
+                <div className="absolute inset-0 z-0">
+                    <KineticGrid 
+                        dotColor="rgba(15, 31, 61, 0.12)" 
+                        lineColor="rgba(59, 130, 246, 0.06)" 
+                        trailColor="rgba(59, 130, 246, 0.25)"
+                        spacing={35}
+                        radius={280}
+                        strength={4}
+                    />
+                </div>
 
-            <div className="relative z-10 text-center w-full max-w-6xl mx-auto h-[300px]">
-                {frames.map((f, i) => (
-                    <div
-                        key={i}
-                        className="absolute inset-0 flex flex-col items-center justify-center gap-4 sm:gap-6"
+                <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center w-full select-none">
+                    <motion.span 
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="text-[#3b82f6] font-display text-xs font-extrabold tracking-[0.4em] uppercase mb-4 block text-center"
                     >
-                        <p
-                            ref={setRef(i, "top")}
-                            className="opacity-0 text-[10px] sm:text-xs md:text-sm tracking-[0.4em] uppercase text-cyan-400 font-semibold"
-                        >
-                            {f.top}
-                        </p>
-
-                        <h2
-                            ref={setRef(i, "main")}
-                            className="opacity-0 text-[clamp(2.2rem,8vw,6.5rem)] font-black tracking-tighter leading-none text-white"
-                        >
-                            {f.main}
-                        </h2>
-
-                        <p
-                            ref={setRef(i, "bottom")}
-                            className="opacity-0 mt-4 sm:mt-6 text-xs sm:text-sm md:text-lg text-gray-400 max-w-xl mx-auto leading-relaxed font-light text-center"
-                        >
-                            {f.bottom}
-                        </p>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-}
-
-/* ================= IMAGE SPLIT ================= */
-function ImageSplit() {
-    return (
-        <section className="py-28 px-6 md:px-20 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500" />
-                <img
-                    src="/images/amp3.png"
-                    className="relative rounded-2xl h-[350px] sm:h-[450px] w-full object-cover border border-white/10"
-                    alt="Engineered details"
-                />
-            </div>
-
-            <div>
-                <p className="text-xs font-semibold tracking-[0.4em] text-cyan-400 uppercase mb-3">
-                    Crafted for Everyday Rhythms
-                </p>
-                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-                    DESIGNED FOR REAL DYNAMICS
-                </h2>
-
-                <p className="mt-6 text-gray-400 font-light leading-relaxed">
-                    Our units fit cleanly into your space while pushing optimal sound dynamics. From quiet acoustic listening sessions to high-energy studio master playbacks, SPAudio adapts to your specific listening environment.
-                </p>
-            </div>
-        </section>
-    );
-}
-
-/* ================= WHY SPAUDIO ================= */
-function Features() {
-    const items = [
-        { title: "Deep Resonant Bass", desc: "Acoustically tuned porting pipes that minimize turbulent air velocity." },
-        { title: "Low Noise Floor", desc: "Premium circuit paths that protect against system electromagnetic interference." },
-        { title: "Bespoke Material Finish", desc: "High-density cabinets chosen specifically for optimal acoustic impedance." }
-    ];
-
-    return (
-        <section className="py-24 px-6 md:px-20 text-center bg-slate-950/10">
-            <h2 className="text-3xl md:text-5xl font-black mb-16 tracking-tight">
-                OUR CORE VALUES
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {items.map((item, i) => (
-                    <div
-                        key={i}
-                        className="group relative p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-cyan-500/50 shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
+                        OUR AUDIO MANIFESTO // SPA AUDIO
+                    </motion.span>
+                    
+                    {/* Normal HTML/CSS Display Heading */}
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 25 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                        className="font-display text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none text-[#0f1f3d] text-center"
                     >
-                        <div className="absolute -inset-0.5 bg-gradient-to-b from-cyan-500 to-purple-500 rounded-2xl blur opacity-0 group-hover:opacity-10 transition duration-300 pointer-events-none" />
-                        <h3 className="text-xl font-bold mb-4 text-white tracking-wide">{item.title}</h3>
-                        <p className="text-gray-400 font-light text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-}
+                        AUDIO EXCELLENCE <br />
+                        <span className="relative inline-block mt-2">
+                            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-transparent bg-clip-text">
+                                REDEFINING SOUND
+                            </span>
+                        </span>
+                    </motion.h1>
 
-/* ================= CTA ================= */
-function CTA() {
-    const ref = useRef<HTMLDivElement>(null!);
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
+                        className="mt-8 text-[#6b7280] max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-medium leading-relaxed text-center pointer-events-none"
+                    >
+                        We design, engineer, and calibrate tour-grade, high-fidelity active monitors and analog amplifiers. Driven by system physics, engineered for absolute precision, and tuned for emotional purity.
+                    </motion.p>
 
-    useEffect(() => {
-        let t = 0;
-        let animationFrameId: number;
+                    {/* Action buttons */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
+                        className="flex flex-wrap gap-4 mt-10 pointer-events-auto justify-center"
+                    >
+                        <button 
+                            onClick={scrollToPillars}
+                            className="group/btn inline-flex items-center gap-2 px-8 py-4 bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-sm font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#3b82f6]/25 hover:scale-[1.02] cursor-pointer"
+                        >
+                            Our Principles
+                            <svg className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <Link href="/products">
+                            <button className="inline-flex items-center gap-2 px-8 py-4 border border-gray-200 hover:border-[#0f1f3d] text-[#0f1f3d] text-sm font-bold rounded-full transition-all duration-300 hover:bg-[#0f1f3d]/5 hover:scale-[1.02]">
+                                View Products
+                            </button>
+                        </Link>
+                    </motion.div>
+                </div>
+            </section>
 
-        function animate() {
-            t += 0.008;
+            {/* Ambient gradients for other sections */}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2 }}
+                className="absolute top-[50%] left-[10%] w-[380px] h-[380px] bg-blue-500/5 rounded-full blur-[110px] pointer-events-none" 
+            />
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5 }}
+                className="absolute bottom-[15%] right-[5%] w-[480px] h-[480px] bg-indigo-500/5 rounded-full blur-[130px] pointer-events-none" 
+            />
 
-            if (ref.current) {
-                ref.current.style.background = `
-                    radial-gradient(circle at ${50 + Math.sin(t) * 25}% ${50 + Math.cos(t) * 25}%, rgba(6, 182, 212, 0.25), transparent),
-                    radial-gradient(circle at ${50 + Math.cos(t) * 25}% ${50 + Math.sin(t) * 25}%, rgba(168, 85, 247, 0.25), transparent),
-                    #020617
-                `;
-            }
+            {/* Grid Overlay for remaining parts */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(15,31,61,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(15,31,61,0.015)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-80" />
 
-            animationFrameId = requestAnimationFrame(animate);
-        }
-
-        animate();
-        return () => cancelAnimationFrame(animationFrameId);
-    }, []);
-
-    return (
-        <section ref={ref} className="py-24 sm:py-32 text-center border-t border-white/5 transition-all">
-            <div className="px-4 max-w-3xl mx-auto">
-                <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-none text-white">
-                    CHOOSE ABSOLUTE <br />
-                    <span className="bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
-                        SONIC PURITY
+            {/* 2. DYNAMIC PILLARS CAROUSEL */}
+            <motion.section 
+                id="pillars-section"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="py-20 bg-slate-50/40 border-y border-gray-100/80 relative z-10"
+            >
+                <div className="max-w-7xl mx-auto px-5 mb-6 text-left">
+                    <span className="text-[#3b82f6] font-display text-xs font-extrabold tracking-[0.3em] uppercase mb-2 block">
+                        ENGINEERING PRINCIPLES
                     </span>
-                </h2>
+                    <h2 className="font-display text-3xl sm:text-5xl font-black text-[#0f1f3d]">
+                        How We Build Sound
+                    </h2>
+                    <p className="text-[#6b7280] text-sm md:text-base font-semibold mt-2">
+                        Click on any card to dive deep into our research and physical design specifications.
+                    </p>
+                </div>
+                <Carousel items={carouselItems} />
+            </motion.section>
 
-                <p className="mt-6 text-gray-400 font-light text-sm sm:text-lg">
-                    Check our premium active monitors and analog amplifiers.
-                </p>
+            {/* 3. TEAM SHOWCASE (Animated Testimonials) */}
+            <motion.section 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="py-24 bg-white relative z-10"
+            >
+                <div className="max-w-7xl mx-auto px-5 text-center mb-12">
+                    <span className="text-[#3b82f6] font-display text-xs font-extrabold tracking-[0.3em] uppercase mb-3 block">
+                        THE EXPERTS
+                    </span>
+                    <h2 className="font-display text-3xl sm:text-5xl font-black text-[#0f1f3d]">
+                        The Engineering Minds
+                    </h2>
+                    <p className="text-[#6b7280] text-sm md:text-base font-semibold mt-2">
+                        Meet the designers behind our signature linear audio signature.
+                    </p>
+                </div>
+                <div className="w-full">
+                    <AnimatedTestimonials testimonials={teamData} autoplay={false} />
+                </div>
+            </motion.section>
 
-                <Link href="/products">
-                    <button className="mt-10 px-8 py-3.5 bg-white text-black font-semibold rounded-full hover:scale-105 transition shadow-lg hover:shadow-cyan-500/25">
-                        Explore Products
-                    </button>
-                </Link>
-            </div>
-        </section>
+            {/* 4. LAB METRICS (Stats Section) */}
+            <section className="py-24 bg-[#070d19] text-[#ffffff] relative z-10 overflow-hidden">
+                <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto px-5 relative z-10">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7 }}
+                        className="text-center mb-16"
+                    >
+                        <span className="text-[#3b82f6] font-display text-xs font-extrabold tracking-[0.3em] uppercase mb-3 block">
+                            LABORATORY STANDARDS
+                        </span>
+                        <h3 className="font-display text-3xl sm:text-5xl font-black text-white tracking-tight">
+                            Tested For Extreme Scenarios
+                        </h3>
+                    </motion.div>
+
+                    <motion.div 
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={{
+                            hidden: { opacity: 0 },
+                            show: {
+                                opacity: 1,
+                                transition: {
+                                    staggerChildren: 0.15
+                                }
+                            }
+                        }}
+                        className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                    >
+                        <motion.div 
+                            variants={{
+                                hidden: { opacity: 0, y: 30 },
+                                show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } }
+                            }}
+                            className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[24px] p-8 text-left transition-all duration-300 hover:scale-105 hover:border-blue-500/40"
+                        >
+                            <span className="text-[#22c55e] font-display text-4xl sm:text-5xl font-black block mb-2">&lt; 0.03%</span>
+                            <span className="font-display text-xs font-extrabold tracking-wider text-slate-300 uppercase block mb-1">Total Harmonic Distortion</span>
+                            <p className="text-slate-400 text-sm leading-relaxed">Achieving near absolute purity across all audible frequencies under high load conditions.</p>
+                        </motion.div>
+
+                        <motion.div 
+                            variants={{
+                                hidden: { opacity: 0, y: 30 },
+                                show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } }
+                            }}
+                            className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[24px] p-8 text-left transition-all duration-300 hover:scale-105 hover:border-indigo-500/40"
+                        >
+                            <span className="text-[#3b82f6] font-display text-4xl sm:text-5xl font-black block mb-2">240+ Hrs</span>
+                            <span className="font-display text-xs font-extrabold tracking-wider text-slate-300 uppercase block mb-1">Anechoic Lab Testing</span>
+                            <p className="text-slate-400 text-sm leading-relaxed">Rigorous sweep signals, thermal cycles, and dispersion pattern measurements for ultimate reliability.</p>
+                        </motion.div>
+
+                        <motion.div 
+                            variants={{
+                                hidden: { opacity: 0, y: 30 },
+                                show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } }
+                            }}
+                            className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[24px] p-8 text-left transition-all duration-300 hover:scale-105 hover:border-purple-500/40"
+                        >
+                            <span className="text-purple-500 font-display text-4xl sm:text-5xl font-black block mb-2">± 0.5dB</span>
+                            <span className="font-display text-xs font-extrabold tracking-wider text-slate-300 uppercase block mb-1">Driver Response Matching</span>
+                            <p className="text-slate-400 text-sm leading-relaxed">Each loudspeaker cabinet contains drivers specifically paired to guarantee precise stereo imaging.</p>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* 5. CTA SECTION */}
+            <motion.section 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="py-24 sm:py-32 text-center bg-white border-t border-gray-100 relative z-10"
+            >
+                <div className="px-4 max-w-3xl mx-auto">
+                    <h2 className="font-display text-3xl sm:text-5xl font-black tracking-tight leading-none text-[#0f1f3d]">
+                        WANT TO DISCOVER <br />
+                        <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
+                            OUR PRODUCT SUITE?
+                        </span>
+                    </h2>
+
+                    <p className="mt-6 text-[#6b7280] font-sans font-medium text-sm sm:text-lg">
+                        Explore our concert series cabinets, line array towers, and professional amplifiers.
+                    </p>
+
+                    <Link href="/products">
+                        <button className="group/btn mt-10 inline-flex items-center gap-2 px-10 py-4 bg-[#0f1f3d] hover:bg-[#3b82f6] text-[#ffffff] text-sm font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#3b82f6]/25 hover:scale-[1.03]">
+                            Explore Products
+                            <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </Link>
+                </div>
+            </motion.section>
+        </div>
     );
 }

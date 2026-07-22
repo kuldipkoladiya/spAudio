@@ -55,7 +55,7 @@ function HoverImageRevealSection() {
         item3: { text: "POWER AMPLIFIERS", image: { src: "/images/amp2.png" }, link: "/products" },
         item4: { text: "LINE ARRAY STACKS", image: { src: "/images/stack_1.png" }, link: "/products" },
         item5: { text: "COLUMN ARRAYS", image: { src: "/images/stack_4.png" }, link: "/products" },
-        item6: { text: "SPECIALIZED ACOUSTICS", image: { src: "/images/SpeakerShowcase.png" }, link: "/products" },
+        item6: { text: "SPECIALIZED AUDIO SYSTEMS", image: { src: "/images/SpeakerShowcase.png" }, link: "/products" },
     };
 
     return (
@@ -217,7 +217,7 @@ function WhyChooseSection() {
     const cols = [
         {
             title: "High Performance",
-            description: "Acoustic perfection designed for professional settings.",
+            description: "Pure sound perfection designed for professional settings.",
             icon: (
                 <svg className="w-6 h-6 text-[#3b82f6]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -384,7 +384,7 @@ function CustomSolutionsSection() {
                             Custom audio solutions <br /> for your unique needs.
                         </h2>
                         <p className="text-[#6b7280] text-sm sm:text-base leading-relaxed mb-8 font-medium">
-                            We design and deliver tailor-made audio systems to match your venue, acoustics, and audience size perfectly. Let our engineering team design your coverage map.
+                            We design and deliver tailor-made audio systems to match your venue, sound space, and audience size perfectly. Let our engineering team design your coverage map.
                         </p>
                         <button className="group/btn flex items-center gap-2 px-8 py-4 bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-sm font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#3b82f6]/20 hover:scale-[1.02]">
                             Request a Quote

@@ -1,65 +1,20 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Clock, Headphones } from "lucide-react";
 import toast from "react-hot-toast";
+import KineticGrid from "@/components/ui/KineticGrid";
 
-/* ================= WAVEFORM ================= */
-const Waveform = () => {
-    return (
-        <div className="absolute inset-0 overflow-hidden opacity-25 z-0 pointer-events-none">
-            <svg
-                className="w-full h-full"
-                viewBox="0 0 1440 400"
-                preserveAspectRatio="none"
-            >
-                <path fill="none" stroke="url(#contactGradient)" strokeWidth="2.5">
-                    <animate
-                        attributeName="d"
-                        dur="10s"
-                        repeatCount="indefinite"
-                        values="
-                            M0,200 Q360,80 720,200 T1440,200;
-                            M0,200 Q360,320 720,200 T1440,200;
-                            M0,200 Q360,80 720,200 T1440,200
-                        "
-                    />
-                </path>
-                <defs>
-                    <linearGradient id="contactGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#06b6d4" />
-                        <stop offset="50%" stopColor="#6366f1" />
-                        <stop offset="100%" stopColor="#a855f7" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-    );
-};
-
-export default function Contact() {
+export default function ContactPage() {
     const [form, setForm] = useState({
         name: "",
         email: "",
+        phone: "",
         message: "",
     });
 
     const [loading, setLoading] = useState(false);
-    const glowRef = useRef<HTMLDivElement>(null);
-
-    /* ================= MOUSE GLOW ================= */
-    useEffect(() => {
-        const glow = glowRef.current;
-        if (!glow) return;
-
-        const handleMouse = (e: MouseEvent) => {
-            glow.style.left = `${e.clientX - 225}px`;
-            glow.style.top = `${e.clientY - 225}px`;
-        };
-        window.addEventListener("mousemove", handleMouse);
-        return () => window.removeEventListener("mousemove", handleMouse);
-    }, []);
 
     /* ================= SUBMIT ================= */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,7 +32,7 @@ export default function Contact() {
 
             if (data.success) {
                 toast.success("Request received successfully 🎧");
-                setForm({ name: "", email: "", message: "" });
+                setForm({ name: "", email: "", phone: "", message: "" });
             } else {
                 toast.error("Failed to submit request ❌");
             }
@@ -89,90 +44,168 @@ export default function Contact() {
     };
 
     return (
-        <div className="relative bg-[#020617] text-white overflow-hidden min-h-screen">
-            {/* WAVE BACKGROUND */}
-            <Waveform />
-
-            {/* MOUSE GLOW */}
-            <div
-                ref={glowRef}
-                className="hidden md:block pointer-events-none fixed w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[130px] z-0"
-                style={{ left: "-450px", top: "-450px" }}
+        <div className="relative bg-white text-[#0f1f3d] font-sans overflow-hidden min-h-screen">
+            {/* Ambient subtle glowing backdrops */}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2 }}
+                className="absolute top-[5%] left-[10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" 
+            />
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5 }}
+                className="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] bg-indigo-500/5 rounded-full blur-[130px] pointer-events-none" 
             />
 
-            {/* ================= HERO ================= */}
-            <section className="relative py-24 md:py-36 text-center z-10 px-4">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-40" />
+            {/* Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(15,31,61,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(15,31,61,0.015)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-80" />
 
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-3 animate-pulse"
-                >
-                    GET IN TOUCH
-                </motion.p>
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-4xl sm:text-6xl md:text-8xl font-black leading-none tracking-tight"
-                >
-                    FEEL THE <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 text-transparent bg-clip-text">SOUND</span>
-                </motion.h1>
+            {/* ================= CLEAN ANIMATED HERO SECTION ================= */}
+            <section className="relative py-28 md:py-36 text-center px-6 border-b border-gray-100 min-h-[75vh] flex flex-col justify-center items-center overflow-hidden z-10">
+                {/* Kinetic Grid Interactive Background */}
+                <div className="absolute inset-0 z-0">
+                    <KineticGrid 
+                        dotColor="rgba(15, 31, 61, 0.12)" 
+                        lineColor="rgba(59, 130, 246, 0.06)" 
+                        trailColor="rgba(59, 130, 246, 0.25)"
+                        spacing={35}
+                        radius={280}
+                        strength={4}
+                    />
+                </div>
 
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.25 }}
-                    className="text-gray-400 mt-6 max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed font-light"
-                >
-                    Let us craft your absolute sound experience. Get in touch with the SPAudio team.
-                </motion.p>
+                <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center select-none w-full">
+                    {/* Live Status Tag */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/70 border border-blue-100/80 mb-6"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+                        <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest text-[#3b82f6] uppercase">
+                            SUPPORT LAB // INQUIRIES OPEN
+                        </span>
+                    </motion.div>
+
+                    {/* Headline */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 25 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                        className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight text-[#0f1f3d] text-center"
+                    >
+                        LET&apos;S BUILD SOMETHING <br />
+                        <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-transparent bg-clip-text">
+                            THAT SOUNDS AMAZING
+                        </span>
+                    </motion.h1>
+
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
+                        className="text-[#6b7280] mt-8 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-medium leading-relaxed text-center pointer-events-none"
+                    >
+                        Get in touch with our team for active monitor specs, coverage maps, and system engineering support. We are ready to help.
+                    </motion.p>
+
+                    {/* Clean Stat Pills */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
+                        className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-10 pointer-events-auto"
+                    >
+                        <div className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-gray-100 shadow-md text-xs sm:text-sm font-semibold text-[#0f1f3d]">
+                            <Clock className="w-4 h-4 text-[#3b82f6]" />
+                            <span>Fast Response (&lt;24 hrs)</span>
+                        </div>
+                        <div className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-gray-100 shadow-md text-xs sm:text-sm font-semibold text-[#0f1f3d]">
+                            <Headphones className="w-4 h-4 text-[#3b82f6]" />
+                            <span>Expert Sound Support</span>
+                        </div>
+                    </motion.div>
+                </div>
             </section>
 
             {/* ================= CONTACT INFO CARDS ================= */}
-            <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 relative z-10">
+            <section className="py-20 max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-8 relative z-10">
                 {[
-                    { icon: <Mail size={24} />, title: "Email Address", value: "support@spaudio.com", href: "mailto:support@spaudio.com" },
-                    { icon: <Phone size={24} />, title: "Direct Contact", value: "+91 9638470305", href: "tel:+919638470305" },
-                    { icon: <MapPin size={24} />, title: "Headquarters", value: "Surat, Gujarat", href: "https://maps.google.com/?q=Surat,Gujarat" },
+                    { 
+                        icon: <Mail className="w-6 h-6 text-[#3b82f6]" />, 
+                        title: "Email Us", 
+                        value: "support@spaudio.com", 
+                        subtitle: "Direct inquiry inbox",
+                        href: "mailto:support@spaudio.com" 
+                    },
+                    { 
+                        icon: <Phone className="w-6 h-6 text-[#3b82f6]" />, 
+                        title: "Call Us", 
+                        value: "+91 9638470305", 
+                        subtitle: "Mon - Sat (9am - 7pm)",
+                        href: "tel:+919638470305" 
+                    },
+                    { 
+                        icon: <MapPin className="w-6 h-6 text-[#3b82f6]" />, 
+                        title: "Headquarters", 
+                        value: "Surat, Gujarat, India", 
+                        subtitle: "Visit our sound lab",
+                        href: "https://maps.google.com/?q=Surat,Gujarat" 
+                    },
                 ].map((item, i) => (
                     <motion.a
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         key={i}
-                        whileHover={{ y: -4 }}
-                        className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 shadow-xl backdrop-blur-md transition-all duration-300 group block"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.1 }}
+                        whileHover={{ y: -5 }}
+                        className="p-8 rounded-[24px] bg-white border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
                     >
-                        <div className="text-cyan-400 mb-4 transition-transform duration-300 group-hover:scale-105">{item.icon}</div>
-                        <h3 className="text-lg font-bold mb-2 tracking-wide">{item.title}</h3>
-                        <p className="text-gray-400 text-sm font-light leading-relaxed">{item.value}</p>
+                        <div>
+                            <div className="w-12 h-12 rounded-2xl bg-blue-50/60 flex items-center justify-center mb-6 group-hover:bg-blue-50 transition-colors duration-300">
+                                {item.icon}
+                            </div>
+                            <h3 className="font-display font-bold text-[#0f1f3d] text-xl mb-1 tracking-wide">{item.title}</h3>
+                            <p className="text-[#0f1f3d] font-semibold text-base mb-1">{item.value}</p>
+                            <p className="text-[#6b7280] text-xs font-medium">{item.subtitle}</p>
+                        </div>
                     </motion.a>
                 ))}
             </section>
 
-            {/* ================= FORM ================= */}
-            <section className="max-w-4xl mx-auto px-6 py-24 relative z-10">
+            {/* ================= FORM SECTION ================= */}
+            <section className="py-16 max-w-5xl mx-auto px-6 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    className="p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_50px_rgba(6,182,212,0.08)]"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7 }}
+                    className="p-8 md:p-14 rounded-[32px] bg-white border border-gray-100 shadow-2xl relative overflow-hidden"
                 >
-                    <div className="text-center mb-10">
-                        <h2 className="text-2xl md:text-4xl font-black tracking-tight">
-                            START YOUR SOUND JOURNEY 🎧
+                    <div className="text-center mb-12">
+                        <span className="text-xs font-extrabold tracking-[0.3em] text-[#3b82f6] uppercase mb-2 block font-display">
+                            INQUIRY FORM
+                        </span>
+                        <h2 className="font-display text-3xl md:text-4xl font-black text-[#0f1f3d] tracking-tight">
+                            Start Your Sound Journey
                         </h2>
-                        <p className="text-gray-400 mt-3 text-sm font-light">
-                            Outline your requirements below — we will engineer your customized setup.
+                        <p className="text-[#6b7280] mt-3 text-sm sm:text-base font-medium max-w-md mx-auto">
+                            Outline your venue specs, active system requirements, or questions below.
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto">
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
-                                <label className="text-xs font-semibold uppercase tracking-wider text-gray-400">Full Name</label>
+                                <label className="text-xs font-bold uppercase tracking-wider text-[#0f1f3d] font-display">Full Name</label>
                                 <input
                                     required
                                     type="text"
@@ -180,13 +213,13 @@ export default function Contact() {
                                     onChange={(e) =>
                                         setForm({ ...form, name: e.target.value })
                                     }
-                                    className="w-full mt-2 p-4 rounded-xl bg-black/30 border border-white/10 focus:border-cyan-500 focus:bg-black/50 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition duration-300 text-sm font-light text-white"
+                                    className="w-full mt-2 p-4 rounded-2xl bg-gray-50/70 border border-gray-200 focus:border-[#3b82f6] focus:bg-white focus:shadow-md outline-none transition duration-300 text-sm font-medium text-[#0f1f3d]"
                                     placeholder="Enter your name"
                                 />
                             </div>
 
                             <div>
-                                <label className="text-xs font-semibold uppercase tracking-wider text-gray-400">Email Address</label>
+                                <label className="text-xs font-bold uppercase tracking-wider text-[#0f1f3d] font-display">Email Address</label>
                                 <input
                                     required
                                     type="email"
@@ -194,21 +227,34 @@ export default function Contact() {
                                     onChange={(e) =>
                                         setForm({ ...form, email: e.target.value })
                                     }
-                                    className="w-full mt-2 p-4 rounded-xl bg-black/30 border border-white/10 focus:border-cyan-500 focus:bg-black/50 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition duration-300 text-sm font-light text-white"
+                                    className="w-full mt-2 p-4 rounded-2xl bg-gray-50/70 border border-gray-200 focus:border-[#3b82f6] focus:bg-white focus:shadow-md outline-none transition duration-300 text-sm font-medium text-[#0f1f3d]"
                                     placeholder="Enter your email"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="text-xs font-semibold uppercase tracking-wider text-gray-400">Your Requirements</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-[#0f1f3d] font-display">Phone Number (Optional)</label>
+                            <input
+                                type="tel"
+                                value={form.phone}
+                                onChange={(e) =>
+                                    setForm({ ...form, phone: e.target.value })
+                                }
+                                className="w-full mt-2 p-4 rounded-2xl bg-gray-50/70 border border-gray-200 focus:border-[#3b82f6] focus:bg-white focus:shadow-md outline-none transition duration-300 text-sm font-medium text-[#0f1f3d]"
+                                placeholder="Enter your phone number"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="text-xs font-bold uppercase tracking-wider text-[#0f1f3d] font-display">Your Requirements</label>
                             <textarea
                                 required
                                 value={form.message}
                                 onChange={(e) =>
                                     setForm({ ...form, message: e.target.value })
                                 }
-                                className="w-full mt-2 p-4 rounded-xl bg-black/30 border border-white/10 focus:border-cyan-500 focus:bg-black/50 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition duration-300 h-36 text-sm font-light text-white resize-none"
+                                className="w-full mt-2 p-4 rounded-2xl bg-gray-50/70 border border-gray-200 focus:border-[#3b82f6] focus:bg-white focus:shadow-md outline-none transition duration-300 h-40 text-sm font-medium text-[#0f1f3d] resize-none"
                                 placeholder="Describe your speaker, amp, or setup specifications..."
                             />
                         </div>
@@ -218,15 +264,14 @@ export default function Contact() {
                             disabled={loading}
                             whileHover={!loading ? { scale: 1.02 } : {}}
                             whileTap={!loading ? { scale: 0.98 } : {}}
-                            className="w-full py-4 rounded-xl font-bold tracking-wider uppercase bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 text-white
-                                hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition duration-300
-                                disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
+                            className="w-full py-4 rounded-full font-bold tracking-wider uppercase bg-[#0f1f3d] hover:bg-[#3b82f6] text-white shadow-xl hover:shadow-[#3b82f6]/25 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-2 cursor-pointer"
                         >
-                            {loading ? "PROCESSING REQUEST..." : "SUBMIT SPECIFICATIONS 🚀"}
+                            <span>{loading ? "PROCESSING REQUEST..." : "SUBMIT SPECIFICATIONS"}</span>
+                            <Send className="w-4 h-4" />
                         </motion.button>
 
-                        <p className="text-[10px] text-gray-500 text-center uppercase tracking-widest">
-                            Our sound engineers respond within 24 business hours ⚡
+                        <p className="text-[11px] text-[#6b7280] text-center font-medium">
+                            Our sound engineers respond within 24 business hours.
                         </p>
                     </form>
                 </motion.div>
@@ -234,11 +279,10 @@ export default function Contact() {
 
             {/* ================= MAP EMBED ================= */}
             <section className="px-6 pb-24 relative z-10 max-w-7xl mx-auto">
-                <div className="relative group rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-500/30 transition duration-500 shadow-2xl">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-10 transition duration-500 pointer-events-none" />
+                <div className="relative rounded-[32px] overflow-hidden border border-gray-100 shadow-2xl bg-white">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.63166963!2d72.8413028!3d21.2067861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04ffa8c7ec113%3A0xe65a175058ca23dd!2sK.K%20Trading%20Co.!5e0!3m2!1sen!2sin!4v1775193806036!5m2!1sen!2sin"
-                        className="relative w-full h-[300px] md:h-[450px] border-none grayscale invert contrast-125 opacity-75 group-hover:opacity-90 transition duration-500"
+                        className="relative w-full h-[350px] md:h-[450px] border-none"
                         loading="lazy"
                         title="Google Maps Location"
                     />

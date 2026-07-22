@@ -1,171 +1,119 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import ProductTilt from "@/components/ProductTilt";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-gsap.registerPlugin(ScrollTrigger);
-
-/* ================= DATA ================= */
-const products = [
-    {
-        id: 1,
-        name: "Passive 12",
-        category: "Speaker",
-        img: "/images/product-5.jpeg",
-        desc: `Professional 12-inch speaker enclosure delivering crystal-clear sound, powerful bass response, and reliable performance. Ideal for DJs, live events, auditoriums, stage applications, and professional sound reinforcement systems.`,
-    },
-    {
-        id: 2,
-        name: "Clarity Pro",
-        category: "Speaker",
-        img: "/images/product-6.jpeg",
-        price: "₹15,999",
-        desc: `Clarity Pro offers ultra-linear acoustic reproduction with an optimized frequency response. Ideal for audiophiles and mixers who demand raw acoustic honesty and detailed nearfield dispersion.`,
-    },
-    {
-        id: 3,
-        name: "AMP Ultra",
-        category: "Amplifier",
-        img: "/images/amp1.png",
-        price: "₹35,999",
-        desc: `AMP Ultra supplies clean, low-distortion power. Engineered with a heavy toroidal transformer and passive cooling to drive demanding speaker loads while maintaining a silent noise floor.`,
-    },
-];
+import Link from "next/link";
+import Image from "next/image";
+import KineticGrid from "@/components/ui/KineticGrid";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { allProducts } from "@/data/products";
 
 export default function ProductPage() {
-    const pageRef = useRef<HTMLDivElement>(null!);
-    const glowRef = useRef<HTMLDivElement>(null);
-    const [activeTab, setActiveTab] = useState("All");
+    const [activeTab, setActiveTab] = useState<string>("All");
 
-    useEffect(() => {
-        const glow = glowRef.current;
-        if (!glow) return;
+    const categories = ["All", "Loudspeakers", "Subwoofers", "Amplifiers", "Accessories"];
 
-        const handleMouse = (e: MouseEvent) => {
-            glow.style.left = `${e.clientX - 200}px`;
-            glow.style.top = `${e.clientY - 200}px`;
-        };
-
-        window.addEventListener("mousemove", handleMouse);
-        return () => window.removeEventListener("mousemove", handleMouse);
-    }, []);
-
-    useEffect(() => {
-        if (!pageRef.current) return;
-
-        const ctx = gsap.context(() => {
-            // Hero typography entrance
-            gsap.from(".hero-title", {
-                opacity: 0,
-                y: 40,
-                duration: 1.2,
-                ease: "power3.out",
-            });
-
-            gsap.from(".hero-sub", {
-                opacity: 0,
-                y: 20,
-                delay: 0.25,
-                duration: 1,
-                ease: "power2.out",
-            });
-
-            // Float glowing blobs
-            gsap.to(".glow-1", {
-                y: 20,
-                repeat: -1,
-                yoyo: true,
-                duration: 5,
-                ease: "sine.inOut",
-            });
-
-            gsap.to(".glow-2", {
-                y: -20,
-                repeat: -1,
-                yoyo: true,
-                duration: 5,
-                ease: "sine.inOut",
-            });
-        }, pageRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    // Filter products list based on active tab
-    const filteredProducts = products.filter((product) => {
+    const filteredProducts = allProducts.filter((product) => {
         if (activeTab === "All") return true;
-        if (activeTab === "Speakers") return product.category === "Speaker";
-        if (activeTab === "Amplifiers") return product.category === "Amplifier";
-        return true;
+        return product.category === activeTab;
     });
 
     return (
-        <div ref={pageRef} className="bg-[#020617] text-white overflow-hidden min-h-screen">
+        <div className="bg-white text-[#0f1f3d] font-sans overflow-hidden min-h-screen relative">
+            {/* Ambient gradients */}
+            <div className="absolute top-[5%] left-[10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[15%] right-[10%] w-[450px] h-[450px] bg-indigo-500/5 rounded-full blur-[130px] pointer-events-none" />
 
-            {/* 🔥 MOUSE GLOW BACKGROUND EFFECT */}
-            <div
-                ref={glowRef}
-                className="hidden md:block pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[130px] z-0"
-                style={{
-                    left: "-400px",
-                    top: "-400px",
-                }}
-            />
+            {/* Background Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(15,31,61,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(15,31,61,0.015)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-80" />
 
-            {/* ================= HERO ================= */}
-            <section
-                onMouseMove={(e) => {
-                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-                    gsap.to(".glow-1", { x, y, duration: 0.6 });
-                    gsap.to(".glow-2", { x: -x, y: -y, duration: 0.6 });
-                }}
-                className="relative h-[60vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden border-b border-white/5"
-            >
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-50" />
-
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="glow-1 absolute w-[300px] h-[300px] bg-cyan-500/10 blur-[110px] top-[15%] left-[15%]" />
-                    <div className="glow-2 absolute w-[300px] h-[300px] bg-purple-500/10 blur-[110px] bottom-[15%] right-[15%]" />
+            {/* ================= HERO SECTION ================= */}
+            <section className="relative py-28 md:py-36 text-center px-6 border-b border-gray-100 min-h-[65vh] flex flex-col justify-center items-center overflow-hidden z-10">
+                {/* Kinetic Grid Interactive Background */}
+                <div className="absolute inset-0 z-0">
+                    <KineticGrid 
+                        dotColor="rgba(15, 31, 61, 0.12)" 
+                        lineColor="rgba(59, 130, 246, 0.06)" 
+                        trailColor="rgba(59, 130, 246, 0.25)"
+                        spacing={35}
+                        radius={280}
+                        strength={4}
+                    />
                 </div>
 
-                <div className="relative z-10 max-w-3xl">
-                    <p className="text-xs font-semibold tracking-[0.5em] text-cyan-400 uppercase mb-4 animate-pulse">
-                        SPAUDIO HARDWARE
-                    </p>
-                    <h1 className="hero-title text-4xl md:text-7xl font-black leading-none tracking-tight">
-                        UNCOMPROMISING <br />
-                        <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 text-transparent bg-clip-text">
-                            SONIC RIGS
-                        </span>
-                    </h1>
+                <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center select-none w-full">
+                    <motion.span
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="text-xs font-extrabold tracking-[0.4em] text-[#3b82f6] uppercase mb-4 font-display"
+                    >
+                        PRO AUDIO HARDWARE // CATALOG
+                    </motion.span>
 
-                    <p className="hero-sub mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light">
-                        Explore our selection of premium high-impedance monitors and low-noise floor power amplifiers built for audio purists.
-                    </p>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 25 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.1 }}
+                        className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight text-[#0f1f3d]"
+                    >
+                        ENGINEERED FOR <br />
+                        <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-transparent bg-clip-text">
+                            UNCOMPROMISING SOUND
+                        </span>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.25 }}
+                        className="text-[#6b7280] mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-medium leading-relaxed"
+                    >
+                        Explore our tour-grade active loudspeakers, high-excursion subwoofers, class-D DSP power amplifiers, and precision accessories.
+                    </motion.p>
+
+                    {/* Category Quick Links Grid */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.35 }}
+                        className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-10 w-full max-w-3xl pointer-events-auto"
+                    >
+                        {[
+                            { name: "Loudspeakers", href: "/products/loudspeakers" },
+                            { name: "Subwoofers", href: "/products/subwoofers" },
+                            { name: "Amplifiers", href: "/products/amplifiers" },
+                            { name: "Accessories", href: "/products/accessories" }
+                        ].map((cat) => (
+                            <Link key={cat.name} href={cat.href}>
+                                <div className="p-3.5 rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+                                    <span className="text-xs sm:text-sm font-bold text-[#0f1f3d] group-hover:text-[#3b82f6] transition-colors">{cat.name}</span>
+                                    <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#3b82f6] group-hover:translate-x-1 transition-all" />
+                                </div>
+                            </Link>
+                        ))}
+                    </motion.div>
                 </div>
             </section>
 
-            {/* ================= CATEGORY TABS ================= */}
-            <section className="py-12 px-6 flex justify-center items-center">
-                <div className="flex bg-white/5 border border-white/10 rounded-full p-1.5 backdrop-blur-md">
-                    {["All", "Speakers", "Amplifiers"].map((tab) => {
+            {/* ================= CATEGORY FILTER TABS ================= */}
+            <section className="py-12 px-6 flex justify-center items-center relative z-10">
+                <div className="flex flex-wrap justify-center gap-2 bg-[#f8fafc] border border-slate-200/80 rounded-full p-2 shadow-sm">
+                    {categories.map((tab) => {
                         const isActive = activeTab === tab;
                         return (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 relative ${isActive ? "text-black" : "text-gray-400 hover:text-white"
-                                    }`}
+                                className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 relative ${
+                                    isActive ? "text-white" : "text-[#6b7280] hover:text-[#0f1f3d]"
+                                }`}
                             >
                                 {isActive && (
                                     <motion.div
-                                        layoutId="activeTabIndicator"
-                                        className="absolute inset-0 bg-white rounded-full z-0"
-                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                        layoutId="activeCatalogTab"
+                                        className="absolute inset-0 bg-[#0f1f3d] rounded-full z-0"
+                                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                     />
                                 )}
                                 <span className="relative z-10">{tab}</span>
@@ -175,73 +123,79 @@ export default function ProductPage() {
                 </div>
             </section>
 
-            {/* ================= PRODUCTS LIST ================= */}
-            <section id="products" className="px-6 md:px-20 py-16 max-w-7xl mx-auto space-y-32">
+            {/* ================= PRODUCTS GRID ================= */}
+            <section className="px-6 md:px-12 py-12 max-w-7xl mx-auto relative z-10">
                 <AnimatePresence mode="popLayout">
-                    {(filteredProducts.map((product, index) => {
-                        const reverse = index % 2 !== 0;
-
-                        return (
+                    <motion.div 
+                        layout 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    >
+                        {filteredProducts.map((product) => (
                             <motion.div
                                 layout
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -30 }}
-                                transition={{ duration: 0.5 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.4 }}
                                 key={product.id}
-                                className={`grid md:grid-cols-2 gap-12 md:gap-20 items-center ${reverse ? "md:flex-row-reverse" : ""
-                                    }`}
+                                className="bg-white rounded-[28px] border border-gray-100 shadow-xl shadow-slate-200/40 p-6 flex flex-col justify-between group hover:shadow-2xl hover:border-blue-200 transition-all duration-500 relative overflow-hidden"
                             >
-                                {/* CARD WRAPPER WITH TILT */}
-                                <div className={`flex justify-center ${reverse ? "md:order-2" : ""}`}>
-                                    <ProductTilt>
-                                        <div className="relative group p-6 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-cyan-500/40 shadow-2xl transition duration-500 max-w-[420px]">
-                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-3xl blur opacity-0 group-hover:opacity-15 transition duration-500 pointer-events-none" />
-                                            <img
-                                                src={product.img}
-                                                className="relative w-full h-[280px] sm:h-[340px] object-contain rounded-2xl group-hover:scale-105 transition duration-500"
-                                                alt={product.name}
-                                            />
-                                        </div>
-                                    </ProductTilt>
-                                </div>
-
-                                {/* CONTENT */}
-                                <div className={reverse ? "md:order-1" : ""}>
-                                    <div className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] bg-cyan-950 text-cyan-400 border border-cyan-500/20 uppercase mb-4">
-                                        {product.category}
+                                {/* Category Badge */}
+                                <div>
+                                    <div className="flex justify-between items-center mb-4">
+                                        <span className="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-blue-50 text-[#3b82f6]">
+                                            {product.category}
+                                        </span>
+                                        <span className="text-xs font-bold text-[#22c55e] flex items-center gap-1">
+                                            <Sparkles className="w-3 h-3" /> Pro Grade
+                                        </span>
                                     </div>
 
-                                    <h2 className="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
-                                        {product.name}
-                                    </h2>
+                                    {/* Image Container */}
+                                    <div className="relative w-full h-[220px] sm:h-[260px] flex items-center justify-center bg-slate-50/60 rounded-2xl p-4 my-2 overflow-hidden">
+                                        <Image
+                                            src={product.img}
+                                            alt={product.name}
+                                            fill
+                                            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                        />
+                                    </div>
 
-                                    <p className="mt-6 text-gray-400 text-sm sm:text-base leading-relaxed font-light max-w-xl">
+                                    <h3 className="font-display text-xl sm:text-2xl font-black text-[#0f1f3d] mt-4 mb-2 tracking-tight">
+                                        {product.name}
+                                    </h3>
+
+                                    <p className="text-[#6b7280] text-xs sm:text-sm font-medium leading-relaxed mb-6 line-clamp-3">
                                         {product.desc}
                                     </p>
 
-                                    <div className="mt-8 flex items-baseline gap-4">
-                                        {/*<span className="text-gray-500 text-xs font-semibold tracking-wider uppercase">Price</span>*/}
-                                        <p className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-cyan-400 to-indigo-400 text-transparent bg-clip-text">
-
-                                        </p>
+                                    {/* Spec Chips */}
+                                    <div className="flex flex-wrap gap-1.5 mb-6">
+                                        {product.specs.map((spec, i) => (
+                                            <span key={i} className="px-2.5 py-1 rounded-lg bg-gray-50 text-slate-600 text-[11px] font-semibold border border-gray-100">
+                                                {spec}
+                                            </span>
+                                        ))}
                                     </div>
+                                </div>
 
+                                {/* Action button */}
+                                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                                     <a
-                                        href={`https://wa.me/919638470305?text=Hi, I'm interested in SPAudio ${product.name}`}
+                                        href={`https://wa.me/919638470305?text=Hi, I'm interested in SPAudio ${encodeURIComponent(product.name)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="mt-8 inline-block px-8 py-3.5 rounded-full border border-white/10 hover:border-cyan-400 text-white font-semibold bg-white/5 hover:text-cyan-400 backdrop-blur-md transition-all duration-300 hover:scale-[1.03]"
+                                        className="w-full py-3 rounded-full bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-xs font-bold tracking-wider uppercase transition duration-300 text-center flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
                                     >
-                                        Inquiry on WhatsApp 💬
+                                        <span>Inquire on WhatsApp 💬</span>
                                     </a>
                                 </div>
                             </motion.div>
-                        );
-                    }) as React.ReactNode)}
+                        ))}
+                    </motion.div>
                 </AnimatePresence>
             </section>
-
         </div>
     );
 }

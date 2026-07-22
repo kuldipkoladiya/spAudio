@@ -20,7 +20,7 @@ export default function Services() {
         {
             icon: <SlidersHorizontal className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
             title: "System Tuning",
-            description: "Custom tuning to optimize audio clarity, bass response, and room acoustics.",
+            description: "Custom tuning to optimize audio clarity, bass response, and sound response.",
         },
         {
             icon: <Settings2 className="w-8 h-8 text-cyan-400" aria-hidden="true" />,
