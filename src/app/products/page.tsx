@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import KineticGrid from "@/components/ui/KineticGrid";
-import { ArrowRight, Sparkles, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { allProducts } from "@/data/products";
 
 export default function ProductPage() {

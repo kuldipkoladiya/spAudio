@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -26,16 +25,9 @@ const navLinks = [
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const pathname = usePathname();
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
 
     useEffect(() => {
         setIsOpen(false);

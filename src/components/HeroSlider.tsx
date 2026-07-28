@@ -5,9 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { 
   Grid, 
-  ArrowRight,
-  Sparkles,
-  ShieldCheck
+  ArrowRight
 } from "lucide-react";
 
 export default function HeroSlider() {

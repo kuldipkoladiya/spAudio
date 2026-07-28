@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import KineticGrid from "@/components/ui/KineticGrid";
-import { Sparkles, ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle } from "lucide-react";
 import { allProducts } from "@/data/products";
 
 export default function LoudspeakersPage() {
