@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import KineticGrid from "@/components/ui/KineticGrid";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { allProducts } from "@/data/products";
 
 export default function ProductPage() {
@@ -146,25 +146,26 @@ export default function ProductPage() {
                                         <span className="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase bg-blue-50 text-[#3b82f6]">
                                             {product.category}
                                         </span>
-                                        <span className="text-xs font-bold text-[#22c55e] flex items-center gap-1">
-                                            <Sparkles className="w-3 h-3" /> Pro Grade
-                                        </span>
                                     </div>
 
                                     {/* Image Container */}
-                                    <div className="relative w-full h-[220px] sm:h-[260px] flex items-center justify-center bg-slate-50/60 rounded-2xl p-4 my-2 overflow-hidden">
-                                        <Image
-                                            src={product.img}
-                                            alt={product.name}
-                                            fill
-                                            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                                            sizes="(max-width: 768px) 100vw, 33vw"
-                                        />
-                                    </div>
+                                    <Link href={`/products/${product.id}`}>
+                                        <div className="relative w-full h-[220px] sm:h-[260px] flex items-center justify-center bg-slate-50/60 rounded-2xl p-4 my-2 overflow-hidden cursor-pointer group/img">
+                                            <Image
+                                                src={product.img}
+                                                alt={product.name}
+                                                fill
+                                                className="object-contain p-2 group-hover/img:scale-108 transition-transform duration-500"
+                                                sizes="(max-width: 768px) 100vw, 33vw"
+                                            />
+                                        </div>
+                                    </Link>
 
-                                    <h3 className="font-display text-xl sm:text-2xl font-black text-[#0f1f3d] mt-4 mb-2 tracking-tight">
-                                        {product.name}
-                                    </h3>
+                                    <Link href={`/products/${product.id}`}>
+                                        <h3 className="font-display text-xl sm:text-2xl font-black text-[#0f1f3d] mt-4 mb-2 tracking-tight hover:text-[#3b82f6] transition-colors cursor-pointer">
+                                            {product.name}
+                                        </h3>
+                                    </Link>
 
                                     <p className="text-[#6b7280] text-xs sm:text-sm font-medium leading-relaxed mb-6 line-clamp-3">
                                         {product.desc}
@@ -180,15 +181,23 @@ export default function ProductPage() {
                                     </div>
                                 </div>
 
-                                {/* Action button */}
-                                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                                {/* Action buttons */}
+                                <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
+                                    <Link 
+                                        href={`/products/${product.id}`}
+                                        className="flex-1 py-3 rounded-full bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-xs font-bold tracking-wider uppercase transition duration-300 text-center flex items-center justify-center gap-1.5 cursor-pointer shadow-md hover:shadow-lg"
+                                    >
+                                        <span>View Details</span>
+                                        <ArrowRight className="w-3.5 h-3.5" />
+                                    </Link>
                                     <a
                                         href={`https://wa.me/919638470305?text=Hi, I'm interested in SPAudio ${encodeURIComponent(product.name)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full py-3 rounded-full bg-[#0f1f3d] hover:bg-[#3b82f6] text-white text-xs font-bold tracking-wider uppercase transition duration-300 text-center flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
+                                        className="p-3 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-600 transition duration-300 text-center flex items-center justify-center cursor-pointer border border-emerald-200"
+                                        title="Inquire on WhatsApp"
                                     >
-                                        <span>Inquire on WhatsApp 💬</span>
+                                        <MessageCircle className="w-4 h-4 text-emerald-600" />
                                     </a>
                                 </div>
                             </motion.div>
