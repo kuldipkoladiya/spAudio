@@ -113,7 +113,7 @@ export default function ExplodedSpeakerScroll() {
               2. VOICE COIL & MAGNET
             </span>
             <span className="text-[10px] sm:text-xs text-[#6b7280] font-semibold mt-0.5 block">
-              4.5" voice coil with Neodymium N52 high-density magnet structure.
+              4.5&quot; voice coil with Neodymium N52 high-density magnet structure.
             </span>
           </motion.div>
 

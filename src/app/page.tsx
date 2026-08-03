@@ -1,8 +1,6 @@
 "use client";
 
 import HeroSlider from "@/components/HeroSlider";
-import ScrollProgressSection from "@/components/ScrollProgressSection";
-import { StickyCardsSection } from "@/components/StickyCards";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,7 +22,6 @@ function useReveal() {
     return ref;
 }
 
-import toast from "react-hot-toast";
 import HoverImageReveal from "@/components/ui/HoverImageReveal";
 
 /* ══════════════════════════════════════════════════ */
@@ -130,7 +127,7 @@ function FeaturedSPAudioSpeakersSection() {
                                 High Power Loudspeaker
                             </p>
                             <h4 className="font-display font-black text-xl text-[#0f1f3d] mb-4">
-                                S.P. Audio Dual 15" Venue Speaker
+                                S.P. Audio Dual 15&quot; Venue Speaker
                             </h4>
                         </div>
 

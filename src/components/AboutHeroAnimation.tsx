@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 function cn(...classes: (string | boolean | undefined | null)[]) {
   return classes.filter(Boolean).join(" ");
@@ -11,7 +11,7 @@ type CharacterProps = {
   char: string;
   index: number;
   centerIndex: number;
-  progress: any;
+  progress: MotionValue<number>;
 };
 
 export const CharacterV1 = ({
