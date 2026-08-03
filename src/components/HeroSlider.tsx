@@ -3,10 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { 
-  Grid, 
-  ArrowRight
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSlider() {
   return (
@@ -28,43 +25,7 @@ export default function HeroSlider() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#070605] via-transparent to-black/70 z-0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(7,6,5,0.85)_90%)] pointer-events-none z-0" />
 
-      {/* ================= 1. TOP FLOATING PILL NAVBAR ================= */}
-      <div className="w-full max-w-[920px] mx-auto z-30 relative pt-2">
-        <div className="bg-[#181512]/80 backdrop-blur-xl border border-white/10 rounded-full px-5 sm:px-8 py-2.5 flex items-center justify-between">
-          
-          {/* Left Sub Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-semibold text-amber-100/80">
-            <Link href="/products" className="hover:text-amber-400 transition-colors">Products</Link>
-            <Link href="/about" className="hover:text-amber-400 transition-colors">Technology</Link>
-            <Link href="/contact" className="hover:text-amber-400 transition-colors">FAQs</Link>
-          </div>
 
-          {/* Center Brand Title / Logo */}
-          <Link href="/" className="font-display text-lg sm:text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
-            <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-              spaudio
-            </span>
-          </Link>
-
-          {/* Right Action Items */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            <Link href="/contact" className="text-xs font-semibold text-amber-100/80 hover:text-white transition-colors hidden sm:inline">
-              Contact
-            </Link>
-
-            <Link href="/products">
-              <button className="px-4 sm:px-5 py-2 rounded-full bg-white hover:bg-amber-100 text-[#070605] text-xs font-extrabold tracking-wide transition-all shadow-md cursor-pointer whitespace-nowrap">
-                Explore Catalog
-              </button>
-            </Link>
-
-            <Link href="/products" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-amber-500/20 flex items-center justify-center text-amber-200 transition-colors cursor-pointer" title="Grid View">
-              <Grid className="w-4 h-4" />
-            </Link>
-          </div>
-
-        </div>
-      </div>
 
       {/* ================= 2. UPGRADED HERO TEXT CONTENT UI ================= */}
       <div className="w-full max-w-[1240px] mx-auto flex flex-col items-start justify-center my-auto z-10 relative pt-16 pb-10">

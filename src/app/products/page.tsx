@@ -150,7 +150,7 @@ export default function ProductPage() {
 
                                     {/* Image Container */}
                                     <Link href={`/products/${product.id}`}>
-                                        <div className="relative w-full h-[220px] sm:h-[260px] flex items-center justify-center bg-slate-50/60 rounded-2xl p-4 my-2 overflow-hidden cursor-pointer group/img">
+                                        <div className="relative w-full h-[220px] sm:h-[260px] flex items-center justify-center bg-white border border-slate-100 rounded-2xl p-4 my-2 overflow-hidden cursor-pointer group/img">
                                             <Image
                                                 src={product.img}
                                                 alt={product.name}
